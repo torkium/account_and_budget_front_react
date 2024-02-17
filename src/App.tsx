@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ErrorNotFound from './pages/Error/404';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AlertProvider } from './context/AlertContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
@@ -13,7 +14,11 @@ function App() {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+
             <Route path="*" element={<ErrorNotFound />} />
         </Routes>
       </AlertProvider>
