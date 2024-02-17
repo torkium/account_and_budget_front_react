@@ -1,0 +1,7 @@
+::placeholder {
+  text-align: center;
+  color: var(--placeholder-color);
+}
+input:focus::placeholder {
+  color: transparent;
+}

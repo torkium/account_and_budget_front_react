@@ -1,0 +1,31 @@
+.alert {
+    position: fixed;
+    top: 4em;
+    left: -100%;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    z-index: 1000;
+    transition: left 0.5s ease-in-out;
+  }
+  
+  .alert-slide-in {
+    left: 0;
+  }
+  
+  .alert-slide-out {
+    left: -100%;
+  }
+  
+  .alert-success {
+    background-color: green;
+  }
+  
+  .alert-warning {
+    background-color: orange;
+  }
+  
+  .alert-error {
+    background-color: red;
+  }
+  
