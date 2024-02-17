@@ -1,34 +1,40 @@
-import React, { useEffect, useRef } from "react";
-import "./navbar.css";
+import { useMenu } from "../../context/MenuContext"
+import { useAuth } from "../../context/AuthContext"
+import { useNavigate } from 'react-router-dom'
+import "./navbar.css"
 
 const Navbar = () => {
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const mobileNavItemsRef = useRef<HTMLDivElement>(null);
+  const { toggleNavbarMenu, toggleSidebar, isNavbarMenuOpen } = useMenu()
+  const { isAuthenticated, logoutUser } = useAuth();
+  const navigate = useNavigate();
+  
 
-  useEffect(() => {
-    const toggleMenu = () => {
-      if (mobileNavItemsRef.current) {
-        mobileNavItemsRef.current.classList.toggle("hidden");
-      }
-    };
-
-    const menuButton = menuButtonRef.current;
-
-    menuButton?.addEventListener("click", toggleMenu);
-
-    return () => {
-      menuButton?.removeEventListener("click", toggleMenu);
-    };
-  }, []);
+  const handleLogout = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    logoutUser()
+    navigate('/login')
+  };
 
   return (
     <>
       <nav className="">
         <div className="container">
+        <button id="sideMenuButton" className="" onClick={toggleSidebar}>
+          <svg
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M4 6h16M4 12h16m-16 6h7"></path>
+          </svg>
+        </button>
           <a href="#" className="navItem home">
             Gérez vos comptes
           </a>
-          <button ref={menuButtonRef} id="menuButton" className="">
+          <button id="menuButton" onClick={toggleNavbarMenu}>
             <svg
               fill="none"
               strokeLinecap="round"
@@ -41,12 +47,19 @@ const Navbar = () => {
             </svg>
           </button>
           <div className="navItems">
-            <a href="#" className="navItem">
-              Inscription
-            </a>
+            {!isAuthenticated && (
+              <a href="#" className="navItem">
+                Inscription
+              </a>
+            )}
+            {isAuthenticated && (
+              <a href="/logout" className="navItem" onClick={handleLogout}>
+                Déconnexion
+              </a>
+            )}
           </div>
         </div>
-        <div ref={mobileNavItemsRef} id="mobileNavItems" className="hidden">
+        <div id="mobileNavItems" className={isNavbarMenuOpen ? "" : "hidden"}>
           <a href="#" className="navItem">
             Inscription
           </a>
@@ -56,4 +69,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar

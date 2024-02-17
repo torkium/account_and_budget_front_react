@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { apiUserService } from "../../services/apiUserService"
 import './login.css'
 import { useAlert } from "../../context/AlertContext"
+import { useAuth } from "../../context/AuthContext"
 
 const Login = () => {
+  const { loginUser } = useAuth();
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const { showAlert } = useAlert();
@@ -16,10 +18,10 @@ const Login = () => {
 
     try {
       const data = await apiUserService.login(username, password)
-      localStorage.setItem('token', data.token)
+      loginUser(data.token)
       navigate("/dashboard")
     } catch (error) {
-      showAlert("Identifiants invalides", "error");
+      showAlert("Identifiants invalides", "error")
     }
   }
 

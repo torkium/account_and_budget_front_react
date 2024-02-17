@@ -1,19 +1,18 @@
-import React, { ReactNode } from "react";
-import './login-layout.css'
-import Navbar from "../Navbar/Navbar";
+import { ReactNode } from "react"
+import "./login-layout.css"
+import Navbar from "../Navbar/Navbar"
 
 interface LoginLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-// Pass the child props
 export default function LoginLayout({ children }: LoginLayoutProps) {
   return (
     <>
         <Navbar />
-        <div className="main-container">
+        <div className="login-main-container">
           {children}
         </div>
     </>
-  );
+  )
 }

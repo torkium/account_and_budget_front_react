@@ -1,29 +1,29 @@
-import React from 'react';
-import Login from './pages/Login/Login';
-import Dashboard from './pages/Dashboard/Dashboard';
-import ErrorNotFound from './pages/Error/404';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { AlertProvider } from './context/AlertContext';
-import ProtectedRoute from './components/ProtectedRoute';
-
+import Login from "./pages/Login/Login"
+import Dashboard from "./pages/Dashboard/Dashboard"
+import ErrorNotFound from "./pages/Error/404"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import AppProvider from "./context/AppContext"
+import ProtectedRoute from "./components/ProtectedRoute"
+import Logout from "./components/Logout"
 
 function App() {
   return (
     <Router>
-      <AlertProvider>
+      <AppProvider>
         <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/" element={<Login />} />
 
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
 
-            <Route path="*" element={<ErrorNotFound />} />
+          <Route path="*" element={<ErrorNotFound />} />
         </Routes>
-      </AlertProvider>
+      </AppProvider>
     </Router>
   );
 }
 
-export default App;
+export default App
