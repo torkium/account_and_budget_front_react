@@ -9,7 +9,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(localStorage.getItem('token') !== null)
 
   const loginUser = (token: string) => {
     localStorage.setItem('token', token)
