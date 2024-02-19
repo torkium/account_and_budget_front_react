@@ -34,7 +34,7 @@ const SideBar = () => {
 
   return (
     <div id="sidebar" className={isSidebarOpen ? "" : "hidden"}>
-      <a href="#dashboard" className="navItem">
+      <a href="/dashboard" className="navItem">
         Dashboard
       </a>
       <Dropdown label="Mes comptes" items={accountItems} />
