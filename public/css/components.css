@@ -12,6 +12,14 @@ button:hover {
   background-color: var(--hover-primary-color);
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons-container.center {
+  justify-content: center;
+}
 .dropdown {
   position: relative;
   display: inline-block;
@@ -53,4 +61,70 @@ button.dropbtn {
 
 .dropdown-content a:hover {
   color: var(--hover-text-primary-color);
+}
+
+/* Conteneur du formulaire pour un alignement central */
+.form-container {
+  max-width: 800px; /* Ajustez selon la largeur désirée */
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Utilisation de CSS Grid pour le groupe de formulaire */
+.form-group {
+  display: grid;
+  grid-template-columns: minmax(150px, auto) 1fr; /* Ajustez la largeur minimale des labels si nécessaire */
+  grid-gap: 20px; /* Espace entre les labels et les champs */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Style des étiquettes (labels) */
+.form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: right; /* Alignement à droite pour correspondre à l'alignement des champs */
+}
+
+/* Style des champs de saisie et du select */
+.form-group input,
+.form-group select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+}
+
+/* Styles supplémentaires restent inchangés */
+.error {
+  grid-column: 2 / 3; /* S'assurer que les erreurs s'alignent avec les champs */
+  font-size: 14px;
+  color: #d9534f;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-group label {
+    text-align: left; /* Alignement à gauche pour les appareils mobiles */
+  }
+  .error {
+    grid-column: auto; /* Réinitialiser pour les appareils mobiles */
+  }
+  button.submit-button {
+    grid-column: auto; /* Réinitialiser pour les appareils mobiles */
+  }
 }

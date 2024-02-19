@@ -1,15 +1,22 @@
-import React, { ReactNode, useEffect, useRef } from 'react'
-import './modal.css'
+import React, { ReactNode, useEffect, useRef } from "react"
+import "./modal.css"
 
 type ModalProps = {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
-  size?: 'small' | 'large'
+  title: string
+  size?: "small" | "large"
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, size = 'small' }) => {
-  const modalRef = useRef<HTMLDivElement>(null)
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  size = "small",
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -19,13 +26,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, size = 'small'
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside)
     } else {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener("mousedown", handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside)
     };
   }, [isOpen, onClose])
 
@@ -34,6 +41,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, size = 'small'
   return (
     <div className="modal-overlay">
       <div className={`modal-content ${size}`} ref={modalRef}>
+        <button className="modal-close-button" onClick={onClose}>
+          ✕
+        </button>
+        <div className={`modal-title`}>{title}</div>
         {children}
       </div>
     </div>

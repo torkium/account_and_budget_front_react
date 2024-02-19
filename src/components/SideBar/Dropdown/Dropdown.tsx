@@ -45,10 +45,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="Ajout d'un nouveau compte"
         size="large"
       >
-        <p>Contenu de la modal</p>
-        <button onClick={() => setIsModalOpen(false)}>Fermer</button>
+        form add bank account
       </Modal>
     </>
   )

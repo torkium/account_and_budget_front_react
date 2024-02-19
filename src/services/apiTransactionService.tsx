@@ -15,6 +15,14 @@ export interface TransactionInterface {
   financialCategory: FinancialCategoryInterface
 }
 
+interface CreateTransactionData {
+  reference: string
+  label: string
+  amount: number
+  date: string
+  financialCategory: number
+}
+
 
 const getTransactions = async (
   accountId: number,
@@ -23,7 +31,7 @@ const getTransactions = async (
 ): Promise<TransactionInterface[]> => {
   try {
     const response = await request({
-      url: `/bank-accounts/${accountId}/transactions?start_date=${startDate}&end_date=${endDate}`,
+      url: `/bank-accounts/${accountId}/transactions/?start_date=${startDate}&end_date=${endDate}`,
       method: "GET",
       data: {},
     })
@@ -33,6 +41,23 @@ const getTransactions = async (
   }
 }
 
+const createTransaction = async (
+  accountId: number,
+  transactionData: CreateTransactionData
+): Promise<TransactionInterface> => {
+  try {
+    const response = await request({
+      url: `/bank-accounts/${accountId}/transactions/`,
+      method: "POST",
+      data: transactionData,
+    })
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const apiTransactionService = {
   getTransactions,
+  createTransaction,
 }
