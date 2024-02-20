@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
 import { useMenu } from "../../context/MenuContext"
-import {
-  apiBankAccountService,
-  BankAccountInterface,
-} from "../../services/apiBankAccountService"
+import { BankAccountInterface } from "../../interfaces/Bank"
+import {apiBankAccountService} from "../../services/apiBankAccountService"
 import { useAlert } from "../../context/AlertContext"
 import Dropdown from './Dropdown/Dropdown'
 import "./sidebar.css"

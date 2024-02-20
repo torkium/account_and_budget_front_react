@@ -1,16 +1,5 @@
 import { request } from "./apiService"
-
-export interface BankInterface {
-  id: number
-  label: string
-}
-
-export interface BankAccountInterface {
-  id: number
-  label: string
-  account_number: string
-  bank: BankInterface
-}
+import { BankAccountInterface } from "../interfaces/Bank";
 
 const get = async (): Promise<BankAccountInterface[]> => {
   try {

@@ -1,8 +1,4 @@
-interface Category {
-  id: number
-  label: string
-  children: Category[]
-}
+import { FinancialCategoryInterface } from "../interfaces/FinancialCategory"
 
 interface FlatOption {
   value: string
@@ -10,7 +6,7 @@ interface FlatOption {
 }
 
 export class CategoryService {
-  static flattenCategories(categories: Category[], prefix = ""): FlatOption[] {
+  static flattenCategories(categories: FinancialCategoryInterface[], prefix = ""): FlatOption[] {
     let options: FlatOption[] = []
 
     categories.forEach(category => {

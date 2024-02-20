@@ -1,19 +1,6 @@
 import { request } from "./apiService"
-
-export interface FinancialCategoryInterface {
-  id: number
-  label: string
-  parent: FinancialCategoryInterface | null
-}
-
-export interface TransactionInterface {
-  id: number | null
-  reference: string | null
-  label: string
-  amount: number
-  date: string
-  financialCategory: FinancialCategoryInterface
-}
+import { FinancialCategoryInterface } from "../interfaces/FinancialCategory"
+import { TransactionInterface } from "../interfaces/Transaction"
 
 interface CreateTransactionData {
   reference: string

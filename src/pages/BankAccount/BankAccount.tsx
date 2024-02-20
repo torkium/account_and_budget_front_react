@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import {
-  apiBankAccountService,
-  BankAccountInterface,
-} from "../../services/apiBankAccountService"
+import { BankAccountInterface } from "../../interfaces/Bank"
+import { TransactionInterface } from "../../interfaces/Transaction"
+import {apiBankAccountService} from "../../services/apiBankAccountService"
 import { useAlert } from "../../context/AlertContext"
 import MainLayout from "../../components/Layout/MainLayout"
 import Table from "../../components/Table/Table"
-import {
-  apiTransactionService,
-  TransactionInterface,
-} from "../../services/apiTransactionService"
+import {apiTransactionService} from "../../services/apiTransactionService"
 
 import Modal from "../../components/Modal/Modal"
 import InputField from "../../components/Form/Fields/Input"

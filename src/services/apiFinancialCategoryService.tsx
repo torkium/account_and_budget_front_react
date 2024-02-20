@@ -1,10 +1,5 @@
 import { request } from "./apiService"
-
-export interface FinancialCategoryInterface {
-  id: number
-  label: string
-  children: FinancialCategoryInterface[]
-}
+import { FinancialCategoryInterface } from "../interfaces/FinancialCategory";
 
 const getFinancialCategories = async (): Promise<FinancialCategoryInterface[]> => {
   try {
