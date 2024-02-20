@@ -12,6 +12,16 @@ button:hover {
   background-color: var(--hover-primary-color);
 }
 
+button.btn-delete{
+  color: var(--primary-error-color);
+  background-color: var(--primary-error-background-color);
+}
+
+button.btn-delete:hover{
+  color: var(--hover-primary-error-color);
+  background-color: var(--hover-primary-error-background-color);
+}
+
 .buttons-container {
   display: flex;
   justify-content: flex-end;

@@ -1,8 +1,8 @@
 import { request } from "./apiService"
-import { FinancialCategoryInterface } from "../interfaces/FinancialCategory"
 import { TransactionInterface } from "../interfaces/Transaction"
 
-interface CreateTransactionData {
+interface TransactionData {
+  id?: number
   reference: string
   label: string
   amount: number
@@ -28,15 +28,30 @@ const getTransactions = async (
   }
 }
 
-const createTransaction = async (
+const pushTransaction = async (
   accountId: number,
-  transactionData: CreateTransactionData
+  transactionData: TransactionData
 ): Promise<TransactionInterface> => {
   try {
     const response = await request({
-      url: `/bank-accounts/${accountId}/transactions/`,
-      method: "POST",
+      url: `/bank-accounts/${accountId}/transactions/` + (transactionData.id ?? ''),
+      method: transactionData.id ? "PUT" : "POST",
       data: transactionData,
+    })
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const deleteTransaction = async (
+  accountId: number,
+  transaction: TransactionInterface
+): Promise<TransactionInterface> => {
+  try {
+    const response = await request({
+      url: `/bank-accounts/${accountId}/transactions/` + (transaction.id),
+      method: "DELETE",
     })
     return response.data;
   } catch (error) {
@@ -46,5 +61,6 @@ const createTransaction = async (
 
 export const apiTransactionService = {
   getTransactions,
-  createTransaction,
+  pushTransaction,
+  deleteTransaction,
 }

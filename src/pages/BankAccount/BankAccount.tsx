@@ -1,135 +1,162 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { BankAccountInterface } from "../../interfaces/Bank"
-import { TransactionInterface } from "../../interfaces/Transaction"
-import {apiBankAccountService} from "../../services/apiBankAccountService"
-import { useAlert } from "../../context/AlertContext"
-import MainLayout from "../../components/Layout/MainLayout"
-import Table from "../../components/Table/Table"
-import {apiTransactionService} from "../../services/apiTransactionService"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { TransactionInterface } from "../../interfaces/Transaction";
+import { useAlert } from "../../context/AlertContext";
+import MainLayout from "../../components/Layout/MainLayout";
+import Table from "../../components/Table/Table";
+import { apiTransactionService } from "../../services/apiTransactionService";
 
-import Modal from "../../components/Modal/Modal"
-import InputField from "../../components/Form/Fields/Input"
-import FinancialCategorySelect from "../../components/Category/FinancialCategorySelect"
-import { useForm, FormProvider } from "react-hook-form"
+import Modal from "../../components/Modal/Modal";
+import InputField from "../../components/Form/Fields/Input";
+import FinancialCategorySelect from "../../components/Category/FinancialCategorySelect";
+import { useForm, FormProvider } from "react-hook-form";
+import { useBankAccount } from "../../hooks/useBankAccount";
+import { useTransactions } from "../../hooks/useTransactions";
 type BankAccountParams = {
-  accountId?: string
+  accountId?: string;
 };
 
 const BankAccount = () => {
-  let { accountId } = useParams<BankAccountParams>()
-  const { showAlert } = useAlert()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  let { accountId } = useParams<BankAccountParams>();
+  const { showAlert } = useAlert();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteConfirmationModalOpen, setIsDeleteConfirmationModalOpen] =
+    useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<TransactionInterface | null>(null);
 
-  const methods = useForm()
-  const [bankAccount, setBankAccount] = useState<BankAccountInterface | null>(
-    null
-  )
-  const [transactions, setTransactions] = useState<TransactionInterface[]>([])
+  const methods = useForm();
+  const bankAccount = useBankAccount(accountId);
+  const { transactions, reloadTransactions } = useTransactions(bankAccount?.id);
 
-  const headers = ["Date", "Label", "Amount", "Category", "Action"]
-
-  const loadTransactions = async () => {
-    if (bankAccount) {
-      const currentDate = new Date();
-      const startDate = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        1
-      )
-        .toISOString()
-        .split("T")[0]
-      const endDate = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        0
-      )
-        .toISOString()
-        .split("T")[0]
-
-      try {
-        const fetchedTransactions = await apiTransactionService.getTransactions(
-          bankAccount.id,
-          startDate,
-          endDate
-        )
-        setTransactions(fetchedTransactions);
-      } catch (error) {
-        showAlert("Impossible de récupérer les transactions", "error");
-      }
-    }
-  }
+  const headers = ["Date", "Ref", "Label", "Amount", "Category", "Action"];
 
   useEffect(() => {
-    const idNum = accountId ? parseInt(accountId, 10) : NaN;
-
-    if (!isNaN(idNum)) {
-      const fetchBankAccounts = async () => {
-        try {
-          const account = await apiBankAccountService.show(idNum);
-          setBankAccount(account);
-        } catch (error) {
-          showAlert("Impossible de récupérer les détails du compte", "error");
-        }
-      }
-
-      fetchBankAccounts();
-    } else {
-      showAlert("ID du compte invalide", "error");
+    if (isModalOpen && selectedTransaction) {
+      resetForm()
     }
-  }, [accountId])
-
-  useEffect(() => {
-    loadTransactions();
-  }, [bankAccount])
-
-  const transactionData = transactions.map((transaction) => ({
-    id: transaction.id,
-    Date: new Date(transaction.date).toLocaleDateString(),
-    Label: transaction.label,
-    Amount: transaction.amount + " €",
-    Category: transaction.financialCategory?.label,
-    Action: <button>modifier</button>,
-  }))
+  }, [isModalOpen, selectedTransaction, methods]);
 
   const onSubmit = async (formData: any) => {
     if (!bankAccount || !bankAccount.id) {
       showAlert("ID du compte bancaire est invalide.", "error");
-      return
+      return;
     }
 
     try {
       const newTransactionData = {
+        id: selectedTransaction?.id ?? undefined,
         reference: formData.reference,
         label: formData.label,
         amount: parseFloat(formData.amount),
         date: formData.date,
         financialCategory: parseInt(formData.financialCategoryId),
-      }
+      };
 
-      const createdTransaction = await apiTransactionService.createTransaction(
+      const createdTransaction = await apiTransactionService.pushTransaction(
         bankAccount.id,
         newTransactionData
-      )
+      );
+      reloadTransactions();
+      setIsModalOpen(false);
+      showAlert(
+        "Transaction " +
+          (selectedTransaction?.id ? "modifiée" : "créée") +
+          " avec succès.",
+        "success"
+      );
 
-      setIsModalOpen(false)
-      showAlert("Transaction créée avec succès.", "success")
-
-      loadTransactions()
-      methods.reset()
-      console.log(formData)
+      resetForm();
     } catch (error) {
       showAlert(
         "Erreur lors de la création de la transaction. Veuillez réessayer.",
         "error"
-      )
+      );
     }
-  }
+  };
 
-  const openModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    setIsModalOpen(true)
-  }
+  const onDelete = async () => {
+    if (!selectedTransaction) {
+      showAlert("Aucune transaction sélectionnée.", "error");
+      return;
+    }
+    if (!bankAccount || !bankAccount.id) {
+      showAlert("ID du compte bancaire est invalide.", "error");
+      return;
+    }
+    try {
+      await apiTransactionService.deleteTransaction(
+        bankAccount.id,
+        selectedTransaction
+      );
+
+      reloadTransactions();
+      setIsDeleteConfirmationModalOpen(false);
+      showAlert("Transaction supprimée avec succès.", "success");
+
+      resetForm();
+    } catch (error) {
+      showAlert(
+        "Erreur lors de la suppression de la transaction. Veuillez réessayer.",
+        "error"
+      );
+    }
+  };
+
+  const openAddModal = (transaction?: TransactionInterface) => {
+    setSelectedTransaction(transaction || null);
+    setIsModalOpen(true);
+  };
+  const openUpdateModal = (transaction?: TransactionInterface) => {
+    setSelectedTransaction(transaction || null);
+    setIsModalOpen(true);
+  };
+  const resetForm = (erase: boolean = false) => {
+    methods.reset({
+      reference: erase || !selectedTransaction ? "" : selectedTransaction.reference,
+      label: erase || !selectedTransaction ? "" : selectedTransaction.label,
+      amount: erase || !selectedTransaction ? "" : selectedTransaction.amount,
+      date: erase || !selectedTransaction ? "" : selectedTransaction.date.split("T")[0],
+      financialCategoryId: erase || !selectedTransaction ? "" : selectedTransaction.financialCategory?.id,
+    });
+  };
+  const closeUpdateModal = () => {
+    setIsModalOpen(false);
+    if (selectedTransaction) {
+      setSelectedTransaction(null)
+      resetForm(true);
+    }
+  };
+
+  const openDeleteConfirmationModal = (transaction: TransactionInterface) => {
+    setSelectedTransaction(transaction);
+    setIsDeleteConfirmationModalOpen(true);
+  };
+
+  const transactionData = transactions.map((transaction) => ({
+    id: transaction.id,
+    Date: new Date(transaction.date).toLocaleDateString(),
+    Ref: transaction.reference,
+    Label: transaction.label,
+    Amount: transaction.amount + " €",
+    Category: transaction.financialCategory?.label,
+    Action: transaction.id ? (
+      <>
+        <button onClick={() => openUpdateModal(transaction)}>modifier</button>
+        <button
+          className={"btn-delete"}
+          onClick={() => openDeleteConfirmationModal(transaction)}
+        >
+          x
+        </button>
+      </>
+    ) : (
+      <>
+        <button>Valider</button>
+      </>
+    ),
+  }));
+
   return (
     <MainLayout>
       {bankAccount ? (
@@ -140,7 +167,7 @@ const BankAccount = () => {
             <p>Intitulé du compte : {bankAccount.label}</p>
           </div>
 
-          <button onClick={openModal}>Ajouter</button>
+          <button onClick={() => openAddModal()}>Ajouter</button>
           <Table
             headers={headers}
             data={transactionData}
@@ -155,8 +182,8 @@ const BankAccount = () => {
 
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title={"Ajout d'une transaction sur le compte " + bankAccount?.label }
+        onClose={() => closeUpdateModal()}
+        title={"Ajout d'une transaction sur le compte " + bankAccount?.label}
         size="large"
       >
         <FormProvider {...methods}>
@@ -190,6 +217,7 @@ const BankAccount = () => {
             <FinancialCategorySelect
               name="financialCategoryId"
               label="Catégorie Financière"
+              defaultValue={selectedTransaction?.financialCategory?.id.toString()}
               validationRules={{ required: "Ce champ est requis" }}
             />
             <div className="buttons-container">
@@ -198,8 +226,28 @@ const BankAccount = () => {
           </form>
         </FormProvider>
       </Modal>
+      <Modal
+        isOpen={isDeleteConfirmationModalOpen}
+        onClose={() => setIsDeleteConfirmationModalOpen(false)}
+        title={"Confirmez vous cette action ?" + bankAccount?.label}
+        size="large"
+      >
+        <div>
+          Confirmez-vous la suppression de la transaction{" "}
+          {selectedTransaction?.label} d'un montant de{" "}
+          {selectedTransaction?.amount} € ?
+          <div className="buttons-container">
+            <button className={"btn-delete"} onClick={() => onDelete()}>
+              Confirmer
+            </button>
+            <button onClick={() => setIsDeleteConfirmationModalOpen(false)}>
+              Annuler
+            </button>
+          </div>
+        </div>
+      </Modal>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default BankAccount
+export default BankAccount;
