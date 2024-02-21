@@ -26,7 +26,7 @@ const TransactionPushModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, tran
   }, [transaction, methods.reset]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={"Transaction"} size="large">
+    <Modal isOpen={isOpen} onClose={onClose} title={transaction ? "Modifier une transaction" : "Ajouter une transaction"} size="large">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <InputField name="reference" label="Reference" type="text" validationRules={{ required: "Ce champ est requis" }} />
