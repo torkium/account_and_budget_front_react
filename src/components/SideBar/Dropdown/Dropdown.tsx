@@ -1,5 +1,6 @@
-import React, { useState } from "react"
-import Modal from "../../Modal/Modal"
+import React, { useCallback, useState } from "react"
+import BankAccountPushModal from "./Modals/BankAccountPushModal"
+import { BankAccountInterface } from "../../../interfaces/Bank"
 
 interface DropdownProps {
   label: string
@@ -13,7 +14,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isBankAccountPushModalOpen, setIsBankAccountPushModalOpen] = useState(false);
+  const [selectedBankAccount, setSelectedBankAccount] = useState<BankAccountInterface | null>(null);
 
   const toggleDropdown = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
@@ -22,8 +24,13 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const openModal = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
-    setIsModalOpen(true)
+    setIsBankAccountPushModalOpen(true)
   }
+
+  const closeBankAccountPushModal = useCallback(() => {
+    setIsBankAccountPushModalOpen(false);
+    setSelectedBankAccount(null);
+  }, []);
 
   return (
     <>
@@ -42,14 +49,12 @@ const Dropdown: React.FC<DropdownProps> = ({
           </a>
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Ajout d'un nouveau compte"
-        size="large"
-      >
-        form add bank account
-      </Modal>
+      <BankAccountPushModal
+        isOpen={isBankAccountPushModalOpen}
+        onClose={closeBankAccountPushModal}
+        onSubmit={() => {}}
+        bankAccount={selectedBankAccount}
+      />
     </>
   )
 }

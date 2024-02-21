@@ -1,5 +1,12 @@
 import { request } from "./apiService"
-import { BankAccountInterface } from "../interfaces/Bank";
+import { BankAccountInterface, BankInterface } from "../interfaces/Bank";
+
+interface BankAccountData {
+  id?: number
+  label: string
+  account_number: string
+  bank: BankInterface
+}
 
 const get = async (): Promise<BankAccountInterface[]> => {
   try {
@@ -27,7 +34,22 @@ const show = async (id: number): Promise<BankAccountInterface> => {
   }
 }
 
+const push = async (
+  bankAccountData: BankAccountData
+): Promise<BankAccountInterface> => {
+  try {
+    const response = await request({
+      url: `/bank-accounts/` + (bankAccountData.id ?? ''),
+      method: bankAccountData.id ? "PUT" : "POST",
+      data: bankAccountData,
+    })
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 export const apiBankAccountService = {
   get,
   show,
+  push,
 }
