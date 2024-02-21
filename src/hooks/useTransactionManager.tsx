@@ -26,7 +26,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions }: Use
   };
 
   const openDeleteConfirmationModal = (transaction: TransactionInterface) => {
-    setSelectedTransaction(transaction);
+    setSelectedTransaction(transaction || null);
     setIsTransactionDeleteConfirmationModalOpen(true);
   };
 
