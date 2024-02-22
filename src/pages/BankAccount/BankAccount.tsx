@@ -67,6 +67,21 @@ const BankAccount = () => {
     setEndDate(endDate);
   }, []);
 
+  //Handle Forms
+  const handleSubmit = useCallback((formData: any) => {
+    if(selectedTransaction) {
+      submitTransaction(selectedTransaction, formData);
+    } else {
+      submitTransaction(null, formData);
+    }
+  }, [submitTransaction, selectedTransaction]);
+  
+  const handleDelete = useCallback(() => {
+    if(selectedTransaction) {
+      deleteTransaction(selectedTransaction);
+    }
+  }, [deleteTransaction, selectedTransaction]);
+
   // Render
   return (
     <MainLayout>
@@ -91,13 +106,13 @@ const BankAccount = () => {
       <TransactionPushModal
         isOpen={isTransactionPushModalOpen}
         onClose={closeTransactionPushModal}
-        onSubmit={submitTransaction}
+        onSubmit={handleSubmit}
         transaction={selectedTransaction}
       />
       <TransactionDeleteConfirmationModal
         isOpen={isTransactionDeleteConfirmationModalOpen}
         onClose={closeDeleteConfirmationModal}
-        onDelete={deleteTransaction}
+        onDelete={handleDelete}
         transaction={selectedTransaction}
       />
     </MainLayout>
