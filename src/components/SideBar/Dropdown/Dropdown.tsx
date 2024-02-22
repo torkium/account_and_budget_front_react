@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useState } from "react"
+import { Link } from "react-router-dom"
 
 export interface DropdownItemsProps {
   id: number,
@@ -20,21 +21,20 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDropdown = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault()
     setIsOpen(!isOpen)
   }
 
   return (
     <>
       <div className={`dropdown ${className}`}>
-        <a href="" className="dropbtn navItem" onClick={toggleDropdown}>
+        <Link to={""} className="dropbtn navItem" onClick={toggleDropdown}>
           {label}
-        </a>
+        </Link>
         <div className={`dropdown-content ${isOpen ? "" : "hidden"}`}>
           {items.map((item) => (
-            <a href={item.href} key={item.id} onClick={item.onClick}>
+            <Link to={item.href} key={item.id} onClick={item.onClick}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

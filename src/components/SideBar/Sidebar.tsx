@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useMenu } from "../../context/MenuContext"
 import "./sidebar.css"
 import BankAccountDropDown from "./Dropdown/BankAccountDropDown"
@@ -7,9 +8,9 @@ const SideBar = () => {
 
   return (
     <div id="sidebar" className={isSidebarOpen ? "" : "hidden"}>
-      <a href="/dashboard" className="navItem">
+      <Link to="/dashboard" className="navItem">
         Dashboard
-      </a>
+      </Link>
       <BankAccountDropDown />
     </div>
   )
