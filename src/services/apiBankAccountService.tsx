@@ -48,8 +48,24 @@ const push = async (
     throw error;
   }
 }
+
+const remove = async (
+  bankAccount: BankAccountInterface
+): Promise<BankAccountInterface> => {
+  try {
+    const response = await request({
+      url: `/bank-accounts/` + (bankAccount.id),
+      method: "DELETE",
+    })
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const apiBankAccountService = {
   get,
   show,
   push,
+  remove,
 }
