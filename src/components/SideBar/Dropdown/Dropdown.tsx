@@ -1,10 +1,14 @@
-import React, { useCallback, useState } from "react"
-import BankAccountPushModal from "./Modals/BankAccountPushModal"
-import { BankAccountInterface } from "../../../interfaces/Bank"
+import React, { MouseEventHandler, useState } from "react"
 
-interface DropdownProps {
+export interface DropdownItemsProps {
+  id: number,
+  label: string,
+  href: string,
+  onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
+}
+export interface DropdownProps {
   label: string
-  items: { id: number, label: string, href: string }[]
+  items: DropdownItemsProps[]
   className?: string
 }
 
@@ -14,23 +18,11 @@ const Dropdown: React.FC<DropdownProps> = ({
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [isBankAccountPushModalOpen, setIsBankAccountPushModalOpen] = useState(false);
-  const [selectedBankAccount, setSelectedBankAccount] = useState<BankAccountInterface | null>(null);
 
   const toggleDropdown = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     setIsOpen(!isOpen)
   }
-
-  const openModal = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault()
-    setIsBankAccountPushModalOpen(true)
-  }
-
-  const closeBankAccountPushModal = useCallback(() => {
-    setIsBankAccountPushModalOpen(false);
-    setSelectedBankAccount(null);
-  }, []);
 
   return (
     <>
@@ -40,21 +32,12 @@ const Dropdown: React.FC<DropdownProps> = ({
         </a>
         <div className={`dropdown-content ${isOpen ? "" : "hidden"}`}>
           {items.map((item) => (
-            <a href={item.href} key={item.id}>
+            <a href={item.href} key={item.id} onClick={item.onClick}>
               {item.label}
             </a>
           ))}
-          <a href="" key="0" onClick={openModal}>
-            +
-          </a>
         </div>
       </div>
-      <BankAccountPushModal
-        isOpen={isBankAccountPushModalOpen}
-        onClose={closeBankAccountPushModal}
-        onSubmit={() => {}}
-        bankAccount={selectedBankAccount}
-      />
     </>
   )
 }

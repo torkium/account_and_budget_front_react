@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import SelectField from '../Form/Fields/Select'
+import React from 'react'
 import { apiFinancialCategoryService } from '../../services/apiFinancialCategoryService'
 import { CategoryService } from '../../services/categoryService'
-import { RegisterOptions, useFormContext } from 'react-hook-form'
+import { RegisterOptions } from 'react-hook-form'
+import SelectFetcher from '../Form/Fields/SelectFetcher'
 
 interface FinancialCategorySelectProps {
     name: string
@@ -12,31 +12,17 @@ interface FinancialCategorySelectProps {
   }
   
   const FinancialCategorySelect: React.FC<FinancialCategorySelectProps> = ({ name, label, validationRules, defaultValue }) => {
-    const [options, setOptions] = useState<{ value: string; label: string; }[]>([])
-    const { setValue } = useFormContext();
-  
-    useEffect(() => {
-      const fetchCategories = async () => {
-        try {
-          const categories = await apiFinancialCategoryService.getFinancialCategories();
-          const flattenedOptions = CategoryService.flattenCategories(categories);
-          setOptions(flattenedOptions);
-
-          if (defaultValue) {
-            setValue(name, defaultValue);
-          }
-        } catch (error) {
-        }
-      };
-  
-      fetchCategories();
-    }, [name, setValue, defaultValue]);
+    const loadFinancialCategories = async () => {
+      const categories = await apiFinancialCategoryService.getFinancialCategories();
+      return CategoryService.flattenCategories(categories);
+    };
   
     return (
-      <SelectField
+      <SelectFetcher
         name={name}
         label={label}
-        options={options}
+        loadOptionsFunction={loadFinancialCategories}
+        defaultValue={defaultValue}
         validationRules={validationRules}
       />
     )

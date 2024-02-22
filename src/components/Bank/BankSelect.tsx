@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import SelectField from '../Form/Fields/Select'
+import React from 'react'
 import { apiBankService } from '../../services/apiBankService'
-import { RegisterOptions, useFormContext } from 'react-hook-form'
-import { BankInterface } from '../../interfaces/Bank'
+import { RegisterOptions } from 'react-hook-form'
+import SelectFetcher from '../Form/Fields/SelectFetcher'
 
 interface BankSelectProps {
     name: string
@@ -12,34 +11,17 @@ interface BankSelectProps {
   }
   
   const BankSelect: React.FC<BankSelectProps> = ({ name, label, validationRules, defaultValue }) => {
-    const [options, setOptions] = useState<{ value: string; label: string; }[]>([])
-    const { setValue } = useFormContext();
-  
-    useEffect(() => {
-      const fetchCategories = async () => {
-        try {
-          const banks = await apiBankService.getBanks();
-          let options: { value: string; label: string; }[] = [];
-          banks.map((bank:BankInterface) => {
-            options.push({value: bank.id.toString(), label: bank.label})
-          })
-          setOptions(options);
-
-          if (defaultValue) {
-            setValue(name, defaultValue);
-          }
-        } catch (error) {
-        }
-      };
-  
-      fetchCategories();
-    }, [name, setValue, defaultValue]);
+    const loadBanks = async () => {
+      const banks = await apiBankService.getBanks();
+      return banks.map(bank => ({ value: bank.id.toString(), label: bank.label }));
+    };
   
     return (
-      <SelectField
+      <SelectFetcher
         name={name}
         label={label}
-        options={options}
+        loadOptionsFunction={loadBanks}
+        defaultValue={defaultValue}
         validationRules={validationRules}
       />
     )
