@@ -23,7 +23,7 @@ const TransactionPushModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, tran
       date: !transaction ? "" : transaction.date.split("T")[0],
       financialCategoryId: !transaction ? "" : transaction.financialCategory?.id,
     });
-  }, [transaction, methods.reset]);
+  }, [transaction]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={transaction ? "Modifier une transaction" : "Ajouter une transaction"} size="large">

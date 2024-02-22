@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { apiBankService } from '../../services/apiBankService'
 import { RegisterOptions } from 'react-hook-form'
 import SelectFetcher from '../Form/Fields/SelectFetcher'
@@ -11,10 +11,10 @@ interface BankSelectProps {
   }
   
   const BankSelect: React.FC<BankSelectProps> = ({ name, label, validationRules, defaultValue }) => {
-    const loadBanks = async () => {
+    const loadBanks = useCallback(async () => {
       const banks = await apiBankService.getBanks();
       return banks.map(bank => ({ value: bank.id.toString(), label: bank.label }));
-    };
+    }, []);
   
     return (
       <SelectFetcher

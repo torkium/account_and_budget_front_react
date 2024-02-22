@@ -48,7 +48,7 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
     };
 
     fetchOptions();
-  }, [name, defaultValue, loadOptionsFunction]);
+  }, []);
 
   return (
     <SelectField

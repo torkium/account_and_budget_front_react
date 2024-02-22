@@ -74,6 +74,7 @@ const BankAccount = () => {
     } else {
       submitTransaction(null, formData);
     }
+    closeTransactionPushModal()
   }, [submitTransaction, selectedTransaction]);
   
   const handleDelete = useCallback(() => {
