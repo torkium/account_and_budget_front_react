@@ -1,16 +1,17 @@
 :root {
-  --primary-color: rgb(31 41 55);
-  --hover-primary-color: rgb(29 78 216);
-  --text-primary-color: rgb(156 163 175);
-  --hover-text-primary-color: rgb(255, 255, 255);
-  --text-color: rgb(55 65 81);
-  --placeholder-color: rgb(209, 213, 219);
-  --primary-error-color: rgb(255, 255, 255);
-  --hover-primary-error-color: rgb(255, 255, 255);
-  --primary-error-background-color: rgb(160, 23, 23);
-  --hover-primary-error-background-color: rgb(179, 30, 30);
-  --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05),
-    0 1px 2px -1px rgba(0, 0, 0, 0.05);
-  --shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.15),
-    0 1px 2px -1px rgba(0, 0, 0, 0.15);
+  --primary-color: rgb(31, 41, 55); /* Bleu foncé pour les éléments principaux */
+  --hover-primary-color: rgb(39, 49, 66); /* Une teinte légèrement plus claire pour le survol */
+  --text-primary-color: rgb(169, 174, 182); /* Gris clair pour le texte principal, pour un contraste doux */
+  --hover-text-primary-color: rgb(255, 255, 255); /* Blanc pour le texte survolé, pour assurer la lisibilité */
+  --text-color: rgb(78, 86, 101); /* Gris moyen pour le texte standard, pour améliorer la lisibilité */
+  --placeholder-color: rgb(150, 153, 158); /* Gris pour les placeholders, suffisamment clair pour être distingué */
+  --primary-error-color: rgb(255, 255, 255); /* Blanc pour le texte d'erreur, pour contraster avec le fond */
+  --hover-primary-error-color: rgb(255, 255, 255); /* Identique, pour maintenir la cohérence */
+  --primary-error-background-color: rgb(145, 14, 14); /* Rouge foncé pour les erreurs, moins vibrant */
+  --hover-primary-error-background-color: rgb(165, 20, 20); /* Rouge légèrement plus clair pour le survol */
+  --card-background-color: rgb(255, 255, 255); /* Blanc pour les arrière-plans de carte, pour la clarté */
+  --card-color: rgb(31, 41, 55); /* Bleu foncé pour le texte des cartes, pour le contraste */
+  --lowlight-color: rgb(150, 153, 158); /* Bleu foncé pour le texte des cartes, pour le contraste */
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Ombre douce pour la profondeur */
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Ombre plus prononcée pour l'accentuation */
 }

@@ -5,9 +5,10 @@ import { useAlert } from "../context/AlertContext";
 interface UseTransactionManagerProps {
   bankAccountId: number | null;
   reloadTransactions: () => void;
+  reloadBudgetsOverview: () => void;
 }
 
-export const useTransactionManager = ({ bankAccountId, reloadTransactions }: UseTransactionManagerProps) => {
+export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloadBudgetsOverview }: UseTransactionManagerProps) => {
   const { showAlert } = useAlert();
 
   const submitTransaction = async (transaction: TransactionInterface | null, formData: any) => {
@@ -25,6 +26,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions }: Use
 
       await apiTransactionService.pushTransaction(bankAccountId, newTransactionData);
       reloadTransactions();
+      reloadBudgetsOverview();
       showAlert("Transaction successful.", "success");
     } catch (error) {
       showAlert("An error occurred. Please try again.", "error");
@@ -40,6 +42,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions }: Use
     try {
       await apiTransactionService.deleteTransaction(bankAccountId, transaction);
       reloadTransactions();
+      reloadBudgetsOverview();
       showAlert("Transaction deleted successfully.", "success");
     } catch (error) {
       showAlert("An error occurred. Please try again.", "error");

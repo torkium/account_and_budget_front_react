@@ -1,36 +1,38 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, addWeeks, subWeeks, addMonths, subMonths } from 'date-fns';
+import { useBankAccountContext } from '../../context/BankAccountContext';
 
 interface PeriodNavigatorProps {
   mode: 'week' | 'month';
-  onChange: (startDate: Date, endDate: Date) => void;
 }
 
-const PeriodNavigator: React.FC<PeriodNavigatorProps> = ({ mode, onChange }) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+const PeriodNavigator: React.FC<PeriodNavigatorProps> = ({ mode }) => {
+  const { startDate, setStartDate, setEndDate } = useBankAccountContext();
 
   const getPeriod = useCallback(() => {
     if (mode === 'week') {
-      const start = startOfWeek(currentDate, { weekStartsOn: 1 });
-      const end = endOfWeek(currentDate, { weekStartsOn: 1 });
+      const start = startOfWeek(startDate, { weekStartsOn: 1 });
+      const end = endOfWeek(startDate, { weekStartsOn: 1 });
       return { start, end };
     } else {
-      const start = startOfMonth(currentDate);
-      const end = endOfMonth(currentDate);
+      const start = startOfMonth(startDate);
+      const end = endOfMonth(startDate);
       return { start, end };
     }
-  }, [currentDate, mode]);
-
-  useEffect(() => {
-    const { start, end } = getPeriod();
-    onChange(start, end);
-  }, [currentDate, mode]);
+  }, [startDate, mode]);
 
   const navigatePeriod = (direction: 'next' | 'prev') => {
     if (mode === 'week') {
-      setCurrentDate(current => direction === 'next' ? addWeeks(current, 1) : subWeeks(current, 1));
+      const newStartDate = direction === 'next' ? addWeeks(startDate, 1) : subWeeks(startDate, 1);
+      const newEndDate = direction === 'next' ? endOfWeek(newStartDate, { weekStartsOn: 1 }) : startOfWeek(newStartDate, { weekStartsOn: 1 });
+      setStartDate(newStartDate);
+      setEndDate(newEndDate);
     } else {
-      setCurrentDate(current => direction === 'next' ? addMonths(current, 1) : subMonths(current, 1));
+      const newStartDate = direction === 'next' ? addMonths(startDate, 1) : subMonths(startDate, 1);
+      const newEndDate = endOfMonth(newStartDate);
+      console.log(newStartDate, newEndDate)
+      setStartDate(newStartDate);
+      setEndDate(newEndDate);
     }
   };
 

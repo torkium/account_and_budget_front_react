@@ -18,14 +18,17 @@ const TransactionsTable: React.FC<TransactionsTableProps> = ({ transactions, onE
     Label: transaction.label,
     Amount: `${transaction.amount} €`,
     Category: transaction.financialCategory?.label,
-    Action: (
+    Action: transaction.id ? (
       <>
         <button onClick={() => onEdit(transaction)}>modifier</button>
         <button className="btn-delete" onClick={() => onDelete(transaction)}>
           x
         </button>
       </>
-    ),
+    ) : (
+      <>
+      </>
+    )
   }));
 
   return <Table headers={headers} data={transactionData} rowClassName={(rowData) => !rowData["id"] ? "lowlight" : undefined} />;
