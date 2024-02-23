@@ -1,17 +1,37 @@
 :root {
-  --primary-color: rgb(31, 41, 55); /* Bleu foncé pour les éléments principaux */
-  --hover-primary-color: rgb(39, 49, 66); /* Une teinte légèrement plus claire pour le survol */
-  --text-primary-color: rgb(169, 174, 182); /* Gris clair pour le texte principal, pour un contraste doux */
-  --hover-text-primary-color: rgb(255, 255, 255); /* Blanc pour le texte survolé, pour assurer la lisibilité */
-  --text-color: rgb(78, 86, 101); /* Gris moyen pour le texte standard, pour améliorer la lisibilité */
-  --placeholder-color: rgb(150, 153, 158); /* Gris pour les placeholders, suffisamment clair pour être distingué */
-  --primary-error-color: rgb(255, 255, 255); /* Blanc pour le texte d'erreur, pour contraster avec le fond */
-  --hover-primary-error-color: rgb(255, 255, 255); /* Identique, pour maintenir la cohérence */
-  --primary-error-background-color: rgb(145, 14, 14); /* Rouge foncé pour les erreurs, moins vibrant */
-  --hover-primary-error-background-color: rgb(165, 20, 20); /* Rouge légèrement plus clair pour le survol */
-  --card-background-color: rgb(255, 255, 255); /* Blanc pour les arrière-plans de carte, pour la clarté */
-  --card-color: rgb(31, 41, 55); /* Bleu foncé pour le texte des cartes, pour le contraste */
-  --lowlight-color: rgb(150, 153, 158); /* Bleu foncé pour le texte des cartes, pour le contraste */
-  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Ombre douce pour la profondeur */
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Ombre plus prononcée pour l'accentuation */
+  /* Couleurs de base */
+  --color-dark-blue: rgb(31, 41, 55); /* Bleu foncé */
+  --color-light-gray: rgb(169, 174, 182); /* Gris clair */
+  --color-white: rgb(255, 255, 255); /* Blanc */
+  --color-medium-gray: rgb(78, 86, 101); /* Gris moyen */
+  --color-placeholder: rgb(150, 153, 158); /* Gris pour les placeholders */
+  --color-dark-red: rgb(145, 14, 14); /* Rouge foncé pour les erreurs */
+  --color-light-red: rgb(165, 20, 20); /* Rouge légèrement plus clair */
+  --color-lighter-gray: rgb(245, 245, 245); /* Gris très clair */
+  --color-dark-hover: rgb(39, 49, 66); /* Bleu foncé pour le survol */
+  --color-button-hover: rgb(49, 59, 89); /* Couleur plus foncée pour le survol du bouton */
+
+  /* Utilisation des couleurs de base pour définir les variables spécifiques */
+  --primary-color: var(--color-dark-blue);
+  --hover-primary-color: var(--color-dark-hover);
+  --text-primary-color: var(--color-light-gray);
+  --hover-text-primary-color: var(--color-white);
+  --text-color: var(--color-medium-gray);
+  --placeholder-color: var(--color-placeholder);
+  --primary-error-color: var(--color-white);
+  --hover-primary-error-color: var(--color-white);
+  --primary-error-background-color: var(--color-dark-red);
+  --hover-primary-error-background-color: var(--color-light-red);
+  --card-background-color: var(--color-white);
+  --card-color: var(--color-dark-blue);
+  --lowlight-color: var(--color-placeholder);
+  --table-header-background-color: var(--primary-color);
+  --table-header-text-color: var(--hover-text-primary-color);
+  --table-even-row-background-color: var(--color-lighter-gray);
+  --table-odd-row-background-color: var(--color-white);
+  --button-background-color: var(--hover-primary-color);
+  --button-hover-background-color: var(--color-button-hover);
+  --button-text-color: var(--hover-text-primary-color);
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }

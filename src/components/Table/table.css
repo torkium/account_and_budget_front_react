@@ -1,24 +1,33 @@
 .table-responsive {
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
+  overflow-x: auto;
+  margin-top: 20px;
+}
 
-  .lowlight {
-    color: rgb(185, 185, 185);
-  }
-  
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--table-header-background-color);
+  color: var(--table-header-text-color);
+}
+
+.lowlight {
+  color: rgb(185, 185, 185);
+}
+
+.even-row {
+  background-color: var(--table-even-row-background-color);
+}
+
+.odd-row {
+  background-color: var(--table-odd-row-background-color);
+}

@@ -1,15 +1,15 @@
 button {
   border: none;
   cursor: pointer;
-  color: var(--hover-text-primary-color);
+  color: var(--button-text-color);
   font-weight: 700;
   padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
+  background-color: var(--button-background-color);
   border-radius: 0.25rem;
 }
 
 button:hover {
-  background-color: var(--hover-primary-color);
+  background-color: var(--button-hover-background-color);
 }
 
 button.btn-delete{
@@ -39,7 +39,7 @@ button.btn-delete:hover{
 
 button.dropbtn {
   background-color: var(--primary-color);
-  color: var(--hover-text-primary-color);
+  color: var(--button-text-color);
   border: none;
   cursor: pointer;
   padding:0;
