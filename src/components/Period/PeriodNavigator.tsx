@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, addWeeks, subWeeks, addMonths, subMonths } from 'date-fns';
-import { useBankAccountContext } from '../../context/BankAccountContext';
+import { useBankAccountDetailsContext } from '../../context/BankAccountDetailsContext';
 
 interface PeriodNavigatorProps {
   mode: 'week' | 'month';
 }
 
 const PeriodNavigator: React.FC<PeriodNavigatorProps> = ({ mode }) => {
-  const { startDate, setStartDate, setEndDate } = useBankAccountContext();
+  const { startDate, setStartDate, setEndDate } = useBankAccountDetailsContext();
 
   const getPeriod = useCallback(() => {
     if (mode === 'week') {

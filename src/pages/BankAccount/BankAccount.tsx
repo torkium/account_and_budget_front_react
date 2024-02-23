@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 
 // local components
 import MainLayout from "../../components/Layout/MainLayout";
-import PeriodNavigator from '../../components/Period/PeriodNavigator';
+import PeriodNavigator from "../../components/Period/PeriodNavigator";
 
 // custom hooks
 import { useBankAccount } from "../../hooks/useBankAccount";
 import TransactionsList from "../../components/Transactions/TransactionList";
 import BankAccountOverview from "./components/BankAccountOverview/BankAccountOverview";
 import { BankAccountProvider } from "../../context/BankAccountContext";
+import { BankAccountDetailsProvider } from "../../context/BankAccountDetailsContext";
 
 // route parameters
 type BankAccountParams = {
@@ -27,10 +28,12 @@ const BankAccount = () => {
     <MainLayout>
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
-          <BankAccountOverview />
-          <PeriodNavigator mode="month" />
-          <TransactionsList />
-          </BankAccountProvider>
+          <BankAccountDetailsProvider>
+            <BankAccountOverview />
+            <PeriodNavigator mode="month" />
+            <TransactionsList />
+          </BankAccountDetailsProvider>
+        </BankAccountProvider>
       ) : (
         <div>Chargement des détails du compte...</div>
       )}

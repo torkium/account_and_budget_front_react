@@ -1,13 +1,13 @@
 import React from "react";
 import './BankAccountSettingsHeader.css';
-import { BankAccountInterface } from "../../../../interfaces/Bank";
+import { useBankAccountContext } from "../../../../context/BankAccountContext";
 import { useNavigate } from "react-router-dom";
 
 interface BankAccountSettingsProps {
-    bankAccount: BankAccountInterface
 }
 
-const BankAccountSettingsHeader: React.FC<BankAccountSettingsProps> = ({bankAccount}) => {
+const BankAccountSettingsHeader: React.FC<BankAccountSettingsProps> = () => {
+  const {bankAccount} = useBankAccountContext();
   const navigate = useNavigate();
   const navigateToSettings = (url: string) => {
     navigate(url);

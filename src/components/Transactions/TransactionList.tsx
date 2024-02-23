@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { useBankAccountContext } from "../../context/BankAccountContext"; // Assurez-vous que le chemin d'accès est correct
+import { useBankAccountDetailsContext } from "../../context/BankAccountDetailsContext";
+import { useBankAccountContext } from "../../context/BankAccountContext";
 import TransactionsTable from "./TransactionsTable";
 import TransactionPushModal from "./Modals/TransactionPushModal";
 import TransactionDeleteConfirmationModal from "./Modals/TransactionDeleteConfirmationModal";
@@ -7,39 +8,47 @@ import { TransactionInterface } from "../../interfaces/Transaction";
 import { useTransactionManager } from "../../hooks/useTransactionManager";
 
 const TransactionsList: React.FC = () => {
-  const {
-    transactions,
-    reloadTransactions,
-    reloadBudgetsOverview,
-    bankAccount,
-  } = useBankAccountContext();
+  const { bankAccount } = useBankAccountContext();
+  const { transactions, reloadTransactions, reloadBudgetsOverview } =
+    useBankAccountDetailsContext();
 
   // State hooks
-  const [isTransactionPushModalOpen, setIsTransactionPushModalOpen] = useState(false);
-  const [isTransactionDeleteConfirmationModalOpen, setIsTransactionDeleteConfirmationModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionInterface | null>(null);
-  
+  const [isTransactionPushModalOpen, setIsTransactionPushModalOpen] =
+    useState(false);
+  const [
+    isTransactionDeleteConfirmationModalOpen,
+    setIsTransactionDeleteConfirmationModalOpen,
+  ] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<TransactionInterface | null>(null);
+
   const { submitTransaction, deleteTransaction } = useTransactionManager({
     bankAccountId: bankAccount?.id ?? null,
     reloadTransactions,
-    reloadBudgetsOverview
+    reloadBudgetsOverview,
   });
 
   // Callbacks for user actions
-  const openTransactionPushModal = useCallback((transaction?: TransactionInterface) => {
-    setSelectedTransaction(transaction || null);
-    setIsTransactionPushModalOpen(true);
-  }, []);
+  const openTransactionPushModal = useCallback(
+    (transaction?: TransactionInterface) => {
+      setSelectedTransaction(transaction || null);
+      setIsTransactionPushModalOpen(true);
+    },
+    []
+  );
 
   const closeTransactionPushModal = useCallback(() => {
     setIsTransactionPushModalOpen(false);
     setSelectedTransaction(null);
   }, []);
 
-  const openDeleteConfirmationModal = useCallback((transaction: TransactionInterface) => {
-    setSelectedTransaction(transaction);
-    setIsTransactionDeleteConfirmationModalOpen(true);
-  }, []);
+  const openDeleteConfirmationModal = useCallback(
+    (transaction: TransactionInterface) => {
+      setSelectedTransaction(transaction);
+      setIsTransactionDeleteConfirmationModalOpen(true);
+    },
+    []
+  );
 
   const closeDeleteConfirmationModal = useCallback(() => {
     setIsTransactionDeleteConfirmationModalOpen(false);
@@ -47,17 +56,20 @@ const TransactionsList: React.FC = () => {
   }, []);
 
   //Handle Forms
-  const handleSubmit = useCallback((formData: any) => {
-    if(selectedTransaction) {
-      submitTransaction(selectedTransaction, formData);
-    } else {
-      submitTransaction(null, formData);
-    }
-    closeTransactionPushModal()
-  }, [submitTransaction, selectedTransaction]);
-  
+  const handleSubmit = useCallback(
+    (formData: any) => {
+      if (selectedTransaction) {
+        submitTransaction(selectedTransaction, formData);
+      } else {
+        submitTransaction(null, formData);
+      }
+      closeTransactionPushModal();
+    },
+    [submitTransaction, selectedTransaction]
+  );
+
   const handleDelete = useCallback(() => {
-    if(selectedTransaction) {
+    if (selectedTransaction) {
       deleteTransaction(selectedTransaction);
     }
   }, [deleteTransaction, selectedTransaction]);
