@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useBankAccountContext } from "../../context/BankAccountContext"; // Assurez-vous que le chemin d'accès est correct
 import TransactionsTable from "./TransactionsTable";
-import TransactionPushModal from "../../pages/BankAccount/Modals/TransactionPushModal";
-import TransactionDeleteConfirmationModal from "../../pages/BankAccount/Modals/TransactionDeleteConfirmationModal";
+import TransactionPushModal from "./Modals/TransactionPushModal";
+import TransactionDeleteConfirmationModal from "./Modals/TransactionDeleteConfirmationModal";
 import { TransactionInterface } from "../../interfaces/Transaction";
 import { useTransactionManager } from "../../hooks/useTransactionManager";
 

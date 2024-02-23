@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from "../../../components/Modal/Modal";
+import Modal from "../../Modal/Modal";
 import { TransactionInterface } from "../../../interfaces/Transaction";
 
 interface Props {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm, FormProvider } from "react-hook-form";
-import Modal from "../../../components/Modal/Modal";
-import InputField from "../../../components/Form/Fields/Input";
-import FinancialCategorySelect from "../../../components/Category/FinancialCategorySelect";
+import Modal from "../../Modal/Modal";
+import InputField from "../../Form/Fields/Input";
+import FinancialCategorySelect from "../../Category/FinancialCategorySelect";
 import { TransactionInterface } from "../../../interfaces/Transaction";
 
 interface Props {
