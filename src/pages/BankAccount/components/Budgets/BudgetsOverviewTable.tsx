@@ -1,6 +1,6 @@
 import React from "react";
-import Table from "../Table/Table";
-import { BudgetOverviewInterface } from "../../interfaces/Budget";
+import Table from "../../../../components/Table/Table";
+import { BudgetOverviewInterface } from "../../../../interfaces/Budget";
 
 interface BudgetsTableProps {
   budgetsOverview: BudgetOverviewInterface[];

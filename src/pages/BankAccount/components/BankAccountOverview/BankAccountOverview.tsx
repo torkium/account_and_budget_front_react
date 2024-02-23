@@ -1,13 +1,14 @@
 import React from "react";
-import Card from "../Card/Card";
+import Card from "../../../../components/Card/Card";
 import BudgetsOverviewTable from "../Budgets/BudgetsOverviewTable";
-import { useBankAccountContext } from "../../context/BankAccountContext";
+import { useBankAccountContext } from "../../../../context/BankAccountContext";
+import BankAccountOverviewHeader from "./BankAccountOverviewHeader/BankAccountOverviewHeader";
 
 const BankAccountOverview: React.FC = () => {
   const { bankAccount, budgetsOverview } = useBankAccountContext();
   return (
     <>
-      <h2>Détails du compte bancaire {bankAccount.label}</h2>
+      <BankAccountOverviewHeader bankAccount={bankAccount} />
       <Card>
         <BudgetsOverviewTable budgetsOverview={budgetsOverview} />
       </Card>

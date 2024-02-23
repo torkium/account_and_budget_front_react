@@ -1,6 +1,7 @@
 import Login from "./pages/Login/Login"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import BankAccount from "./pages/BankAccount/BankAccount"
+import BankAccountSettings from "./pages/BankAccountSettings/BankAccountSettings"
 import ErrorNotFound from "./pages/Error/404"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import AppProvider from "./context/AppContext"
@@ -19,6 +20,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/bank-account/:accountId/settings" element={<BankAccountSettings />} />
             <Route path="/bank-account/:accountId" element={<BankAccount />} />
           </Route>
 

@@ -8,7 +8,7 @@ import PeriodNavigator from '../../components/Period/PeriodNavigator';
 // custom hooks
 import { useBankAccount } from "../../hooks/useBankAccount";
 import TransactionsList from "../../components/Transactions/TransactionList";
-import BankAccountOverview from "../../components/BankAccount/BankAccountOverview";
+import BankAccountOverview from "./components/BankAccountOverview/BankAccountOverview";
 import { BankAccountProvider } from "../../context/BankAccountContext";
 
 // route parameters
