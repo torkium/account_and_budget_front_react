@@ -19,7 +19,7 @@ const BudgetFormEdit: React.FC<Props> = ({ onSubmit, budget }) => {
       amount: !budget ? "" : budget.amount,
       startDate: !budget ? "" : budget.startDate.split("T")[0],
       endDate: !budget ? "" : budget.endDate.split("T")[0],
-      frequency: !budget ? "" : budget.label,
+      frequency: !budget ? "" : budget.frequency,
       financialCategoryId: !budget ? "" : budget.financialCategory?.id,
     });
   }, [budget]);
@@ -30,8 +30,8 @@ const BudgetFormEdit: React.FC<Props> = ({ onSubmit, budget }) => {
         <InputField name="label" label="Label" type="text" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="amount" label="Amount" type="number" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="startDate" label="Date de début" type="date" validationRules={{ required: "Ce champ est requis" }} />
-        <InputField name="endDate" label="Date de fin" type="date" validationRules={{ required: "Ce champ est requis" }} />
-        <SelectFrequency name="frequency" label="Fréquence" defaultValue={budget?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
+        <InputField name="endDate" label="Date de fin" type="date" validationRules={{ }} />
+        <SelectFrequency name="frequency" label="Fréquence" validationRules={{ required: "Ce champ est requis" }} />
         <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={budget?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
         <div className="buttons-container">
         <button type="submit">Submit</button>

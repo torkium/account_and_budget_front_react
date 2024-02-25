@@ -14,7 +14,7 @@ const BudgetsTable: React.FC<BudgetsTableProps> = ({ budgets, onEdit, onDelete }
   const budgetData = budgets.map((budget) => ({
     id: budget.id,
     StartDate: new Date(budget.startDate).toLocaleDateString(),
-    EndDate: new Date(budget.endDate).toLocaleDateString(),
+    EndDate: budget.endDate ? new Date(budget.endDate).toLocaleDateString() : "",
     Label: budget.label,
     Amount: `${budget.amount} €`,
     Frequency: budget.frequency,

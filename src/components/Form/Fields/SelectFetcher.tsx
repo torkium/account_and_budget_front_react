@@ -34,13 +34,13 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
       setisLoading(true)
       try {
         const loadedOptions = await loadOptionsFunction();
-        setOptions(loadedOptions);
 
         if (defaultValue) {
           setValue(name, defaultValue);
         } else if (loadedOptions.length > 0) {
           setValue(name, loadedOptions[0].value);
         }
+        setOptions(loadedOptions);
         setisLoading(false)
       } catch (error) {
         showAlert("Unable to fetch options", "error");

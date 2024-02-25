@@ -10,16 +10,19 @@ interface SelectFieldProps {
   name: string
   label: string
   options: Option[]
+  defaultValue?: string
   validationRules?: RegisterOptions
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({ name, label, options, validationRules }) => {
-  const { register, formState: { errors } } = useFormContext()
+const SelectField: React.FC<SelectFieldProps> = ({ name, label, options, defaultValue, validationRules }) => {
+  const { register, setValue, formState: { errors } } = useFormContext()
 
   const errorMessage = (name: string): string | null => {
     const error = errors[name]
     return error && typeof error.message === 'string' ? error.message : null
   }
+  if(defaultValue)
+    setValue(name, defaultValue);
 
   return (
     <div className="form-group">

@@ -7,7 +7,7 @@ interface BudgetData {
   label: string
   amount: number
   startDate: string
-  endDate: string
+  endDate?: string | null
   financialCategory: number
 }
 
@@ -48,6 +48,9 @@ const push = async (
   budgetData: BudgetData
 ): Promise<BudgetInterface> => {
   try {
+    if(budgetData.endDate === ""){
+      budgetData.endDate = null
+    }
     const response = await request({
       url: `/bank-accounts/${accountId}/budgets/` + (budgetData.id ?? ''),
       method: budgetData.id ? "PUT" : "POST",
