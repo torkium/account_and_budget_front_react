@@ -1,9 +1,8 @@
-import React from 'react';
-import { useForm, FormProvider } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
 import Modal from "../../Modal/Modal";
-import InputField from "../../Form/Fields/Input";
-import FinancialCategorySelect from "../../Category/FinancialCategorySelect";
 import { TransactionInterface } from "../../../interfaces/Transaction";
+import TransactionFormEdit from "../TransactionFormEdit";
 
 interface Props {
   isOpen: boolean;
@@ -12,7 +11,12 @@ interface Props {
   transaction?: TransactionInterface | null;
 }
 
-const TransactionPushModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, transaction }) => {
+const TransactionPushModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  transaction,
+}) => {
   const methods = useForm();
 
   React.useEffect(() => {
@@ -21,24 +25,22 @@ const TransactionPushModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, tran
       label: !transaction ? "" : transaction.label,
       amount: !transaction ? "" : transaction.amount,
       date: !transaction ? "" : transaction.date.split("T")[0],
-      financialCategoryId: !transaction ? "" : transaction.financialCategory?.id,
+      financialCategoryId: !transaction
+        ? ""
+        : transaction.financialCategory?.id,
     });
   }, [transaction]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={transaction ? "Modifier une transaction" : "Ajouter une transaction"} size="large">
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <InputField name="reference" label="Reference" type="text" validationRules={{ required: "Ce champ est requis" }} />
-          <InputField name="label" label="Label" type="text" validationRules={{ required: "Ce champ est requis" }} />
-          <InputField name="amount" label="Amount" type="number" validationRules={{ required: "Ce champ est requis" }} />
-          <InputField name="date" label="Date" type="date" validationRules={{ required: "Ce champ est requis" }} />
-          <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={transaction?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
-          <div className="buttons-container">
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </FormProvider>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={
+        transaction ? "Modifier une transaction" : "Ajouter une transaction"
+      }
+      size="large"
+    >
+      <TransactionFormEdit transaction={transaction} onSubmit={onSubmit} />
     </Modal>
   );
 };
