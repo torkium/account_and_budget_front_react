@@ -72,6 +72,7 @@ const TransactionsList: React.FC = () => {
     if (selectedTransaction) {
       deleteTransaction(selectedTransaction);
     }
+    setIsTransactionDeleteConfirmationModalOpen(false)
   }, [deleteTransaction, selectedTransaction]);
 
   return (
