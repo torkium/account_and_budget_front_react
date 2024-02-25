@@ -12,7 +12,7 @@ export const useBudgetManager = ({ bankAccountId, reloadBudgets }: UseBudgetMana
 
   const submitBudget = async (budget: BudgetInterface | null, formData: any) => {
     if (!bankAccountId) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue..", "error");
       return;
     }
     try {
@@ -25,24 +25,24 @@ export const useBudgetManager = ({ bankAccountId, reloadBudgets }: UseBudgetMana
 
       await apiBudgetService.push(bankAccountId, newBudgetData);
       if(reloadBudgets) reloadBudgets();
-      showAlert("Budget successful.", "success");
+      budget?.id ? showAlert("Modifications enregistrées.", "success") : showAlert("Création confirmée.", "success");
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue..", "error");
     }
   };
 
   const deleteBudget = async (budget: BudgetInterface) => {
     if (!bankAccountId || !budget) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue..", "error");
       return;
     }
 
     try {
       await apiBudgetService.remove(bankAccountId, budget);
       if(reloadBudgets) reloadBudgets();
-      showAlert("Budget deleted successfully.", "success");
+      showAlert("Suppression confirmée.", "success");
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue..", "error");
     }
   };
 

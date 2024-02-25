@@ -2,11 +2,15 @@ import React, { createContext, useContext, ReactNode, useState, useCallback, use
 import { BankAccountInterface } from "../interfaces/Bank";
 import { BudgetInterface } from "../interfaces/Budget";
 import { apiBudgetService } from "../services/apiBudgetService";
+import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
+import { apiScheduledTransactionService } from "../services/apiScheduledTransactionService";
 
 interface BankAccountContextType {
   bankAccount: BankAccountInterface;
   budgets: BudgetInterface[];
+  scheduledTransactions: ScheduledTransactionInterface[];
   reloadBudgets: () => void;
+  reloadScheduledTransactions: () => void;
 }
 
 const BankAccountContext = createContext<BankAccountContextType | undefined>(
@@ -24,9 +28,15 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
 }) => {
   const [budgets, setBudgets] = useState<BudgetInterface[]>([]);
   const [reloadBudgetsFlag, setReloadBudgetsFlag] = useState(false);
+  const [scheduledTransactions, setScheduledTransactions] = useState<ScheduledTransactionInterface[]>([]);
+  const [reloadScheduledTransactionsFlag, setReloadScheduledTransactionsFlag] = useState(false);
   
   const reloadBudgets = useCallback(() => {
     setReloadBudgetsFlag((prevFlag) => !prevFlag);
+  }, []);
+
+  const reloadScheduledTransactions = useCallback(() => {
+    setReloadScheduledTransactionsFlag((prevFlag) => !prevFlag);
   }, []);
 
   
@@ -45,13 +55,31 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
     fetchBudgets();
   }, [bankAccount, reloadBudgetsFlag]);
 
+  
+  useEffect(() => {
+    const fetchScheduledTransactions = async () => {
+      try {
+        const fetchedScheduledTransactions = await apiScheduledTransactionService.get(
+          bankAccount.id,
+        );
+        setScheduledTransactions(fetchedScheduledTransactions);
+      } catch (error) {
+        console.error("Failed to load scheduled transactions:", error);
+      }
+    };
+
+    fetchScheduledTransactions();
+  }, [bankAccount, reloadScheduledTransactionsFlag]);
+
 
   return (
     <BankAccountContext.Provider
       value={{
         bankAccount,
         budgets,
+        scheduledTransactions,
         reloadBudgets,
+        reloadScheduledTransactions,
       }}
     >
       {children}

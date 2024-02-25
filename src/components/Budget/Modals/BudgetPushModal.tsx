@@ -24,7 +24,7 @@ const BudgetPushModal: React.FC<Props> = ({
       label: !budget ? "" : budget.label,
       amount: !budget ? "" : budget.amount,
       startDate: !budget ? "" : budget.startDate.split("T")[0],
-      endDate: !budget ? "" : budget.endDate.split("T")[0],
+      endDate: budget?.endDate ? budget.endDate.split("T")[0] : "",
       frequency: !budget
         ? ""
         : budget.frequency,

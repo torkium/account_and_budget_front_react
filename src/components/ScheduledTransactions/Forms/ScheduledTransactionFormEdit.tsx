@@ -2,27 +2,27 @@ import React from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../Form/Fields/Input";
 import FinancialCategorySelect from "../../Category/FinancialCategorySelect";
-import { BudgetInterface } from "../../../interfaces/Budget";
+import { ScheduledTransactionInterface } from "../../../interfaces/ScheduledTransaction";
 import SelectFrequency from '../../Form/Fields/SelectFrequency';
 
 interface Props {
-  budget?: BudgetInterface | null;
+  scheduledTransaction?: ScheduledTransactionInterface | null;
   onSubmit: (data: any) => void;
 }
 
-const BudgetFormEdit: React.FC<Props> = ({ onSubmit, budget }) => {
+const ScheduledTransactionFormEdit: React.FC<Props> = ({ onSubmit, scheduledTransaction }) => {
   const methods = useForm();
 
   React.useEffect(() => {
     methods.reset({
-      label: !budget ? "" : budget.label,
-      amount: !budget ? "" : budget.amount,
-      startDate: !budget ? "" : budget.startDate.split("T")[0],
-      endDate: budget?.endDate ? budget.endDate.split("T")[0] : "" ,
-      frequency: !budget ? "" : budget.frequency,
-      financialCategoryId: !budget ? "" : budget.financialCategory?.id,
+      reference: !scheduledTransaction ? "" : scheduledTransaction.reference,
+      label: !scheduledTransaction ? "" : scheduledTransaction.label,
+      amount: !scheduledTransaction ? "" : scheduledTransaction.amount,
+      startDate: !scheduledTransaction ? "" : scheduledTransaction.startDate.split("T")[0],
+      endDate: scheduledTransaction?.endDate ? scheduledTransaction.endDate.split("T")[0] : "" ,
+      financialCategoryId: !scheduledTransaction ? "" : scheduledTransaction.financialCategory?.id,
     });
-  }, [budget]);
+  }, [scheduledTransaction]);
 
   return (
     <FormProvider {...methods}>
@@ -32,7 +32,7 @@ const BudgetFormEdit: React.FC<Props> = ({ onSubmit, budget }) => {
         <InputField name="startDate" label="Date de début" type="date" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="endDate" label="Date de fin" type="date" validationRules={{ }} />
         <SelectFrequency name="frequency" label="Fréquence" validationRules={{ required: "Ce champ est requis" }} />
-        <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={budget?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
+        <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={scheduledTransaction?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
         <div className="buttons-container">
         <button type="submit">Submit</button>
         </div>
@@ -41,4 +41,4 @@ const BudgetFormEdit: React.FC<Props> = ({ onSubmit, budget }) => {
   );
 };
 
-export default BudgetFormEdit;
+export default ScheduledTransactionFormEdit;

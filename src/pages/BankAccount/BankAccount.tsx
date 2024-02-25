@@ -7,7 +7,7 @@ import PeriodNavigator from "../../components/Period/PeriodNavigator";
 
 // custom hooks
 import { useBankAccount } from "../../hooks/useBankAccount";
-import TransactionsList from "../../components/Transactions/TransactionList";
+import TransactionsList from "../../components/Transactions/TransactionsList";
 import BankAccountOverview from "./components/BankAccountOverview/BankAccountOverview";
 import { BankAccountProvider } from "../../context/BankAccountContext";
 import { BankAccountDetailsProvider } from "../../context/BankAccountDetailsContext";
@@ -37,7 +37,7 @@ const BankAccount = () => {
       ) : (
         <div>Chargement des détails du compte...</div>
       )}
-    </MainLayout>
+      </MainLayout>
   );
 };
 

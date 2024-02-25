@@ -21,14 +21,14 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
 
       if (bankAccount?.id) {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData);
-        showAlert("Bank account updated successfully.", "success");
+        showAlert("Mise à jour enregistrée.", "success");
       } else {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData);
-        showAlert("Bank account created successfully.", "success");
+        showAlert("Compte en banque créé.", "success");
       }
       reloadBankAccounts && reloadBankAccounts();
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
     }
     return bankAccountCreated;
   };
@@ -37,9 +37,9 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
     try {
       await apiBankAccountService.remove(bankAccount);
       reloadBankAccounts && reloadBankAccounts();
-      showAlert("Bank account deleted successfully.", "success");
+      showAlert("Suppression confirmée.", "success");
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
     }
   };
 

@@ -13,7 +13,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
 
   const submitTransaction = async (transaction: TransactionInterface | null, formData: any) => {
     if (!bankAccountId) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
       return;
     }
     try {
@@ -27,15 +27,15 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
       await apiTransactionService.pushTransaction(bankAccountId, newTransactionData);
       reloadTransactions();
       reloadBudgetsOverview();
-      showAlert("Transaction successful.", "success");
+      transaction?.id ? showAlert("Modifications enregistrées.", "success") : showAlert("Transaction créée.", "success");
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
     }
   };
 
   const deleteTransaction = async (transaction: TransactionInterface) => {
     if (!bankAccountId || !transaction) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
       return;
     }
 
@@ -43,9 +43,9 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
       await apiTransactionService.deleteTransaction(bankAccountId, transaction);
       reloadTransactions();
       reloadBudgetsOverview();
-      showAlert("Transaction deleted successfully.", "success");
+      showAlert("Suppression confirmée.", "success");
     } catch (error) {
-      showAlert("An error occurred. Please try again.", "error");
+      showAlert("Une erreur est survenue.", "error");
     }
   };
 
