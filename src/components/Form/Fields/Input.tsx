@@ -10,7 +10,6 @@ interface InputFieldProps {
 
 const InputField: React.FC<InputFieldProps> = ({ name, label, type = "text", validationRules }) => {
   const { register, formState: { errors }, setValue } = useFormContext()
-  const [inputValue, setInputValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
@@ -23,9 +22,7 @@ const InputField: React.FC<InputFieldProps> = ({ name, label, type = "text", val
         cleanedValue = normalizedValue.slice(0, -1)
       }
       setValue(name, cleanedValue)
-      setInputValue(cleanedValue)
     } else {
-      setInputValue(value)
       setValue(name, value)
     }
   }
@@ -42,7 +39,6 @@ const InputField: React.FC<InputFieldProps> = ({ name, label, type = "text", val
         type={type === "number" ? "text" : type} 
         id={name}
         {...register(name, validationRules)} 
-        value={inputValue}
         onChange={handleChange}
       />
       {errorMessage(name) && <p className="error">{errorMessage(name)}</p>}
