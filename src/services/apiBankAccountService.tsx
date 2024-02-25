@@ -11,7 +11,7 @@ interface BankAccountData {
 const get = async (): Promise<BankAccountInterface[]> => {
   try {
     const response = await request({
-      url: "/bank-accounts",
+      url: "/bank-accounts/",
       method: "GET",
       data: {},
     })

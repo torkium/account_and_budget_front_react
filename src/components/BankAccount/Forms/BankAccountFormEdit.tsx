@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm, FormProvider } from "react-hook-form";
-import InputField from "../Form/Fields/Input";
-import { useBankAccountContext } from '../../context/BankAccountContext';
-import BankSelect from '../Bank/BankSelect';
-import { useBankAccountManager } from '../../hooks/useBankAccountManager';
+import InputField from "../../Form/Fields/Input";
+import { useBankAccountContext } from '../../../context/BankAccountContext';
+import BankSelect from '../../Bank/BankSelect';
+import { useBankAccountManager } from '../../../hooks/useBankAccountManager';
 
 interface Props {
 }

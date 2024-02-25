@@ -1,7 +1,7 @@
 import React from "react";
 import './BankAccountSettingsGeneral.css';
 import Card from "../../../../components/Card/Card";
-import BankAccountFormEdit from "../../../../components/BankAccount/BankAccountFormEdit";
+import BankAccountFormEdit from "../../../../components/BankAccount/Forms/BankAccountFormEdit";
 
 interface BankAccountSettingsGeneralProps {
 }

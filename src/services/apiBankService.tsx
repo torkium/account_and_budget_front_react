@@ -4,7 +4,7 @@ import { BankInterface } from "../interfaces/Bank";
 const getBanks = async (): Promise<BankInterface[]> => {
   try {
     const response = await request({
-      url: "/banks",
+      url: "/banks/",
       method: "GET",
     })
     return response.data;
