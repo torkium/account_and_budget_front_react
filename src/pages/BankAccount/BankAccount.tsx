@@ -11,6 +11,7 @@ import TransactionsList from "../../components/Transactions/TransactionsList";
 import BankAccountOverview from "./components/BankAccountOverview/BankAccountOverview";
 import { BankAccountProvider } from "../../context/BankAccountContext";
 import { BankAccountDetailsProvider } from "../../context/BankAccountDetailsContext";
+import BankAccountOverviewHeader from "./components/BankAccountOverview/BankAccountOverviewHeader/BankAccountOverviewHeader";
 
 // route parameters
 type BankAccountParams = {
@@ -29,8 +30,9 @@ const BankAccount = () => {
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
           <BankAccountDetailsProvider>
-            <BankAccountOverview />
+            <BankAccountOverviewHeader />
             <PeriodNavigator mode="month" />
+            <BankAccountOverview />
             <TransactionsList />
           </BankAccountDetailsProvider>
         </BankAccountProvider>
