@@ -1,4 +1,5 @@
 import { FinancialCategoryInterface } from "./FinancialCategory"
+import { ScheduledTransactionInterface } from "./ScheduledTransaction"
 
 export interface TransactionInterface {
     id: number | null
@@ -7,4 +8,5 @@ export interface TransactionInterface {
     amount: number
     date: string
     financialCategory: FinancialCategoryInterface
+    scheduledTransaction?: ScheduledTransactionInterface
   }

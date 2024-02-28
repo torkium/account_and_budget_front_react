@@ -6,6 +6,7 @@ import TransactionPushModal from "./Modals/TransactionPushModal";
 import TransactionDeleteConfirmationModal from "./Modals/TransactionDeleteConfirmationModal";
 import { TransactionInterface } from "../../interfaces/Transaction";
 import { useTransactionManager } from "../../hooks/useTransactionManager";
+import { useScheduledTransactionManager } from "../../hooks/useScheduledTransactionManager";
 
 const TransactionsList: React.FC = () => {
   const { bankAccount } = useBankAccountContext();
@@ -26,6 +27,11 @@ const TransactionsList: React.FC = () => {
     bankAccountId: bankAccount?.id ?? null,
     reloadTransactions,
     reloadBudgetsOverview,
+  });
+
+  const { cancelScheduledTransaction } = useScheduledTransactionManager({
+    bankAccountId: bankAccount?.id ?? null,
+    reloadScheduledTransactions: reloadTransactions
   });
 
   // Callbacks for user actions
@@ -70,7 +76,12 @@ const TransactionsList: React.FC = () => {
 
   const handleDelete = useCallback(() => {
     if (selectedTransaction) {
-      deleteTransaction(selectedTransaction);
+      if(!selectedTransaction.id && selectedTransaction.scheduledTransaction?.id){
+        cancelScheduledTransaction(selectedTransaction);
+      }
+      else{
+        deleteTransaction(selectedTransaction);
+      }
     }
     setIsTransactionDeleteConfirmationModalOpen(false)
   }, [deleteTransaction, selectedTransaction]);

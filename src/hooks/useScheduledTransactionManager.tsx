@@ -1,6 +1,7 @@
 import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
 import { ApiScheduledTransactionService } from "../services/apiScheduledTransactionService";
 import { useAlert } from "../context/AlertContext";
+import { TransactionInterface } from "../interfaces/Transaction";
 
 interface UseScheduledTransactionManagerProps {
   bankAccountId: number | null;
@@ -48,8 +49,25 @@ export const useScheduledTransactionManager = ({ bankAccountId, reloadScheduledT
     }
   };
 
+  const cancelScheduledTransaction = async (transaction: TransactionInterface) => {
+    if (!bankAccountId || !transaction.scheduledTransaction?.id) {
+      showAlert("Une erreur est survenue.", "error");
+      return;
+    }
+
+    try {
+      const apiScheduledTransactionService = new ApiScheduledTransactionService(bankAccountId);
+      await apiScheduledTransactionService.cancel(bankAccountId, transaction);
+      reloadScheduledTransactions();
+      showAlert("Annulation confirmée.", "success");
+    } catch (error) {
+      showAlert("Une erreur est survenue.", "error");
+    }
+  };
+
   return {
     submitScheduledTransaction,
     deleteScheduledTransaction,
+    cancelScheduledTransaction,
   };
 };

@@ -1,5 +1,6 @@
 import { ApiService, request } from "./apiService"
 import { TransactionInterface } from "../interfaces/Transaction";
+import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
 
 interface TransactionData {
   id?: number
@@ -8,14 +9,13 @@ interface TransactionData {
   amount: number
   date: string
   financialCategory: number
+  scheduledTransaction?: ScheduledTransactionInterface
 }
 
 export class ApiTransactionService extends ApiService<TransactionInterface, TransactionData> {
   constructor(accountId: number) {
     super(`/bank-accounts/${accountId}/transactions`);
   }
-
-  
 
   getBetweenDates = async (
     accountId: number,

@@ -23,6 +23,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
         ...formData,
         amount: parseFloat(formData.amount),
         financialCategory: parseInt(formData.financialCategoryId),
+        scheduledTransactionId: transaction?.scheduledTransaction?.id ?? undefined
       };
 
       await apiTransactionService.push(newTransactionData, transaction?.id ?? undefined);
@@ -39,7 +40,9 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
       showAlert("Une erreur est survenue.", "error");
       return;
     }
-
+    if(!transaction?.id && transaction?.scheduledTransaction?.id){
+      return;
+    }
     try {
       const apiTransactionService = new ApiTransactionService(bankAccountId);
       await apiTransactionService.remove(transaction.id);

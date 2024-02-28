@@ -27,6 +27,10 @@ const TransactionsTable: React.FC<TransactionsTableProps> = ({ transactions, onE
       </>
     ) : (
       <>
+      <button onClick={() => onEdit(transaction)}>Valider</button>
+      <button className="btn-delete" onClick={() => onDelete(transaction)}>
+        x
+      </button>
       </>
     )
   }));
