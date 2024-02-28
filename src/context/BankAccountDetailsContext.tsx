@@ -8,8 +8,8 @@ import React, {
 } from "react";
 import { BudgetOverviewInterface } from "../interfaces/Budget";
 import { TransactionInterface } from "../interfaces/Transaction";
-import { apiBudgetService } from "../services/apiBudgetService";
-import { apiTransactionService } from "../services/apiTransactionService";
+import { ApiBudgetService } from "../services/apiBudgetService";
+import { ApiTransactionService } from "../services/apiTransactionService";
 import { endOfMonth, startOfMonth } from "date-fns";
 import { formatDateToLocalISO } from "../utils/dateUtils";
 import { useBankAccountContext } from "./BankAccountContext";
@@ -47,6 +47,8 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
   const [reloadFlag, setReloadFlag] = useState(false);
   const [reloadBudgetsOverviewFlag, setReloadBudgetsOverviewFlag] = useState(false);
   const [reloadTransactionsFlag, setReloadTransactionsFlag] = useState(false);
+  const apiBudgetService = new ApiBudgetService(bankAccount.id);
+  const apiTransactionService = new ApiTransactionService(bankAccount.id);
 
   const reload = useCallback(() => {
     setReloadFlag((prevFlag) => !prevFlag);
@@ -80,7 +82,7 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const fetchedTransactions = await apiTransactionService.getTransactions(
+        const fetchedTransactions = await apiTransactionService.getBetweenDates(
           bankAccount.id,
           formatDateToLocalISO(startDate),
           formatDateToLocalISO(endDate)

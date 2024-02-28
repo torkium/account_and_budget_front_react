@@ -1,5 +1,5 @@
 import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
-import { apiScheduledTransactionService } from "../services/apiScheduledTransactionService";
+import { ApiScheduledTransactionService } from "../services/apiScheduledTransactionService";
 import { useAlert } from "../context/AlertContext";
 
 interface UseScheduledTransactionManagerProps {
@@ -16,6 +16,7 @@ export const useScheduledTransactionManager = ({ bankAccountId, reloadScheduledT
       return;
     }
     try {
+      const apiScheduledTransactionService = new ApiScheduledTransactionService(bankAccountId);
       const newScheduledTransactionData = {
         id: scheduledTransaction?.id ?? undefined,
         ...formData,
@@ -23,7 +24,7 @@ export const useScheduledTransactionManager = ({ bankAccountId, reloadScheduledT
         financialCategory: parseInt(formData.financialCategoryId),
       };
 
-      await apiScheduledTransactionService.push(bankAccountId, newScheduledTransactionData);
+      await apiScheduledTransactionService.push(newScheduledTransactionData, scheduledTransaction?.id ?? undefined);
       reloadScheduledTransactions();
       scheduledTransaction?.id ? showAlert("Modifications enregistrées.", "success") : showAlert("Transaction prévisionnelle créée.", "success");
     } catch (error) {
@@ -32,13 +33,14 @@ export const useScheduledTransactionManager = ({ bankAccountId, reloadScheduledT
   };
 
   const deleteScheduledTransaction = async (scheduledTransaction: ScheduledTransactionInterface) => {
-    if (!bankAccountId || !scheduledTransaction) {
+    if (!bankAccountId || !scheduledTransaction?.id) {
       showAlert("Une erreur est survenue.", "error");
       return;
     }
 
     try {
-      await apiScheduledTransactionService.remove(bankAccountId, scheduledTransaction);
+      const apiScheduledTransactionService = new ApiScheduledTransactionService(bankAccountId);
+      await apiScheduledTransactionService.remove(scheduledTransaction.id);
       reloadScheduledTransactions();
       showAlert("Suppression confirmée.", "success");
     } catch (error) {

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { BankAccountInterface } from "../interfaces/Bank";
-import { apiBankAccountService } from "../services/apiBankAccountService";
+import { ApiBankAccountService } from "../services/apiBankAccountService";
 import { useAlert } from "../context/AlertContext";
 
 export const useBankAccounts = () => {
   const [bankAccounts, setBankAccounts] = useState<BankAccountInterface[]>([]);
   const [reloadFlag, setReloadFlag] = useState(false);
   const { showAlert } = useAlert();
+  const apiBankAccountService = new ApiBankAccountService();
 
   const reloadBankAccounts = () => {
     setReloadFlag(prevFlag => !prevFlag);

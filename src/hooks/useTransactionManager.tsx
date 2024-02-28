@@ -1,5 +1,5 @@
 import { TransactionInterface } from "../interfaces/Transaction";
-import { apiTransactionService } from "../services/apiTransactionService";
+import { ApiTransactionService } from "../services/apiTransactionService";
 import { useAlert } from "../context/AlertContext";
 
 interface UseTransactionManagerProps {
@@ -17,6 +17,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
       return;
     }
     try {
+      const apiTransactionService = new ApiTransactionService(bankAccountId);
       const newTransactionData = {
         id: transaction?.id ?? undefined,
         ...formData,
@@ -24,7 +25,7 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
         financialCategory: parseInt(formData.financialCategoryId),
       };
 
-      await apiTransactionService.pushTransaction(bankAccountId, newTransactionData);
+      await apiTransactionService.push(newTransactionData, transaction?.id ?? undefined);
       reloadTransactions();
       reloadBudgetsOverview();
       transaction?.id ? showAlert("Modifications enregistrées.", "success") : showAlert("Transaction créée.", "success");
@@ -34,13 +35,14 @@ export const useTransactionManager = ({ bankAccountId, reloadTransactions, reloa
   };
 
   const deleteTransaction = async (transaction: TransactionInterface) => {
-    if (!bankAccountId || !transaction) {
+    if (!bankAccountId || !transaction?.id) {
       showAlert("Une erreur est survenue.", "error");
       return;
     }
 
     try {
-      await apiTransactionService.deleteTransaction(bankAccountId, transaction);
+      const apiTransactionService = new ApiTransactionService(bankAccountId);
+      await apiTransactionService.remove(transaction.id);
       reloadTransactions();
       reloadBudgetsOverview();
       showAlert("Suppression confirmée.", "success");

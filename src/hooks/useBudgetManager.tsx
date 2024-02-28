@@ -1,14 +1,15 @@
 import { BudgetInterface } from "../interfaces/Budget";
-import { apiBudgetService } from "../services/apiBudgetService";
+import { ApiBudgetService } from "../services/apiBudgetService";
 import { useAlert } from "../context/AlertContext";
 
 interface UseBudgetManagerProps {
-  bankAccountId: number | null;
+  bankAccountId: number;
   reloadBudgets?: () => void;
 }
 
 export const useBudgetManager = ({ bankAccountId, reloadBudgets }: UseBudgetManagerProps) => {
   const { showAlert } = useAlert();
+  const apiBudgetService = new ApiBudgetService(bankAccountId);
 
   const submitBudget = async (budget: BudgetInterface | null, formData: any) => {
     if (!bankAccountId) {
@@ -23,7 +24,7 @@ export const useBudgetManager = ({ bankAccountId, reloadBudgets }: UseBudgetMana
         financialCategory: parseInt(formData.financialCategoryId),
       };
 
-      await apiBudgetService.push(bankAccountId, newBudgetData);
+      await apiBudgetService.push(newBudgetData, budget?.id ?? undefined);
       if(reloadBudgets) reloadBudgets();
       budget?.id ? showAlert("Modifications enregistrées.", "success") : showAlert("Création confirmée.", "success");
     } catch (error) {
@@ -32,13 +33,13 @@ export const useBudgetManager = ({ bankAccountId, reloadBudgets }: UseBudgetMana
   };
 
   const deleteBudget = async (budget: BudgetInterface) => {
-    if (!bankAccountId || !budget) {
+    if (!bankAccountId || !budget?.id) {
       showAlert("Une erreur est survenue..", "error");
       return;
     }
 
     try {
-      await apiBudgetService.remove(bankAccountId, budget);
+      await apiBudgetService.remove(budget.id);
       if(reloadBudgets) reloadBudgets();
       showAlert("Suppression confirmée.", "success");
     } catch (error) {

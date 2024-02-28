@@ -43,7 +43,7 @@ const BankAccountFormEdit: React.FC<Props> = ({  }) => {
         <InputField name="account_number" label="account_number" type="text" validationRules={{ required: "Ce champ est requis" }} />
         <BankSelect name="bankId" label="Banque" defaultValue={bankAccount?.bank?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
         <div className="buttons-container">
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!methods.formState.isValid}>Submit</button>
         </div>
     </form>
     </FormProvider>

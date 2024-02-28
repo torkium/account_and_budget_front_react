@@ -1,9 +1,9 @@
 import React, { createContext, useContext, ReactNode, useState, useCallback, useEffect } from "react";
 import { BankAccountInterface } from "../interfaces/Bank";
 import { BudgetInterface } from "../interfaces/Budget";
-import { apiBudgetService } from "../services/apiBudgetService";
+import { ApiBudgetService } from "../services/apiBudgetService";
 import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
-import { apiScheduledTransactionService } from "../services/apiScheduledTransactionService";
+import { ApiScheduledTransactionService } from "../services/apiScheduledTransactionService";
 
 interface BankAccountContextType {
   bankAccount: BankAccountInterface;
@@ -30,6 +30,8 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
   const [reloadBudgetsFlag, setReloadBudgetsFlag] = useState(false);
   const [scheduledTransactions, setScheduledTransactions] = useState<ScheduledTransactionInterface[]>([]);
   const [reloadScheduledTransactionsFlag, setReloadScheduledTransactionsFlag] = useState(false);
+  const apiBudgetService = new ApiBudgetService(bankAccount.id);
+  const apiScheduledTransactionService = new ApiScheduledTransactionService(bankAccount.id);
   
   const reloadBudgets = useCallback(() => {
     setReloadBudgetsFlag((prevFlag) => !prevFlag);
@@ -43,9 +45,7 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        const fetchedBudgets = await apiBudgetService.get(
-          bankAccount.id,
-        );
+        const fetchedBudgets = await apiBudgetService.get();
         setBudgets(fetchedBudgets);
       } catch (error) {
         console.error("Failed to load budgets:", error);
@@ -59,9 +59,7 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
   useEffect(() => {
     const fetchScheduledTransactions = async () => {
       try {
-        const fetchedScheduledTransactions = await apiScheduledTransactionService.get(
-          bankAccount.id,
-        );
+        const fetchedScheduledTransactions = await apiScheduledTransactionService.get();
         setScheduledTransactions(fetchedScheduledTransactions);
       } catch (error) {
         console.error("Failed to load scheduled transactions:", error);

@@ -1,6 +1,6 @@
 import { BankAccountInterface } from "../interfaces/Bank";
 import { useAlert } from "../context/AlertContext";
-import { apiBankAccountService } from "../services/apiBankAccountService";
+import { ApiBankAccountService } from "../services/apiBankAccountService";
 
 interface UseBankAccountManagerProps {
   reloadBankAccounts?: () => void;
@@ -8,6 +8,7 @@ interface UseBankAccountManagerProps {
 
 export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountManagerProps) => {
   const { showAlert } = useAlert();
+  const apiBankAccountService = new ApiBankAccountService();
 
   const createOrUpdateBankAccount = async (bankAccount: BankAccountInterface | null, formData: any) => {
     let bankAccountCreated: BankAccountInterface | null = null;
@@ -20,7 +21,7 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
       };
 
       if (bankAccount?.id) {
-        bankAccountCreated = await apiBankAccountService.push(newBankAccountData);
+        bankAccountCreated = await apiBankAccountService.push(newBankAccountData, bankAccount.id);
         showAlert("Mise à jour enregistrée.", "success");
       } else {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData);
@@ -35,7 +36,7 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
 
   const deleteBankAccount = async (bankAccount: BankAccountInterface) => {
     try {
-      await apiBankAccountService.remove(bankAccount);
+      await apiBankAccountService.remove(bankAccount.id);
       reloadBankAccounts && reloadBankAccounts();
       showAlert("Suppression confirmée.", "success");
     } catch (error) {

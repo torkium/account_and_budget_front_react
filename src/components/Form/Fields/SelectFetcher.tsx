@@ -31,6 +31,7 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
   useEffect(() => {
     const fetchOptions = async () => {
       setOptions(  [ {value:"", label:"Chargement en cours..."}])
+      setValue(name, "");
       setisLoading(true)
       try {
         const loadedOptions = await loadOptionsFunction();

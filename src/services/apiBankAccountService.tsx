@@ -1,5 +1,5 @@
-import { request } from "./apiService"
 import { BankAccountInterface, BankInterface } from "../interfaces/Bank";
+import { ApiService } from "./apiService";
 
 interface BankAccountData {
   id?: number
@@ -7,65 +7,8 @@ interface BankAccountData {
   account_number: string
   bank: BankInterface
 }
-
-const get = async (): Promise<BankAccountInterface[]> => {
-  try {
-    const response = await request({
-      url: "/bank-accounts/",
-      method: "GET",
-      data: {},
-    })
-    return response.data;
-  } catch (error) {
-    throw error
+export class ApiBankAccountService extends ApiService<BankAccountInterface, BankAccountData> {
+  constructor() {
+    super('/bank-accounts');
   }
-}
-
-const show = async (id: number): Promise<BankAccountInterface> => {
-  try {
-    const response = await request({
-      url: "/bank-accounts/" + id,
-      method: "GET",
-      data: {},
-    })
-    return response.data;
-  } catch (error) {
-    throw error
-  }
-}
-
-const push = async (
-  bankAccountData: BankAccountData
-): Promise<BankAccountInterface> => {
-  try {
-    const response = await request({
-      url: `/bank-accounts/` + (bankAccountData.id ?? ''),
-      method: bankAccountData.id ? "PUT" : "POST",
-      data: bankAccountData,
-    })
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-const remove = async (
-  bankAccount: BankAccountInterface
-): Promise<BankAccountInterface> => {
-  try {
-    const response = await request({
-      url: `/bank-accounts/` + (bankAccount.id),
-      method: "DELETE",
-    })
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export const apiBankAccountService = {
-  get,
-  show,
-  push,
-  remove,
 }
