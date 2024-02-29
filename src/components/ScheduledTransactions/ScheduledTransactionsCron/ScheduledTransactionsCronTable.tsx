@@ -9,7 +9,7 @@ interface ScheduledTransactionsCronTableProps {
 }
 
 const ScheduledTransactionsCronTable: React.FC<ScheduledTransactionsCronTableProps> = ({ scheduledTransactions, onEdit, onDelete }) => {
-  const headers = ["Date de début", "Date de fin", "Label", "Amount", "Category", "Action"];
+  const headers = ["Date de début", "Date de fin", "Label", "Amount", "Category", "Fréquence", "Action"];
 
   const scheduledTransactionData = scheduledTransactions.map((scheduledTransaction) => ({
     id: scheduledTransaction.id,
@@ -18,6 +18,7 @@ const ScheduledTransactionsCronTable: React.FC<ScheduledTransactionsCronTablePro
     Label: scheduledTransaction.label,
     Amount: `${scheduledTransaction.amount} €`,
     Category: scheduledTransaction.financialCategory?.label,
+    "Fréquence": scheduledTransaction.frequency,
     Action: scheduledTransaction.id ? (
       <>
         <button onClick={() => onEdit(scheduledTransaction)}>modifier</button>

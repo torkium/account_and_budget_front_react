@@ -7,5 +7,6 @@ export interface ScheduledTransactionInterface {
   amount: number;
   startDate: string;
   endDate: string;
+  frequency: string;
   financialCategory: FinancialCategoryInterface;
 }

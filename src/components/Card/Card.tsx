@@ -2,12 +2,13 @@ import { ReactNode } from "react"
 import "./card.css"
 
 interface CardProps {
-  children: ReactNode
+  children: ReactNode;
+  className?: string;
 }
 
-export default function Card({ children }: CardProps) {
+export default function Card({ children, className }: CardProps) {
   return (
-    <div className="card">
+    <div className={`card ${className || ''}`}>
         {children}
     </div>
   )
