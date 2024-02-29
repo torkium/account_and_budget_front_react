@@ -5,6 +5,7 @@ interface BankAccountData {
   id?: number
   label: string
   account_number: string
+  initial_amount: number
   bank: BankInterface
 }
 export class ApiBankAccountService extends ApiService<BankAccountInterface, BankAccountData> {

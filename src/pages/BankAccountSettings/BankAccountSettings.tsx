@@ -6,8 +6,9 @@ import { useBankAccount } from "../../hooks/useBankAccount";
 import BankAccountSettingsHeader from "./components/BankAccountSettingsHeader/BankAccountSettingsHeader";
 import { BankAccountProvider } from "../../context/BankAccountContext";
 import BankAccountSettingsBudget from "./components/BankAccountSettingsBudget/BankAccountSettingsBudget";
-import BankAccountSettingsScheduledTransaction from "./components/BankAccountSettingsScheduledTransaction/BankAccountSettingsScheduledTransaction";
 import BankAccountSettingsGeneral from "./components/BankAccountSettingsGeneral/BankAccountSettingsGeneral";
+import BankAccountSettingsScheduledTransactionCron from "./components/BankAccountSettingsScheduledTransactionCron/BankAccountSettingsScheduledTransactionCron";
+import BankAccountSettingsScheduledTransactionOnce from "./components/BankAccountSettingsScheduledTransactionOnce/BankAccountSettingsScheduledTransactionOnce";
 
 type BankAccountParams = {
   accountId?: string;
@@ -24,7 +25,8 @@ const BankAccount = () => {
           <BankAccountSettingsHeader />
           <BankAccountSettingsGeneral />
           <BankAccountSettingsBudget />
-          <BankAccountSettingsScheduledTransaction />
+          <BankAccountSettingsScheduledTransactionCron />
+          <BankAccountSettingsScheduledTransactionOnce />
         </BankAccountProvider>
       ) : (
         <div>Chargement des détails du compte...</div>

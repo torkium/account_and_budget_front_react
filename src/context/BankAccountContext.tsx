@@ -9,6 +9,8 @@ interface BankAccountContextType {
   bankAccount: BankAccountInterface;
   budgets: BudgetInterface[];
   scheduledTransactions: ScheduledTransactionInterface[];
+  scheduledTransactionsCron: ScheduledTransactionInterface[];
+  scheduledTransactionsOnce: ScheduledTransactionInterface[];
   reloadBudgets: () => void;
   reloadScheduledTransactions: () => void;
 }
@@ -29,6 +31,8 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
   const [budgets, setBudgets] = useState<BudgetInterface[]>([]);
   const [reloadBudgetsFlag, setReloadBudgetsFlag] = useState(false);
   const [scheduledTransactions, setScheduledTransactions] = useState<ScheduledTransactionInterface[]>([]);
+  const [scheduledTransactionsCron, setScheduledTransactionsCron] = useState<ScheduledTransactionInterface[]>([]);
+  const [scheduledTransactionsOnce, setScheduledTransactionsOnce] = useState<ScheduledTransactionInterface[]>([]);
   const [reloadScheduledTransactionsFlag, setReloadScheduledTransactionsFlag] = useState(false);
   const apiBudgetService = new ApiBudgetService(bankAccount.id);
   const apiScheduledTransactionService = new ApiScheduledTransactionService(bankAccount.id);
@@ -61,6 +65,8 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
       try {
         const fetchedScheduledTransactions = await apiScheduledTransactionService.get();
         setScheduledTransactions(fetchedScheduledTransactions);
+        setScheduledTransactionsCron(fetchedScheduledTransactions.filter((scheduledTransaction) => scheduledTransaction.startDate !== scheduledTransaction.endDate));
+        setScheduledTransactionsOnce(fetchedScheduledTransactions.filter((scheduledTransaction) => scheduledTransaction.startDate === scheduledTransaction.endDate));
       } catch (error) {
         console.error("Failed to load scheduled transactions:", error);
       }
@@ -76,6 +82,8 @@ export const BankAccountProvider: React.FC<BankAccountProviderProps> = ({
         bankAccount,
         budgets,
         scheduledTransactions,
+        scheduledTransactionsCron,
+        scheduledTransactionsOnce,
         reloadBudgets,
         reloadScheduledTransactions,
       }}

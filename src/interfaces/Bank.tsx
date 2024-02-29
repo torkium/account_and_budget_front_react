@@ -7,5 +7,6 @@ export interface BankAccountInterface {
     id: number
     label: string
     account_number: string
+    initial_amount: number
     bank: BankInterface
 }

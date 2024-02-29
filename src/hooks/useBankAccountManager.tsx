@@ -16,15 +16,17 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
       const newBankAccountData = {
         id: bankAccount?.id ?? undefined,
         ...formData,
-        balance: parseFloat(formData.balance),
+        initial_amount: parseFloat(formData.initial_amount),
         bank_id: parseInt(formData.bankId),
       };
 
       if (bankAccount?.id) {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData, bankAccount.id);
+        reloadBankAccounts && reloadBankAccounts();
         showAlert("Mise à jour enregistrée.", "success");
       } else {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData);
+        reloadBankAccounts && reloadBankAccounts();
         showAlert("Compte en banque créé.", "success");
       }
       reloadBankAccounts && reloadBankAccounts();
