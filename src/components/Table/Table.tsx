@@ -47,4 +47,25 @@ const Table: React.FC<TableProps> = ({ headers, data, rowClassName }) => {
   )
 }
 
+export const VerticalTable: React.FC<TableProps> = ({ headers, data }) => {
+  return (
+    <div className="table-responsive">
+      <table>
+        <tbody>
+          {headers.map((header, headerIndex) => (
+            <tr key={headerIndex}>
+              <th>{header}</th>
+              {data.map((row, rowIndex) => (
+                <td key={`${headerIndex}-${rowIndex}`}>
+                  {row.hasOwnProperty(header) ? row[header] : ''}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default Table;

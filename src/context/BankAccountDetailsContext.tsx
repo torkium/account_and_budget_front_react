@@ -13,6 +13,8 @@ import { ApiTransactionService } from "../services/apiTransactionService";
 import { endOfMonth, startOfMonth } from "date-fns";
 import { formatDateToLocalISO } from "../utils/dateUtils";
 import { useBankAccountContext } from "./BankAccountContext";
+import { BankAccountOverviewInterface } from "../interfaces/Bank";
+import { ApiBankAccountService } from "../services/apiBankAccountService";
 
 interface BankAccountDetailsContextType {
   startDate: Date;
@@ -20,9 +22,11 @@ interface BankAccountDetailsContextType {
   setStartDate: (date: Date) => void;
   setEndDate: (date: Date) => void;
   budgetsOverview: BudgetOverviewInterface[];
+  bankAccountOverview?: BankAccountOverviewInterface;
   transactions: TransactionInterface[];
   reload: () => void;
   reloadBudgetsOverview: () => void;
+  reloadBankAccountOverview: () => void;
   reloadTransactions: () => void;
 }
 
@@ -43,11 +47,16 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
   const [budgetsOverview, setBudgetsOverview] = useState<
     BudgetOverviewInterface[]
   >([]);
+  const [bankAccountOverview, setBankAccountOverview] = useState<
+    BankAccountOverviewInterface
+  >();
   const [transactions, setTransactions] = useState<TransactionInterface[]>([]);
   const [reloadFlag, setReloadFlag] = useState(false);
   const [reloadBudgetsOverviewFlag, setReloadBudgetsOverviewFlag] = useState(false);
+  const [reloadBankAccountOverviewFlag, setReloadBankAccountOverviewFlag] = useState(false);
   const [reloadTransactionsFlag, setReloadTransactionsFlag] = useState(false);
   const apiBudgetService = new ApiBudgetService(bankAccount.id);
+  const apiBankAccountService = new ApiBankAccountService();
   const apiTransactionService = new ApiTransactionService(bankAccount.id);
 
   const reload = useCallback(() => {
@@ -56,6 +65,10 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
 
   const reloadBudgetsOverview = useCallback(() => {
     setReloadBudgetsOverviewFlag((prevFlag) => !prevFlag);
+  }, []);
+
+  const reloadBankAccountOverview = useCallback(() => {
+    setReloadBankAccountOverviewFlag((prevFlag) => !prevFlag);
   }, []);
 
   const reloadTransactions = useCallback(() => {
@@ -78,6 +91,23 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
 
     fetchBudgetsOverview();
   }, [bankAccount, startDate, endDate, reloadFlag, reloadBudgetsOverviewFlag]);
+
+  useEffect(() => {
+    const fetchBankAccountOverview = async () => {
+      try {
+        const fetchedBankAccountOverview = await apiBankAccountService.getOverview(
+          bankAccount.id,
+          startDate,
+          endDate
+        );
+        setBankAccountOverview(fetchedBankAccountOverview);
+      } catch (error) {
+        console.error("Failed to load bank account overview:", error);
+      }
+    };
+
+    fetchBankAccountOverview();
+  }, [bankAccount, startDate, endDate, reloadFlag, reloadBankAccountOverviewFlag]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -104,9 +134,11 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
         setStartDate,
         setEndDate,
         budgetsOverview,
+        bankAccountOverview,
         transactions,
         reload,
         reloadBudgetsOverview,
+        reloadBankAccountOverview,
         reloadTransactions,
       }}
     >
