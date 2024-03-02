@@ -25,11 +25,10 @@ const TransactionFormEdit: React.FC<Props> = ({ onSubmit, transaction }) => {
   return (
     <FormProvider {...methods}>
     <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <InputField name="reference" label="Reference" type="text" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="label" label="Label" type="text" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="amount" label="Amount" type="number" validationRules={{ required: "Ce champ est requis" }} />
         <InputField name="date" label="Date" type="date" validationRules={{ required: "Ce champ est requis" }} />
-        <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={transaction?.financialCategory?.id.toString()} validationRules={{ required: "Ce champ est requis" }} />
+        <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={transaction?.financialCategory?.id.toString()} />
         <div className="buttons-container">
         <button type="submit">Submit</button>
         </div>

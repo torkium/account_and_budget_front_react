@@ -1,13 +1,13 @@
 import { FinancialCategoryInterface } from "../interfaces/FinancialCategory"
 
-interface FlatOption {
+export interface FinancialCategoryFlatOption {
   value: string
   label: string
 }
 
 export class CategoryService {
-  static flattenCategories(categories: FinancialCategoryInterface[], prefix = ""): FlatOption[] {
-    let options: FlatOption[] = []
+  static flattenCategories(categories: FinancialCategoryInterface[], prefix = ""): FinancialCategoryFlatOption[] {
+    let options: FinancialCategoryFlatOption[] = []
 
     categories.forEach(category => {
       options.push({ value: category.id.toString(), label: `${prefix}${category.label}` });

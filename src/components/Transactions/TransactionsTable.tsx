@@ -9,12 +9,11 @@ interface TransactionsTableProps {
 }
 
 const TransactionsTable: React.FC<TransactionsTableProps> = ({ transactions, onEdit, onDelete }) => {
-  const headers = ["Date", "Ref", "Label", "Amount", "Category", "Action"];
+  const headers = ["Date", "Label", "Amount", "Category", "Action"];
 
   const transactionData = transactions.map((transaction) => ({
     id: transaction.id,
     Date: new Date(transaction.date).toLocaleDateString(),
-    Ref: transaction.reference,
     Label: transaction.label,
     Amount: `${transaction.amount} €`,
     Category: transaction.financialCategory?.label,

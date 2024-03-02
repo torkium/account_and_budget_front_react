@@ -3,7 +3,7 @@ import { useFormContext, RegisterOptions } from 'react-hook-form'
 
 interface InputFieldProps {
   name: string
-  label: string
+  label?: string
   type?: string
   validationRules?: RegisterOptions
 }
@@ -34,7 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({ name, label, type = "text", val
 
   return (
     <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+      {label && <label htmlFor={name}>{label}</label>}
       <input 
         type={type === "number" ? "text" : type} 
         id={name}

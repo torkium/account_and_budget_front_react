@@ -1,10 +1,9 @@
 import React from "react";
-import './BankAccountOverviewHeader.css';
+import "./BankAccountOverviewHeader.css";
 import { useNavigate } from "react-router-dom";
 import { useBankAccountContext } from "../../../../../context/BankAccountContext";
 
-interface BankAccountOverviewProps {
-}
+interface BankAccountOverviewProps {}
 
 const BankAccountOverviewHeader: React.FC<BankAccountOverviewProps> = () => {
   const { bankAccount } = useBankAccountContext();
@@ -16,7 +15,25 @@ const BankAccountOverviewHeader: React.FC<BankAccountOverviewProps> = () => {
     <>
       <div className="header-container">
         <h2>Détails du compte bancaire {bankAccount.label}</h2>
-        <button className="settings-button" onClick={() => navigateToSettings(`/bank-account/${bankAccount.id}/settings`)} >Paramétrer mon compte</button>
+        <div>
+          <button
+            className="settings-button"
+            onClick={() =>
+              navigateToSettings(`/bank-account/${bankAccount.id}/settings`)
+            }
+          >
+            Paramétrer mon compte
+          </button>
+          <br />
+          <button
+            className="settings-button"
+            onClick={() =>
+              navigateToSettings(`/bank-account/${bankAccount.id}/import`)
+            }
+          >
+            Importer des transactions
+          </button>
+        </div>
       </div>
     </>
   );

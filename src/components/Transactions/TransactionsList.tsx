@@ -16,6 +16,7 @@ const TransactionsList: React.FC = () => {
   // State hooks
   const [isTransactionPushModalOpen, setIsTransactionPushModalOpen] =
     useState(false);
+
   const [
     isTransactionDeleteConfirmationModalOpen,
     setIsTransactionDeleteConfirmationModalOpen,
@@ -31,7 +32,7 @@ const TransactionsList: React.FC = () => {
 
   const { cancelScheduledTransaction } = useScheduledTransactionManager({
     bankAccountId: bankAccount?.id ?? null,
-    reloadScheduledTransactions: reloadTransactions
+    reloadScheduledTransactions: reloadTransactions,
   });
 
   // Callbacks for user actions
@@ -76,19 +77,21 @@ const TransactionsList: React.FC = () => {
 
   const handleDelete = useCallback(() => {
     if (selectedTransaction) {
-      if(!selectedTransaction.id && selectedTransaction.scheduledTransaction?.id){
+      if (
+        !selectedTransaction.id &&
+        selectedTransaction.scheduledTransaction?.id
+      ) {
         cancelScheduledTransaction(selectedTransaction);
-      }
-      else{
+      } else {
         deleteTransaction(selectedTransaction);
       }
     }
-    setIsTransactionDeleteConfirmationModalOpen(false)
+    setIsTransactionDeleteConfirmationModalOpen(false);
   }, [deleteTransaction, selectedTransaction]);
 
   return (
     <>
-      <button onClick={() => openTransactionPushModal()}>Ajouter</button>
+      <button onClick={() => openTransactionPushModal()}>Ajouter</button>{" "}
       <TransactionsTable
         transactions={transactions}
         onEdit={openTransactionPushModal}

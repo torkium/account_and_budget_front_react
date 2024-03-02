@@ -22,8 +22,9 @@ interface FinancialCategorySelectProps {
         name={name}
         label={label}
         loadOptionsFunction={loadFinancialCategories}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ?? ""}
         validationRules={validationRules}
+        emptyChoice={{value:"", label:"Non catégorisé"}}
       />
     )
   }

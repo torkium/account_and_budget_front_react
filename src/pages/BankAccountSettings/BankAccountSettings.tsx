@@ -14,7 +14,7 @@ type BankAccountParams = {
   accountId?: string;
 };
 
-const BankAccount = () => {
+const BankAccountSettings = () => {
   const { accountId } = useParams<BankAccountParams>();
   const bankAccount = useBankAccount(accountId);
 
@@ -35,4 +35,4 @@ const BankAccount = () => {
   );
 };
 
-export default BankAccount;
+export default BankAccountSettings;

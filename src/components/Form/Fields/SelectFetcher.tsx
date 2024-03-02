@@ -14,14 +14,16 @@ interface SelectFetcherProps {
   defaultValue?: string;
   validationRules?: RegisterOptions;
   loadOptionsFunction: () => Promise<Option[]>;
+  emptyChoice?: Option;
 }
-
+//
 const SelectFetcher: React.FC<SelectFetcherProps> = ({
   name,
   label,
   validationRules,
   defaultValue,
   loadOptionsFunction,
+  emptyChoice
 }) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isLoading, setisLoading] = useState<boolean>(false);
@@ -35,13 +37,13 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
       setisLoading(true)
       try {
         const loadedOptions = await loadOptionsFunction();
+        setOptions(emptyChoice ? [emptyChoice, ...loadedOptions] : [...loadedOptions]);
 
-        if (defaultValue) {
+        if (defaultValue !== null) {
           setValue(name, defaultValue);
         } else if (loadedOptions.length > 0) {
           setValue(name, loadedOptions[0].value);
         }
-        setOptions(loadedOptions);
         setisLoading(false)
       } catch (error) {
         showAlert("Unable to fetch options", "error");

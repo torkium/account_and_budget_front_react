@@ -3,10 +3,10 @@ import { ScheduledTransactionInterface } from "./ScheduledTransaction"
 
 export interface TransactionInterface {
     id: number | null
-    reference: string | null
+    reference?: string
     label: string
     amount: number
     date: string
-    financialCategory: FinancialCategoryInterface
+    financialCategory?: FinancialCategoryInterface
     scheduledTransaction?: ScheduledTransactionInterface
   }

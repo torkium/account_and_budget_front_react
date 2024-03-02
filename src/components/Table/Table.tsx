@@ -32,10 +32,13 @@ const Table: React.FC<TableProps> = ({ headers, data, rowClassName }) => {
             return (
               <tr key={rowIndex} className={rowClassNames}>
                 {headers.map((header, cellIndex) => {
-                  return row.hasOwnProperty(header) ? (
-                    <td key={cellIndex}>{row[header]}</td>
-                  ) : (
-                    <td key={cellIndex}></td>
+                  const cellContent = row[header];
+                  const isReactNode = React.isValidElement(cellContent);
+
+                  return (
+                    <td key={cellIndex}>
+                      {isReactNode ? cellContent : (cellContent ?? '')}
+                    </td>
                   );
                 })}
               </tr>
@@ -44,8 +47,8 @@ const Table: React.FC<TableProps> = ({ headers, data, rowClassName }) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
 export const VerticalTable: React.FC<TableProps> = ({ headers, data }) => {
   return (
