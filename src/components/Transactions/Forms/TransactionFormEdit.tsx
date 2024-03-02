@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../Form/Fields/Input";
-import FinancialCategorySelect from "../../Category/FinancialCategorySelect";
+import FinancialCategorySelect from "../../FinancialCategory/Forms/FinancialCategorySelect";
 import { TransactionInterface } from "../../../interfaces/Transaction";
 
 interface Props {

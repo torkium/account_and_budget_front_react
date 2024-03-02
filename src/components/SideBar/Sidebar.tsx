@@ -12,6 +12,9 @@ const SideBar = () => {
         Dashboard
       </Link>
       <BankAccountDropDown />
+      <Link to="/financial-category" className="navItem">
+        Catégories financières
+      </Link>
     </div>
   )
 }

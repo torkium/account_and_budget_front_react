@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
-import { apiFinancialCategoryService } from '../../services/apiFinancialCategoryService'
-import { CategoryService } from '../../services/categoryService'
+import { ApiFinancialCategoryService } from '../../../services/apiFinancialCategoryService'
+import { CategoryService } from '../../../services/categoryService'
 import { RegisterOptions } from 'react-hook-form'
-import SelectFetcher from '../Form/Fields/SelectFetcher'
+import SelectFetcher from '../../Form/Fields/SelectFetcher'
 
 interface FinancialCategorySelectProps {
     name: string
@@ -12,8 +12,9 @@ interface FinancialCategorySelectProps {
   }
   
   const FinancialCategorySelect: React.FC<FinancialCategorySelectProps> = ({ name, label, validationRules, defaultValue }) => {
+    const apiFinancialCategoryService = new ApiFinancialCategoryService();
     const loadFinancialCategories = useCallback(async () => {
-      const categories = await apiFinancialCategoryService.getFinancialCategories();
+      const categories = await apiFinancialCategoryService.get();
       return CategoryService.flattenCategories(categories);
     }, []);
   

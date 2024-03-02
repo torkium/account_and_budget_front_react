@@ -1,18 +1,8 @@
-import { request } from "./apiService"
+import { ApiService } from "./apiService"
 import { FinancialCategoryInterface } from "../interfaces/FinancialCategory";
 
-const getFinancialCategories = async (): Promise<FinancialCategoryInterface[]> => {
-  try {
-    const response = await request({
-      url: "/financial-categories",
-      method: "GET",
-    })
-    return response.data;
-  } catch (error) {
-    throw error
+export class ApiFinancialCategoryService extends ApiService<FinancialCategoryInterface, FinancialCategoryInterface> {
+  constructor() {
+    super(`/financial-categories`);
   }
-}
-
-export const apiFinancialCategoryService = {
-  getFinancialCategories,
 }

@@ -8,6 +8,7 @@ import AppProvider from "./context/AppContext"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Logout from "./components/Logout"
 import BankAccountImport from "./pages/BankAccountImport/BankAccountImport"
+import FinancialCategory from "./pages/FinancialCategory/FinancialCategory"
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/financial-category" element={<FinancialCategory />} />
             <Route path="/bank-account/:bankAccountId/import" element={<BankAccountImport />} />
             <Route path="/bank-account/:accountId/settings" element={<BankAccountSettings />} />
             <Route path="/bank-account/:accountId" element={<BankAccount />} />

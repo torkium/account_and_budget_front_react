@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import InputField from "../../../Form/Fields/Input";
 import SelectField, { Option } from "../../../Form/Fields/Select";
-import { apiFinancialCategoryService } from "../../../../services/apiFinancialCategoryService";
+import { ApiFinancialCategoryService } from "../../../../services/apiFinancialCategoryService";
 import { CategoryService } from "../../../../services/categoryService";
 import Table from "../../../Table/Table";
 import { formatDateFrStringToLocalISO } from "../../../../utils/dateUtils";
@@ -21,6 +21,7 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
   onEditComplete,
   bankAccountId,
 }) => {
+  const apiFinancialCategoryService = new ApiFinancialCategoryService();
   const [financialCategoriesOptions, setFinancialCategoriesOptions] = useState<
     Option[]
   >([]);
@@ -49,7 +50,7 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
 
   const loadFinancialCategories = useCallback(async () => {
     const categories =
-      await apiFinancialCategoryService.getFinancialCategories();
+      await apiFinancialCategoryService.get();
     let categoriesFlatten = CategoryService.flattenCategories(categories);
     setFinancialCategoriesOptions([{value:"", label:"Non catégorisé"}, ...categoriesFlatten]);
   }, []);

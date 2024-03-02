@@ -1,0 +1,26 @@
+.overview-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux Cards de passer à la ligne en mode mobile */
+  gap: 20px; /* Ajoute un peu d'espace entre les Cards */
+}
+
+
+.bank-accounts-card {
+  flex-basis: 350px; /* Largeur fixe pour le premier bloc */
+  flex-shrink: 0; /* Empêche le rétrécissement */
+}
+
+.budgets-card {
+  flex-grow: 1; /* Prend le reste de l'espace disponible */
+}
+
+/* Media Query pour les écrans jusqu'à 768px de large */
+@media (max-width: 768px) {
+  .overview-container {
+    display: block; /* Les Cards s'affichent l'une en dessous de l'autre */
+  }
+  
+  .bank-accounts-card, .budgets-card {
+    flex-basis: 100%; /* Les Cards prennent toute la largeur disponible */
+  }
+}
