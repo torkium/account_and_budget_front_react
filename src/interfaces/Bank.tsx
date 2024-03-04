@@ -14,6 +14,7 @@ export interface BankAccountInterface {
 export interface BankAccountOverviewInterface {
     credit: number,
     debit: number,
+    realExpenses: number,
     provisionalCredit: number,
     provisionalDebit: number,
     summary: number,

@@ -7,11 +7,12 @@ interface BankAccountsTableProps {
 }
 
 const BankAccountsOverviewTable: React.FC<BankAccountsTableProps> = ({ bankAccountOverview }) => {
-  const headers = ["Solde initial", "Crédit", "Débit", "Reste", "Solde final"];
+  const headers = ["Solde initial", "Crédit", "Débit", "Dépenses réelles", "Reste", "Solde final"];
   const bankAccountData = [{
     "Solde initial": `${bankAccountOverview?.startBalance} €`,
     "Crédit": <>{bankAccountOverview?.credit} € <span className="lowLight">({bankAccountOverview?.provisionalCredit} €)</span></>,
     "Débit": <>{bankAccountOverview?.debit} € <span className="lowLight">({bankAccountOverview?.provisionalDebit} €)</span></>,
+    "Dépenses réelles": <>{bankAccountOverview?.realExpenses} €</>,
     "Reste": <>{bankAccountOverview?.summary} € <span className="lowLight">({bankAccountOverview?.provisionalSummary} €)</span></>,
     "Solde final": <>{bankAccountOverview?.endBalance} € <span className="lowLight">({bankAccountOverview?.provisionalEndBalance} €)</span></>,
   }];
