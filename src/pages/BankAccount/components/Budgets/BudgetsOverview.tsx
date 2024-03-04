@@ -18,6 +18,7 @@ const BudgetsOverview: React.FC<BudgetsTableProps> = ({
             value={-1*budgetOverview.consumed}
             theoreticalValue={-1*budgetOverview.provisionalConsumed}
             maxValue={budgetOverview.budget.amount}
+            devise="€"
           />
         </div>
       ))}

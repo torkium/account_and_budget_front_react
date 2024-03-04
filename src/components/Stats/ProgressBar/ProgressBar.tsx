@@ -6,6 +6,7 @@ interface ProgressBarProps {
   value: number;
   theoreticalValue?: number;
   maxValue: number;
+  devise?: string;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
@@ -13,6 +14,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   value,
   theoreticalValue = 0,
   maxValue,
+  devise,
 }) => {
   const valuePercentage = (value / maxValue) * 100;
   const theoreticalPercentage = Math.min(
@@ -30,8 +32,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       <div className={styles.progressBarHeader}>
         <div className={styles.progressBarTitle}>{label}</div>
         <div className={styles.progressBarRemaining}>
-          Reste: {remaining}€{" "}
-          {displayTheoretical && `(${theoreticalRemaining}€)`}
+          Reste: {remaining}{devise ?? ""}{" "}
+          {displayTheoretical && `(${theoreticalRemaining}${devise ?? ""})`}
         </div>
       </div>
       <div className={styles.progressBar}>
@@ -58,7 +60,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         </div>
       </div>
       <div className={styles.progressBarSummary}>
-        {value}€ {displayTheoretical && `(${theoreticalValue}€)`} / {maxValue}€
+        {value}{devise ?? ""} {displayTheoretical && `(${theoreticalValue}${devise ?? ""})`} / {maxValue}{devise ?? ""}
       </div>
     </div>
   );

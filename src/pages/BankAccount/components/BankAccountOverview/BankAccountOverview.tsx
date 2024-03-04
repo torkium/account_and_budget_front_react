@@ -1,7 +1,7 @@
 import React from "react";
 import "./BankAccountOverview.css";
 import Card from "../../../../components/Card/Card";
-import BudgetsOverviewTable from "../Budgets/BudgetsOverviewTable";
+import BudgetsOverviewTable from "../Budgets/BudgetsOverview";
 import { useBankAccountDetailsContext } from "../../../../context/BankAccountDetailsContext";
 import BankAccountsOverviewTable from "./BankAccountOverviewTable";
 
