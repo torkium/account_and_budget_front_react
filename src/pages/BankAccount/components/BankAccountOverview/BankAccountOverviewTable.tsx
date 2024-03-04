@@ -10,11 +10,11 @@ const BankAccountsOverviewTable: React.FC<BankAccountsTableProps> = ({ bankAccou
   const headers = ["Solde initial", "Crédit", "Débit", "Dépenses réelles", "Reste", "Solde final"];
   const bankAccountData = [{
     "Solde initial": `${bankAccountOverview?.startBalance} €`,
-    "Crédit": <>{bankAccountOverview?.credit} € <span className="lowLight">({bankAccountOverview?.provisionalCredit} €)</span></>,
-    "Débit": <>{bankAccountOverview?.debit} € <span className="lowLight">({bankAccountOverview?.provisionalDebit} €)</span></>,
+    "Crédit": <>{bankAccountOverview?.credit} € {bankAccountOverview?.provisionalCredit !== bankAccountOverview?.credit && <span className="lowLight">({bankAccountOverview?.provisionalCredit} €)</span>}</>,
+    "Débit": <>{bankAccountOverview?.debit} €  {bankAccountOverview?.provisionalDebit !== bankAccountOverview?.debit && <span className="lowLight">({bankAccountOverview?.provisionalDebit} €)</span>}</>,
     "Dépenses réelles": <>{bankAccountOverview?.realExpenses} €</>,
-    "Reste": <>{bankAccountOverview?.summary} € <span className="lowLight">({bankAccountOverview?.provisionalSummary} €)</span></>,
-    "Solde final": <>{bankAccountOverview?.endBalance} € <span className="lowLight">({bankAccountOverview?.provisionalEndBalance} €)</span></>,
+    "Reste": <>{bankAccountOverview?.summary} €  {bankAccountOverview?.provisionalSummary !== bankAccountOverview?.summary && <span className="lowLight">({bankAccountOverview?.provisionalSummary} €)</span>}</>,
+    "Solde final": <>{bankAccountOverview?.endBalance} €  {bankAccountOverview?.provisionalEndBalance !== bankAccountOverview?.endBalance && <span className="lowLight">({bankAccountOverview?.provisionalEndBalance} €)</span>}</>,
   }];
 
   return <VerticalTable headers={headers} data={bankAccountData} />;
