@@ -1,12 +1,11 @@
 // Step3TransactionsEdit.tsx
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
-import InputField from "../../../Form/Fields/Input";
 import SelectField, { Option } from "../../../Form/Fields/Select";
 import { ApiFinancialCategoryService } from "../../../../services/apiFinancialCategoryService";
 import { CategoryService } from "../../../../services/categoryService";
 import Table from "../../../Table/Table";
-import { formatDateFrStringToLocalISO } from "../../../../utils/dateUtils";
+import { formatDateFrStringToLocalISO, formatDateLocalIsoToFrString } from "../../../../utils/dateUtils";
 import { TransactionInterface } from "../../../../interfaces/Transaction";
 
 
@@ -25,15 +24,18 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
   const [financialCategoriesOptions, setFinancialCategoriesOptions] = useState<
     Option[]
   >([]);
+
+  const formTransactions = transactionsToFill.map((t) => ({
+    id: t.id,
+    reference: t.reference,
+    date: formatDateFrStringToLocalISO(t.date),
+    label: t.label,
+    amount: t.amount,
+    financialCategory: t.financialCategory,
+  }))
+
   const defaultValues = {
-    transactions: transactionsToFill.map((t) => ({
-      id: t.id,
-      reference: t.reference,
-      date: formatDateFrStringToLocalISO(t.date),
-      label: t.label,
-      amount: t.amount,
-      financialCategory: t.financialCategory,
-    })),
+    transactions: formTransactions,
   };
   const methods = useForm<{ transactions: TransactionInterface[] }>({
     defaultValues,
@@ -60,38 +62,11 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
   }, []);
 
   const formData = fields.map((field, index) => ({
-    date: (
-      <InputField
-        name={`transactions[${index}].date`}
-        type="date"
-        validationRules={{ required: "Ce champ est requis" }}
-      />
-    ),
-    id: (
-      <InputField
-        name={`transactions[${index}].id`}
-        validationRules={{ required: "Ce champ est requis" }}
-      />
-    ),
-    reference: (
-      <InputField
-        name={`transactions[${index}].reference`}
-        validationRules={{ required: "Ce champ est requis" }}
-      />
-    ),
-    label: (
-      <InputField
-        name={`transactions[${index}].label`}
-        validationRules={{ required: "Ce champ est requis" }}
-      />
-    ),
-    amount: (
-      <InputField
-        name={`transactions[${index}].amount`}
-        type="number"
-        validationRules={{ required: "Ce champ est requis" }}
-      />
-    ),
+    date: formatDateLocalIsoToFrString(field.date),
+    id: field.id,
+    reference: field.reference,
+    label: field.label,
+    amount: field.amount,
     financialCategory: (
       <SelectField
         name={`transactions[${index}].financialCategory`}

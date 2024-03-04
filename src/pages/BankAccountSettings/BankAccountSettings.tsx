@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-
+import "./BankAccountSettings.css";
 import MainLayout from "../../components/Layout/MainLayout";
 
 import { useBankAccount } from "../../hooks/useBankAccount";
@@ -22,11 +22,21 @@ const BankAccountSettings = () => {
     <MainLayout>
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
-          <BankAccountSettingsHeader />
-          <BankAccountSettingsGeneral />
-          <BankAccountSettingsBudget />
-          <BankAccountSettingsScheduledTransactionCron />
-          <BankAccountSettingsScheduledTransactionOnce />
+          <div className="bank-account-settings-container">
+            <BankAccountSettingsHeader />
+            <div className="bank-account-settings-item">
+              <BankAccountSettingsGeneral />
+            </div>
+            <div className="bank-account-settings-item">
+              <BankAccountSettingsBudget />
+            </div>
+            <div className="bank-account-settings-item">
+              <BankAccountSettingsScheduledTransactionCron />
+            </div>
+            <div className="bank-account-settings-item">
+              <BankAccountSettingsScheduledTransactionOnce />
+            </div>
+          </div>
         </BankAccountProvider>
       ) : (
         <div>Chargement des détails du compte...</div>

@@ -1,0 +1,72 @@
+.progressBarContainer {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.25em;
+  margin-bottom: 0.2em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9em;
+}
+
+.progressBarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.1em;
+}
+
+.progressBarTitle {
+  font-weight: bold;
+}
+
+.progressBarRemaining {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.progressBarLabel {
+  font-weight: bold;
+  margin-bottom: 0.1em;
+}
+
+.progressBar {
+  height: 1em;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.progressPercentage {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  color: black;
+  font-size: 0.8em;
+  line-height: 1em;
+  margin: 0.1em 0;
+}
+.progress {
+  height: 100%;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+}
+
+.theoreticalProgress {
+  height: 100%;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  opacity: 0.5;
+}
+.progressBarSummary {
+  margin-top: 0.1em;
+  font-size: 0.8em;
+  color: #666;
+}

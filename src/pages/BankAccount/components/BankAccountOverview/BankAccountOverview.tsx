@@ -6,15 +6,16 @@ import { useBankAccountDetailsContext } from "../../../../context/BankAccountDet
 import BankAccountsOverviewTable from "./BankAccountOverviewTable";
 
 const BankAccountOverview: React.FC = () => {
-  const { budgetsOverview, bankAccountOverview } = useBankAccountDetailsContext();
+  const { budgetsOverview, bankAccountOverview } =
+    useBankAccountDetailsContext();
   return (
     <div className="overview-container">
       <Card className="bank-accounts-card">
         <BankAccountsOverviewTable bankAccountOverview={bankAccountOverview} />
       </Card>
-      <Card className="budgets-card">
+      <div className="budgets">
         <BudgetsOverviewTable budgetsOverview={budgetsOverview} />
-      </Card>
+      </div>
     </div>
   );
 };

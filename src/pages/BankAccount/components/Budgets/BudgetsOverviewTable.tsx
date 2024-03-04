@@ -1,22 +1,28 @@
 import React from "react";
-import Table from "../../../../components/Table/Table";
+import ProgressBar from "../../../../components/Stats/ProgressBar/ProgressBar";
 import { BudgetOverviewInterface } from "../../../../interfaces/Budget";
 
 interface BudgetsTableProps {
   budgetsOverview: BudgetOverviewInterface[];
 }
 
-const BudgetsOverviewTable: React.FC<BudgetsTableProps> = ({ budgetsOverview }) => {
-  const headers = ["Label", "Montant", "Consommé", "Reste"];
-  const budgetData = budgetsOverview.map((budgetOverview) => ({
-    Label: budgetOverview.budget.label,
-    "Montant": `${budgetOverview.budget.amount} €`,
-    "Consommé": <>{budgetOverview.consumed} € <span className="lowLight">({budgetOverview.provisionalConsumed} €)</span></>,
-    "Reste": <>{budgetOverview.summary} € <span className="lowLight">({budgetOverview.provisionalSummary} €)</span></>,
-
-  }));
-
-  return <Table headers={headers} data={budgetData} />;
+const BudgetsOverview: React.FC<BudgetsTableProps> = ({
+  budgetsOverview,
+}) => {
+  return (
+    <div>
+      {budgetsOverview.map((budgetOverview, index) => (
+        <div key={index} className="budgetItem">
+          <ProgressBar
+            label={`${budgetOverview.budget.label}`}
+            value={-1*budgetOverview.consumed}
+            theoreticalValue={-1*budgetOverview.provisionalConsumed}
+            maxValue={budgetOverview.budget.amount}
+          />
+        </div>
+      ))}
+    </div>
+  );
 };
 
-export default BudgetsOverviewTable;
+export default BudgetsOverview;

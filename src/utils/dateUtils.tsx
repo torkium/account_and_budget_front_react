@@ -9,6 +9,15 @@ export function formatDateFrStringToLocalISO(dateStr: string): string {
   return formatDateToLocalISO(convertDateToISO(dateStr));
 }
 
+export function formatDateLocalIsoToFrString(dateStr: string): string {
+  
+  const parts = dateStr.split('-');
+  const day = parts[2];
+  const month = parts[1];
+  const year = parts[0];
+  return `${day}/${month}/${year}`;
+}
+
 function convertDateToISO(dateStr: string): Date{
   const parts = dateStr.split('/');
   const day = parts[0];

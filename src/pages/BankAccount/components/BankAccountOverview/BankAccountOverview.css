@@ -1,26 +1,28 @@
 .overview-container {
   display: flex;
-  flex-wrap: wrap; /* Permet aux Cards de passer à la ligne en mode mobile */
-  gap: 20px; /* Ajoute un peu d'espace entre les Cards */
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0.5em 0;
 }
 
 
 .bank-accounts-card {
-  flex-basis: 350px; /* Largeur fixe pour le premier bloc */
-  flex-shrink: 0; /* Empêche le rétrécissement */
+  flex-basis: 25em;
+  flex-shrink: 0;
 }
 
-.budgets-card {
-  flex-grow: 1; /* Prend le reste de l'espace disponible */
+.budgets {
+  flex-basis: 25em;
+  flex-shrink: 0;
 }
 
-/* Media Query pour les écrans jusqu'à 768px de large */
 @media (max-width: 768px) {
   .overview-container {
-    display: block; /* Les Cards s'affichent l'une en dessous de l'autre */
+    display: block;
   }
   
-  .bank-accounts-card, .budgets-card {
-    flex-basis: 100%; /* Les Cards prennent toute la largeur disponible */
+  .bank-accounts-card, .budgets {
+    margin: 0.5em 0;
+    flex-basis: 100%;
   }
 }
