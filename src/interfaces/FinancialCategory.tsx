@@ -4,4 +4,7 @@ export interface FinancialCategoryInterface {
     type: string
     parentId: number | null
     children: FinancialCategoryInterface[]
+    user: {
+        id: number
+    }
 }

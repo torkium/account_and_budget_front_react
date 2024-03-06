@@ -5,9 +5,7 @@ import MainLayout from "../../components/Layout/MainLayout";
 const FinancialCategory = () => {
 
   return (
-    <MainLayout>
       <FinancialCategoriesList />
-    </MainLayout>
   );
 };
 

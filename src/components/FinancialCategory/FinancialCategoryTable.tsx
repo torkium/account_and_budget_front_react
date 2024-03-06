@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Table from "../Table/Table";
 import { FinancialCategoryInterface } from "../../interfaces/FinancialCategory";
+import Spacer from "../Tools/Spacer/Spacer";
 
 interface FinancialCategoriesTableProps {
   financialCategories: FinancialCategoryInterface[];
@@ -24,9 +25,16 @@ const FinancialCategoriesTable: React.FC<FinancialCategoriesTableProps> = ({
     categories.forEach((category) => {
       flattenedCategories.push({
         id: category.id,
-        Label: `${"-".repeat(level * 2)}${category.label}`,
+        Label: (
+          <>
+            {level !== 0 && "|"}
+            <Spacer space={level * 4} charSpace="-" />
+            {category.label}
+          </>
+        ),
         Type: category.type,
         Action: (
+          category.user &&
           <>
             <button onClick={() => onEdit(category)}>modifier</button>
             <button className="btn-delete" onClick={() => onDelete(category)}>

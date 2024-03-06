@@ -15,12 +15,11 @@ type BankAccountParams = {
 const BankAccountImport = () => {
   const { bankAccountId } = useParams<BankAccountParams>();
   const bankAccount = useBankAccount(bankAccountId);
-console.log(bankAccountId);
   const onImportPending = useCallback(() => {}, []);
 
   const onImportEnded = useCallback(() => {}, []);
   return (
-    <MainLayout>
+    <>
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
           <BankAccountImportHeader />
@@ -33,7 +32,7 @@ console.log(bankAccountId);
       ) : (
         <div>Chargement des détails du compte...</div>
       )}
-    </MainLayout>
+    </>
   );
 };
 

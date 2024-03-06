@@ -21,6 +21,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDropdown = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     setIsOpen(!isOpen)
   }
 

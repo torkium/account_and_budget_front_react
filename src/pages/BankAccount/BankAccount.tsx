@@ -26,7 +26,7 @@ const BankAccount = () => {
 
   // Render
   return (
-    <MainLayout>
+    <>
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
           <BankAccountDetailsProvider>
@@ -39,7 +39,7 @@ const BankAccount = () => {
       ) : (
         <div>Chargement des détails du compte...</div>
       )}
-      </MainLayout>
+      </>
   );
 };
 

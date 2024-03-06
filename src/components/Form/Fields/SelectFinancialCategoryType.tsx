@@ -27,6 +27,7 @@ const SelectFinancialCategoryType: React.FC<FinancialCategoryTypeProps> = ({
     {value:"NonEssentialFlexibleExpense", label:"Dépenses Non Essentielles Modulables"},
     {value:"Savings", label:"Épargne"},
     {value:"Investment", label:"Investissement"},
+    {value:"Internal", label:"Transactions internes"},
     {value:"Income", label:"Revenus "},
     {value:"DebtRepayment", label:"Remboursements/Dettes"},
     {value:"DonationCharity", label:"Donations/Charité"},

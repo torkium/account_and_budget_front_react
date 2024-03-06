@@ -19,7 +19,7 @@ const BankAccountSettings = () => {
   const bankAccount = useBankAccount(accountId);
 
   return (
-    <MainLayout>
+    <>
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
           <div className="bank-account-settings-container">
@@ -41,7 +41,7 @@ const BankAccountSettings = () => {
       ) : (
         <div>Chargement des détails du compte...</div>
       )}
-    </MainLayout>
+    </>
   );
 };
 
