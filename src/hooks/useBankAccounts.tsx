@@ -6,6 +6,7 @@ import { useAlert } from "../context/AlertContext";
 export const useBankAccounts = () => {
   const [bankAccounts, setBankAccounts] = useState<BankAccountInterface[]>([]);
   const [reloadFlag, setReloadFlag] = useState(false);
+  const [isBankAccountsLoaded, setIsBankAccountsLoaded] = useState(false);
   const { showAlert } = useAlert();
   const apiBankAccountService = new ApiBankAccountService();
 
@@ -18,6 +19,7 @@ export const useBankAccounts = () => {
       try {
         const accounts = await apiBankAccountService.get();
         setBankAccounts(accounts);
+        setIsBankAccountsLoaded(true);
       } catch (error) {
         showAlert("Fetching bank accounts failed", "error");
       }
@@ -26,5 +28,5 @@ export const useBankAccounts = () => {
     fetchBankAccounts();
   }, [reloadFlag]);
 
-  return { bankAccounts, reloadBankAccounts };
+  return { bankAccounts, reloadBankAccounts, isBankAccountsLoaded };
 };

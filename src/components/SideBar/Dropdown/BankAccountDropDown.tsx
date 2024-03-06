@@ -1,13 +1,18 @@
-import React, { MouseEventHandler, useCallback, useState } from "react";
+import React, { MouseEventHandler, useCallback, useEffect, useState } from "react";
 import BankAccountPushModal from "./Modals/BankAccountPushModal";
 import Dropdown, { DropdownItemsProps } from "./Dropdown";
 import { useBankAccounts } from "../../../hooks/useBankAccounts";
 import { useBankAccountManager } from "../../../hooks/useBankAccountManager";
+import { useNavigate } from "react-router-dom";
 
 const BankAccountDropDown: React.FC = () => {
-  const [isBankAccountPushModalOpen, setIsBankAccountPushModalOpen] = useState(false);
-  const { bankAccounts, reloadBankAccounts } = useBankAccounts();
-  const { createOrUpdateBankAccount } = useBankAccountManager({ reloadBankAccounts });
+  const { bankAccounts, reloadBankAccounts, isBankAccountsLoaded } = useBankAccounts();
+  const [isBankAccountPushModalOpen, setIsBankAccountPushModalOpen] =
+    useState(false);
+  const { createOrUpdateBankAccount } = useBankAccountManager({
+    reloadBankAccounts,
+  });
+  const navigate = useNavigate();
 
   const openModal: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.preventDefault();
@@ -18,7 +23,7 @@ const BankAccountDropDown: React.FC = () => {
     setIsBankAccountPushModalOpen(false);
   }, []);
 
-  const accountItems: DropdownItemsProps[] = bankAccounts.map(account => ({
+  const accountItems: DropdownItemsProps[] = bankAccounts.map((account) => ({
     id: account.id,
     label: account.label,
     href: `/bank-account/${account.id}`,
@@ -33,10 +38,19 @@ const BankAccountDropDown: React.FC = () => {
   });
 
   const handleSubmit = async (formData: any) => {
-    await createOrUpdateBankAccount(null, formData);
+    let bankAccount = await createOrUpdateBankAccount(null, formData);
     closeBankAccountPushModal();
+    if (bankAccount) {
+      navigate(`/bank-account/${bankAccount.id}`);
+    }
+    reloadBankAccounts();
   };
 
+  useEffect(() => {
+    if(isBankAccountsLoaded && bankAccounts.length === 0){
+      setIsBankAccountPushModalOpen(true);
+    }
+  }, [isBankAccountsLoaded, bankAccounts])
   return (
     <>
       <Dropdown label="Mes comptes" items={accountItems} />

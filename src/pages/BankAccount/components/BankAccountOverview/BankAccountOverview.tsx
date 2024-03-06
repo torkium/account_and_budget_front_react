@@ -1,6 +1,6 @@
 import React from "react";
 import "./BankAccountOverview.css";
-import BudgetsOverviewTable from "../Budgets/BudgetsOverview";
+import BudgetsOverview from "../../../../components/Budget/BudgetsOverview";
 import { useBankAccountDetailsContext } from "../../../../context/BankAccountDetailsContext";
 import BankAccountsOverviewTable from "./BankAccountOverviewTable";
 
@@ -11,7 +11,7 @@ const BankAccountOverview: React.FC = () => {
     <div className="overview-container">
       <BankAccountsOverviewTable bankAccountOverview={bankAccountOverview} />
       <div className="budgets">
-        <BudgetsOverviewTable budgetsOverview={budgetsOverview} />
+        <BudgetsOverview budgetsOverview={budgetsOverview} />
       </div>
     </div>
   );

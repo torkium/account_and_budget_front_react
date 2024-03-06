@@ -1,6 +1,6 @@
 import React from "react";
-import ProgressBar from "../../../../components/Stats/ProgressBar/ProgressBar";
-import { BudgetOverviewInterface } from "../../../../interfaces/Budget";
+import ProgressBar from "../Stats/ProgressBar/ProgressBar";
+import { BudgetOverviewInterface } from "../../interfaces/Budget";
 
 interface BudgetsTableProps {
   budgetsOverview: BudgetOverviewInterface[];
