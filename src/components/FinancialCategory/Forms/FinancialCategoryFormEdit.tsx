@@ -1,16 +1,19 @@
-import React from 'react';
+import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../Form/Fields/Input";
 import FinancialCategorySelect from "./FinancialCategorySelect";
 import { FinancialCategoryInterface } from "../../../interfaces/FinancialCategory";
-import SelectFinancialCategoryType from '../../Form/Fields/SelectFinancialCategoryType';
+import SelectFinancialCategoryType from "../../Form/Fields/SelectFinancialCategoryType";
 
 interface Props {
   financialCategory?: FinancialCategoryInterface | null;
   onSubmit: (data: any) => void;
 }
 
-const FinancialCategoryFormEdit: React.FC<Props> = ({ onSubmit, financialCategory }) => {
+const FinancialCategoryFormEdit: React.FC<Props> = ({
+  onSubmit,
+  financialCategory,
+}) => {
   const methods = useForm();
 
   React.useEffect(() => {
@@ -22,14 +25,27 @@ const FinancialCategoryFormEdit: React.FC<Props> = ({ onSubmit, financialCategor
 
   return (
     <FormProvider {...methods}>
-    <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <InputField name="label" label="Label" type="text" validationRules={{ required: "Ce champ est requis" }} />
-        <SelectFinancialCategoryType name="type" label="Type de catégorie" defaultValue={financialCategory?.type?.toString()} />
-        <FinancialCategorySelect name="parent_id" label="Parent" defaultValue={financialCategory?.parentId?.toString()} />
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <InputField
+          name="label"
+          label="Label"
+          type="text"
+          validationRules={{ required: "Ce champ est requis" }}
+        />
+        <SelectFinancialCategoryType
+          name="type"
+          label="Type de catégorie"
+          defaultValue={financialCategory?.type?.toString()}
+        />
+        <FinancialCategorySelect
+          name="parent_id"
+          label="Parent"
+          defaultValue={financialCategory?.parentId?.toString()}
+        />
         <div className="buttons-container">
-        <button type="submit">Submit</button>
+          <button type="submit">Enregistrer</button>
         </div>
-    </form>
+      </form>
     </FormProvider>
   );
 };

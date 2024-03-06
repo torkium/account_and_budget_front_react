@@ -1,6 +1,8 @@
 import React from "react";
 import Table from "../Table/Table";
 import { TransactionInterface } from "../../interfaces/Transaction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 interface TransactionsTableProps {
   transactions: TransactionInterface[];
@@ -8,7 +10,11 @@ interface TransactionsTableProps {
   onDelete: (transaction: TransactionInterface) => void;
 }
 
-const TransactionsTable: React.FC<TransactionsTableProps> = ({ transactions, onEdit, onDelete }) => {
+const TransactionsTable: React.FC<TransactionsTableProps> = ({
+  transactions,
+  onEdit,
+  onDelete,
+}) => {
   const headers = ["Date", "Label", "Amount", "Category", "Action"];
 
   const transactionData = transactions.map((transaction) => ({
@@ -19,22 +25,35 @@ const TransactionsTable: React.FC<TransactionsTableProps> = ({ transactions, onE
     Category: transaction.financialCategory?.label,
     Action: transaction.id ? (
       <>
-        <button onClick={() => onEdit(transaction)}>modifier</button>
+        <button onClick={() => onEdit(transaction)}>
+          <FontAwesomeIcon icon={faEdit} />
+        </button>
         <button className="btn-delete" onClick={() => onDelete(transaction)}>
-          x
+          <FontAwesomeIcon icon={faTrash} />
         </button>
       </>
     ) : (
       <>
-      <button onClick={() => onEdit(transaction)}>Valider</button>
-      <button className="btn-delete" onClick={() => onDelete(transaction)}>
-        x
-      </button>
+        <button className="btn-validate" onClick={() => onEdit(transaction)}>
+          <FontAwesomeIcon icon={faCheck} />
+        </button>
+        <button className="btn-delete" onClick={() => onDelete(transaction)}>
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
       </>
-    )
+    ),
   }));
 
-  return <Table headers={headers} data={transactionData} rowClassName={(rowData) => !rowData["id"] ? "lowlight" : undefined} />;
+  return (
+    <Table
+      headers={headers}
+      data={transactionData}
+      columnWidths={["5em", "auto", "5em", "10em", "6.75em"]}
+      headerAlignments={["left", "left", "center", "left", "center"]}
+      contentAlignments={["left", "left", "right", "left", "center"]}
+      rowClassName={(rowData) => (!rowData["id"] ? "lowlight" : undefined)}
+    />
+  );
 };
 
 export default TransactionsTable;

@@ -22,6 +22,16 @@ button.btn-delete:hover{
   background-color: var(--hover-primary-error-background-color);
 }
 
+button.btn-validate{
+  color: var(--primary-success-color);
+  background-color: var(--primary-success-background-color);
+}
+
+button.btn-validate:hover{
+  color: var(--hover-primary-success-color);
+  background-color: var(--hover-primary-success-background-color);
+}
+
 .buttons-container {
   display: flex;
   justify-content: flex-end;
@@ -51,7 +61,7 @@ button.dropbtn {
 }
 
 .dropdown-content {
-  position: absolute;
+  position: relative;
   background-color: var(--primary-color); /* Utilisation d'une couleur différente pour le contraste */
   width:100%;
   min-width: 160px;

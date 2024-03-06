@@ -5,19 +5,21 @@ import BudgetPushModal from "./Modals/BudgetPushModal";
 import BudgetDeleteConfirmationModal from "./Modals/BudgetDeleteConfirmationModal";
 import { BudgetInterface } from "../../interfaces/Budget";
 import { useBudgetManager } from "../../hooks/useBudgetManager";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BudgetsList: React.FC = () => {
   const { bankAccount, budgets, reloadBudgets } = useBankAccountContext();
 
   // State hooks
-  const [isBudgetPushModalOpen, setIsBudgetPushModalOpen] =
-    useState(false);
+  const [isBudgetPushModalOpen, setIsBudgetPushModalOpen] = useState(false);
   const [
     isBudgetDeleteConfirmationModalOpen,
     setIsBudgetDeleteConfirmationModalOpen,
   ] = useState(false);
-  const [selectedBudget, setSelectedBudget] =
-    useState<BudgetInterface | null>(null);
+  const [selectedBudget, setSelectedBudget] = useState<BudgetInterface | null>(
+    null
+  );
 
   const { submitBudget, deleteBudget } = useBudgetManager({
     bankAccountId: bankAccount?.id ?? null,
@@ -25,26 +27,20 @@ const BudgetsList: React.FC = () => {
   });
 
   // Callbacks for user actions
-  const openBudgetPushModal = useCallback(
-    (budget?: BudgetInterface) => {
-      setSelectedBudget(budget || null);
-      setIsBudgetPushModalOpen(true);
-    },
-    []
-  );
+  const openBudgetPushModal = useCallback((budget?: BudgetInterface) => {
+    setSelectedBudget(budget || null);
+    setIsBudgetPushModalOpen(true);
+  }, []);
 
   const closeBudgetPushModal = useCallback(() => {
     setIsBudgetPushModalOpen(false);
     setSelectedBudget(null);
   }, []);
 
-  const openDeleteConfirmationModal = useCallback(
-    (budget: BudgetInterface) => {
-      setSelectedBudget(budget);
-      setIsBudgetDeleteConfirmationModalOpen(true);
-    },
-    []
-  );
+  const openDeleteConfirmationModal = useCallback((budget: BudgetInterface) => {
+    setSelectedBudget(budget);
+    setIsBudgetDeleteConfirmationModalOpen(true);
+  }, []);
 
   const closeDeleteConfirmationModal = useCallback(() => {
     setIsBudgetDeleteConfirmationModalOpen(false);
@@ -73,7 +69,9 @@ const BudgetsList: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => openBudgetPushModal()}>Ajouter</button>
+      <button onClick={() => openBudgetPushModal()}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
       <BudgetsTable
         budgets={budgets}
         onEdit={openBudgetPushModal}

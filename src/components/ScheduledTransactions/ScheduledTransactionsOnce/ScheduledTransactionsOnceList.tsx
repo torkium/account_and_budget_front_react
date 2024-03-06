@@ -5,6 +5,8 @@ import { ScheduledTransactionInterface } from "../../../interfaces/ScheduledTran
 import { useScheduledTransactionManager } from "../../../hooks/useScheduledTransactionManager";
 import ScheduledTransactionsOnceTable from "./ScheduledTransactionsOnceTable";
 import ScheduledTransactionOncePushModal from "../Modals/ScheduledTransactionOncePushModal";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ScheduledTransactionsOnceList: React.FC = () => {
   const { bankAccount } = useBankAccountContext();
@@ -12,8 +14,10 @@ const ScheduledTransactionsOnceList: React.FC = () => {
     useBankAccountContext();
 
   // State hooks
-  const [isScheduledTransactionPushModalOpen, setIsScheduledTransactionPushModalOpen] =
-    useState(false);
+  const [
+    isScheduledTransactionPushModalOpen,
+    setIsScheduledTransactionPushModalOpen,
+  ] = useState(false);
   const [
     isScheduledTransactionDeleteConfirmationModalOpen,
     setIsScheduledTransactionDeleteConfirmationModalOpen,
@@ -21,10 +25,11 @@ const ScheduledTransactionsOnceList: React.FC = () => {
   const [selectedScheduledTransaction, setSelectedScheduledTransaction] =
     useState<ScheduledTransactionInterface | null>(null);
 
-  const { submitScheduledTransaction, deleteScheduledTransaction } = useScheduledTransactionManager({
-    bankAccountId: bankAccount?.id ?? null,
-    reloadScheduledTransactions,
-  });
+  const { submitScheduledTransaction, deleteScheduledTransaction } =
+    useScheduledTransactionManager({
+      bankAccountId: bankAccount?.id ?? null,
+      reloadScheduledTransactions,
+    });
 
   // Callbacks for user actions
   const openScheduledTransactionPushModal = useCallback(
@@ -59,7 +64,7 @@ const ScheduledTransactionsOnceList: React.FC = () => {
       formData.startDate = formData.date;
       formData.endDate = formData.date;
       formData.date = null;
-      formData.frequency = 'once';
+      formData.frequency = "once";
       if (selectedScheduledTransaction) {
         submitScheduledTransaction(selectedScheduledTransaction, formData);
       } else {
@@ -74,12 +79,14 @@ const ScheduledTransactionsOnceList: React.FC = () => {
     if (selectedScheduledTransaction) {
       deleteScheduledTransaction(selectedScheduledTransaction);
     }
-    setIsScheduledTransactionDeleteConfirmationModalOpen(false)
+    setIsScheduledTransactionDeleteConfirmationModalOpen(false);
   }, [deleteScheduledTransaction, selectedScheduledTransaction]);
 
   return (
     <>
-      <button onClick={() => openScheduledTransactionPushModal()}>Ajouter</button>
+      <button onClick={() => openScheduledTransactionPushModal()}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
       <ScheduledTransactionsOnceTable
         scheduledTransactions={scheduledTransactionsOnce}
         onEdit={openScheduledTransactionPushModal}

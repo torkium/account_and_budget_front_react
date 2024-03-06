@@ -5,6 +5,8 @@ import ScheduledTransactionDeleteConfirmationModal from "../Modals/ScheduledTran
 import { ScheduledTransactionInterface } from "../../../interfaces/ScheduledTransaction";
 import { useScheduledTransactionManager } from "../../../hooks/useScheduledTransactionManager";
 import ScheduledTransactionsCronTable from "./ScheduledTransactionsCronTable";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ScheduledTransactionsCronList: React.FC = () => {
   const { bankAccount } = useBankAccountContext();
@@ -12,8 +14,10 @@ const ScheduledTransactionsCronList: React.FC = () => {
     useBankAccountContext();
 
   // State hooks
-  const [isScheduledTransactionPushModalOpen, setIsScheduledTransactionPushModalOpen] =
-    useState(false);
+  const [
+    isScheduledTransactionPushModalOpen,
+    setIsScheduledTransactionPushModalOpen,
+  ] = useState(false);
   const [
     isScheduledTransactionDeleteConfirmationModalOpen,
     setIsScheduledTransactionDeleteConfirmationModalOpen,
@@ -21,10 +25,11 @@ const ScheduledTransactionsCronList: React.FC = () => {
   const [selectedScheduledTransaction, setSelectedScheduledTransaction] =
     useState<ScheduledTransactionInterface | null>(null);
 
-  const { submitScheduledTransaction, deleteScheduledTransaction } = useScheduledTransactionManager({
-    bankAccountId: bankAccount?.id ?? null,
-    reloadScheduledTransactions,
-  });
+  const { submitScheduledTransaction, deleteScheduledTransaction } =
+    useScheduledTransactionManager({
+      bankAccountId: bankAccount?.id ?? null,
+      reloadScheduledTransactions,
+    });
 
   // Callbacks for user actions
   const openScheduledTransactionPushModal = useCallback(
@@ -70,12 +75,14 @@ const ScheduledTransactionsCronList: React.FC = () => {
     if (selectedScheduledTransaction) {
       deleteScheduledTransaction(selectedScheduledTransaction);
     }
-    setIsScheduledTransactionDeleteConfirmationModalOpen(false)
+    setIsScheduledTransactionDeleteConfirmationModalOpen(false);
   }, [deleteScheduledTransaction, selectedScheduledTransaction]);
 
   return (
     <>
-      <button onClick={() => openScheduledTransactionPushModal()}>Ajouter</button>
+      <button onClick={() => openScheduledTransactionPushModal()}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
       <ScheduledTransactionsCronTable
         scheduledTransactions={scheduledTransactionsCron}
         onEdit={openScheduledTransactionPushModal}

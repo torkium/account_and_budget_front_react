@@ -7,6 +7,8 @@ import TransactionDeleteConfirmationModal from "./Modals/TransactionDeleteConfir
 import { TransactionInterface } from "../../interfaces/Transaction";
 import { useTransactionManager } from "../../hooks/useTransactionManager";
 import { useScheduledTransactionManager } from "../../hooks/useScheduledTransactionManager";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TransactionsList: React.FC = () => {
   const { bankAccount } = useBankAccountContext();
@@ -91,7 +93,9 @@ const TransactionsList: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => openTransactionPushModal()}>Ajouter</button>{" "}
+      <button onClick={() => openTransactionPushModal()}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
       <TransactionsTable
         transactions={transactions}
         onEdit={openTransactionPushModal}

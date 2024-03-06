@@ -2,6 +2,8 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Table from "../Table/Table";
 import { FinancialCategoryInterface } from "../../interfaces/FinancialCategory";
 import Spacer from "../Tools/Spacer/Spacer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface FinancialCategoriesTableProps {
   financialCategories: FinancialCategoryInterface[];
@@ -15,7 +17,9 @@ const FinancialCategoriesTable: React.FC<FinancialCategoriesTableProps> = ({
   onDelete,
 }) => {
   const headers = ["Label", "Type", "Action"];
-  const [financialCategoryData, setFinancialCategoryData] = useState<{ [key: string]: ReactNode }[]>([]);
+  const [financialCategoryData, setFinancialCategoryData] = useState<
+    { [key: string]: ReactNode }[]
+  >([]);
 
   const flattenCategoriesWithIndentation = (
     categories: FinancialCategoryInterface[],
@@ -33,12 +37,13 @@ const FinancialCategoriesTable: React.FC<FinancialCategoriesTableProps> = ({
           </>
         ),
         Type: category.type,
-        Action: (
-          category.user &&
+        Action: category.user && (
           <>
-            <button onClick={() => onEdit(category)}>modifier</button>
+            <button onClick={() => onEdit(category)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
             <button className="btn-delete" onClick={() => onDelete(category)}>
-              x
+              <FontAwesomeIcon icon={faTrash} />
             </button>
           </>
         ),
@@ -54,8 +59,10 @@ const FinancialCategoriesTable: React.FC<FinancialCategoriesTableProps> = ({
   };
 
   useEffect(() => {
-    if(financialCategories){
-      setFinancialCategoryData(flattenCategoriesWithIndentation(financialCategories));
+    if (financialCategories) {
+      setFinancialCategoryData(
+        flattenCategoriesWithIndentation(financialCategories)
+      );
     }
   }, [financialCategories]);
 

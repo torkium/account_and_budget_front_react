@@ -1,22 +1,23 @@
 .main-container {
   display: flex;
-  height: calc(100vh - 3.5rem);
+  height: 100vh;
   width: 100%;
   align-items: top;
   justify-content: stretch;
   margin: 0;
   padding: 0;
+  padding-top: 3rem;
 }
 
-.main-container .page-container{
+.main-container .page-container {
   width: 100%;
   padding: 1rem;
 }
 
 /** Responsive */
 @media (min-width: 768px) {
-  
-  .main-container .page-container{
+  .main-container .page-container {
     width: calc(100% - 15rem);
+    margin-left: 15rem;
   }
 }

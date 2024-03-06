@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../Form/Fields/Input";
 import FinancialCategorySelect from "../../FinancialCategory/Forms/FinancialCategorySelect";
@@ -18,21 +18,42 @@ const TransactionFormEdit: React.FC<Props> = ({ onSubmit, transaction }) => {
       label: !transaction ? "" : transaction.label,
       amount: !transaction ? "" : transaction.amount,
       date: !transaction ? "" : transaction.date.split("T")[0],
-      financialCategoryId: !transaction ? "" : transaction.financialCategory?.id,
+      financialCategoryId: !transaction
+        ? ""
+        : transaction.financialCategory?.id,
     });
   }, [transaction]);
 
   return (
     <FormProvider {...methods}>
-    <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <InputField name="label" label="Label" type="text" validationRules={{ required: "Ce champ est requis" }} />
-        <InputField name="amount" label="Amount" type="number" validationRules={{ required: "Ce champ est requis" }} />
-        <InputField name="date" label="Date" type="date" validationRules={{ required: "Ce champ est requis" }} />
-        <FinancialCategorySelect name="financialCategoryId" label="Catégorie Financière" defaultValue={transaction?.financialCategory?.id.toString()} />
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <InputField
+          name="label"
+          label="Label"
+          type="text"
+          validationRules={{ required: "Ce champ est requis" }}
+        />
+        <InputField
+          name="amount"
+          label="Amount"
+          type="number"
+          validationRules={{ required: "Ce champ est requis" }}
+        />
+        <InputField
+          name="date"
+          label="Date"
+          type="date"
+          validationRules={{ required: "Ce champ est requis" }}
+        />
+        <FinancialCategorySelect
+          name="financialCategoryId"
+          label="Catégorie Financière"
+          defaultValue={transaction?.financialCategory?.id.toString()}
+        />
         <div className="buttons-container">
-        <button type="submit">Submit</button>
+          <button type="submit">Enregistrer</button>
         </div>
-    </form>
+      </form>
     </FormProvider>
   );
 };

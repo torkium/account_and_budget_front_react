@@ -1,11 +1,10 @@
-import React from "react";
 import "./BankAccountOverviewHeader.css";
 import { useNavigate } from "react-router-dom";
 import { useBankAccountContext } from "../../../../../context/BankAccountContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog, faFileImport } from "@fortawesome/free-solid-svg-icons";
 
-interface BankAccountOverviewProps {}
-
-const BankAccountOverviewHeader: React.FC<BankAccountOverviewProps> = () => {
+const BankAccountOverviewHeader = () => {
   const { bankAccount } = useBankAccountContext();
   const navigate = useNavigate();
   const navigateToSettings = (url: string) => {
@@ -22,16 +21,15 @@ const BankAccountOverviewHeader: React.FC<BankAccountOverviewProps> = () => {
               navigateToSettings(`/bank-account/${bankAccount.id}/settings`)
             }
           >
-            Paramétrer mon compte
+            <FontAwesomeIcon icon={faCog} />
           </button>
-          <br />
           <button
             className="settings-button"
             onClick={() =>
               navigateToSettings(`/bank-account/${bankAccount.id}/import`)
             }
           >
-            Importer des transactions
+            <FontAwesomeIcon icon={faFileImport} />
           </button>
         </div>
       </div>

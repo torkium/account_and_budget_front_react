@@ -1,12 +1,10 @@
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .settings-button {
-    padding: 8px 16px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
+.header-container div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.settings-button {
+  border: none;
+  cursor: pointer;
+}

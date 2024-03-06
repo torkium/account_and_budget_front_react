@@ -5,9 +5,11 @@ import SelectField, { Option } from "../../../Form/Fields/Select";
 import { ApiFinancialCategoryService } from "../../../../services/apiFinancialCategoryService";
 import { CategoryService } from "../../../../services/categoryService";
 import Table from "../../../Table/Table";
-import { formatDateFrStringToLocalISO, formatDateLocalIsoToFrString } from "../../../../utils/dateUtils";
+import {
+  formatDateFrStringToLocalISO,
+  formatDateLocalIsoToFrString,
+} from "../../../../utils/dateUtils";
 import { TransactionInterface } from "../../../../interfaces/Transaction";
-
 
 interface Step3TransactionsEditProps {
   transactionsToFill: TransactionInterface[];
@@ -32,7 +34,7 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
     label: t.label,
     amount: t.amount,
     financialCategory: t.financialCategory,
-  }))
+  }));
 
   const defaultValues = {
     transactions: formTransactions,
@@ -51,10 +53,12 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
   });
 
   const loadFinancialCategories = useCallback(async () => {
-    const categories =
-      await apiFinancialCategoryService.get();
+    const categories = await apiFinancialCategoryService.get();
     let categoriesFlatten = CategoryService.flattenCategories(categories);
-    setFinancialCategoriesOptions([{value:"", label:"Non catégorisé"}, ...categoriesFlatten]);
+    setFinancialCategoriesOptions([
+      { value: "", label: "Non catégorisé" },
+      ...categoriesFlatten,
+    ]);
   }, []);
 
   useEffect(() => {
@@ -81,6 +85,9 @@ const Step3TransactionsEdit: React.FC<Step3TransactionsEditProps> = ({
         <button type="submit">Enregistrer</button>
         <Table
           headers={["date", "label", "amount", "financialCategory"]}
+          columnWidths={["5em", "auto", "5em", "10em"]}
+          headerAlignments={["left", "left", "center", "left"]}
+          contentAlignments={["left", "left", "right", "left"]}
           data={formData}
         />
       </form>

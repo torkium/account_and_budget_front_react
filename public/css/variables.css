@@ -1,17 +1,17 @@
 :root {
-  /* Couleurs de base */
-  --color-dark-blue: rgb(31, 41, 55); /* Bleu foncé */
-  --color-light-gray: rgb(169, 174, 182); /* Gris clair */
-  --color-white: rgb(255, 255, 255); /* Blanc */
-  --color-medium-gray: rgb(78, 86, 101); /* Gris moyen */
-  --color-placeholder: rgb(150, 153, 158); /* Gris pour les placeholders */
-  --color-dark-red: rgb(145, 14, 14); /* Rouge foncé pour les erreurs */
-  --color-light-red: rgb(165, 20, 20); /* Rouge légèrement plus clair */
-  --color-lighter-gray: rgb(245, 245, 245); /* Gris très clair */
-  --color-dark-hover: rgb(39, 49, 66); /* Bleu foncé pour le survol */
-  --color-button-hover: rgb(49, 59, 89); /* Couleur plus foncée pour le survol du bouton */
+  --color-dark-blue: rgb(31, 41, 55);
+  --color-light-gray: rgb(169, 174, 182);
+  --color-white: rgb(255, 255, 255);
+  --color-medium-gray: rgb(78, 86, 101);
+  --color-placeholder: rgb(150, 153, 158);
+  --color-dark-red: rgb(145, 14, 14);
+  --color-light-red: rgb(165, 20, 20);
+  --color-lighter-gray: rgb(245, 245, 245);
+  --color-dark-hover: rgb(39, 49, 66);
+  --color-button-hover: rgb(49, 59, 89);
+  --color-green: rgb(28, 117, 55);
+  --color-light-green: rgb(56, 221, 130);
 
-  /* Utilisation des couleurs de base pour définir les variables spécifiques */
   --primary-color: var(--color-dark-blue);
   --hover-primary-color: var(--color-dark-hover);
   --text-primary-color: var(--color-light-gray);
@@ -22,6 +22,10 @@
   --hover-primary-error-color: var(--color-white);
   --primary-error-background-color: var(--color-dark-red);
   --hover-primary-error-background-color: var(--color-light-red);
+  --primary-success-color: var(--color-white);
+  --hover-primary-success-color: var(--color-white);
+  --primary-success-background-color: var(--color-green);
+  --hover-primary-success-background-color: var(--color-light-green);
   --card-background-color: var(--color-white);
   --card-color: var(--color-dark-blue);
   --lowlight-color: var(--color-placeholder);

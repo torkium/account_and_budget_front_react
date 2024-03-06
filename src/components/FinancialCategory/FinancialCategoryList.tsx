@@ -5,6 +5,8 @@ import FinancialCategoryDeleteConfirmationModal from "./Modals/FinancialCategory
 import { FinancialCategoryInterface } from "../../interfaces/FinancialCategory";
 import { useFinancialCategoryManager } from "../../hooks/useFinancialCategoryManager";
 import { ApiFinancialCategoryService } from "../../services/apiFinancialCategoryService";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FinancialCategoriesList: React.FC = () => {
   const apiFinancialCategoryService = new ApiFinancialCategoryService();
@@ -13,8 +15,9 @@ const FinancialCategoriesList: React.FC = () => {
     isFinancialCategoryPushModalOpen,
     setIsFinancialCategoryPushModalOpen,
   ] = useState(false);
-  const [financialCategories, setFinancialCategories] =
-    useState<FinancialCategoryInterface[]>([]);
+  const [financialCategories, setFinancialCategories] = useState<
+    FinancialCategoryInterface[]
+  >([]);
 
   const [
     isFinancialCategoryDeleteConfirmationModalOpen,
@@ -24,7 +27,11 @@ const FinancialCategoriesList: React.FC = () => {
     useState<FinancialCategoryInterface | null>(null);
 
   const { submitFinancialCategory, deleteFinancialCategory } =
-    useFinancialCategoryManager({ reloadFinancialCategories: () => {getFinancialCategories()} });
+    useFinancialCategoryManager({
+      reloadFinancialCategories: () => {
+        getFinancialCategories();
+      },
+    });
 
   // Callbacks for user actions
   const openFinancialCategoryPushModal = useCallback(
@@ -73,18 +80,19 @@ const FinancialCategoriesList: React.FC = () => {
     setIsFinancialCategoryDeleteConfirmationModalOpen(false);
   }, [deleteFinancialCategory, selectedFinancialCategory]);
 
-
   const getFinancialCategories = async () => {
     setFinancialCategories(await apiFinancialCategoryService.get());
-  }
+  };
 
   useEffect(() => {
     getFinancialCategories();
-  }, [])
+  }, []);
 
   return (
     <>
-      <button onClick={() => openFinancialCategoryPushModal()}>Ajouter</button>{" "}
+      <button onClick={() => openFinancialCategoryPushModal()}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>{" "}
       <FinancialCategoriesTable
         financialCategories={financialCategories}
         onEdit={openFinancialCategoryPushModal}
