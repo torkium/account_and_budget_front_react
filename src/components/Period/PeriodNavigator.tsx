@@ -1,47 +1,69 @@
 import React, { useCallback } from 'react';
-import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, addWeeks, subWeeks, addMonths, subMonths } from 'date-fns';
-import { useBankAccountDetailsContext } from '../../context/BankAccountDetailsContext';
+import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, addWeeks, addMonths, addYears } from 'date-fns';
 
 interface PeriodNavigatorProps {
-  mode: 'week' | 'month';
+  mode: 'week' | 'month' | 'year';
+  startDate: Date;
+  setStartDate: (date: Date) => void;
+  setEndDate: (date: Date) => void;
 }
 
-const PeriodNavigator: React.FC<PeriodNavigatorProps> = ({ mode }) => {
-  const { startDate, setStartDate, setEndDate } = useBankAccountDetailsContext();
-
+const PeriodNavigator: React.FC<PeriodNavigatorProps> = ({ mode, startDate, setStartDate, setEndDate }) => {
   const getPeriod = useCallback(() => {
-    if (mode === 'week') {
-      const start = startOfWeek(startDate, { weekStartsOn: 1 });
-      const end = endOfWeek(startDate, { weekStartsOn: 1 });
-      return { start, end };
-    } else {
-      const start = startOfMonth(startDate);
-      const end = endOfMonth(startDate);
-      return { start, end };
+    switch (mode) {
+      case 'week':
+        const startWeek = startOfWeek(startDate, { weekStartsOn: 1 });
+        const endWeek = endOfWeek(startDate, { weekStartsOn: 1 });
+        return { start: startWeek, end: endWeek };
+      case 'month':
+        const startMonth = startOfMonth(startDate);
+        const endMonth = endOfMonth(startDate);
+        return { start: startMonth, end: endMonth };
+      case 'year':
+        const startYear = startOfYear(startDate);
+        const endYear = endOfYear(startDate);
+        return { start: startYear, end: endYear };
+      default:
+        return { start: new Date(), end: new Date() };
     }
   }, [startDate, mode]);
 
   const navigatePeriod = (direction: 'next' | 'prev') => {
-    if (mode === 'week') {
-      const newStartDate = direction === 'next' ? addWeeks(startDate, 1) : subWeeks(startDate, 1);
-      const newEndDate = direction === 'next' ? endOfWeek(newStartDate, { weekStartsOn: 1 }) : startOfWeek(newStartDate, { weekStartsOn: 1 });
-      setStartDate(newStartDate);
-      setEndDate(newEndDate);
-    } else {
-      const newStartDate = direction === 'next' ? addMonths(startDate, 1) : subMonths(startDate, 1);
-      const newEndDate = endOfMonth(newStartDate);
-      console.log(newStartDate, newEndDate)
-      setStartDate(newStartDate);
-      setEndDate(newEndDate);
+    switch (mode) {
+      case 'week':
+        const deltaWeek = direction === 'next' ? 1 : -1;
+        const newStartDateWeek = addWeeks(startDate, deltaWeek);
+        setStartDate(newStartDateWeek);
+        setEndDate(endOfWeek(newStartDateWeek, { weekStartsOn: 1 }));
+        break;
+      case 'month':
+        const deltaMonth = direction === 'next' ? 1 : -1;
+        const newStartDateMonth = addMonths(startDate, deltaMonth);
+        setStartDate(newStartDateMonth);
+        setEndDate(endOfMonth(newStartDateMonth));
+        break;
+      case 'year':
+        const deltaYear = direction === 'next' ? 1 : -1;
+        const newStartDateYear = addYears(startDate, deltaYear);
+        setStartDate(newStartDateYear);
+        setEndDate(endOfYear(newStartDateYear));
+        break;
+      default:
+        break;
     }
   };
 
   const formatPeriodLabel = () => {
     const { start, end } = getPeriod();
-    if (mode === 'week') {
-      return `${format(start, 'MMM dd')} - ${format(end, 'MMM dd, yyyy')}`;
-    } else {
-      return format(start, 'MMMM yyyy');
+    switch (mode) {
+      case 'week':
+        return `${format(start, 'MMM dd')} - ${format(end, 'MMM dd, yyyy')}`;
+      case 'month':
+        return format(start, 'MMMM yyyy');
+      case 'year':
+        return format(start, 'yyyy');
+      default:
+        return '';
     }
   };
 

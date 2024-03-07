@@ -1,0 +1,34 @@
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    height: auto;
+  }
+  
+  .chart-main-container {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .chart-container {
+    display:block;
+    height: 400px;
+    width:100%;
+  }
+  .chart-filter {
+    text-align: center;
+  }
+  
+
+  @media (max-width: 768px) {
+    .dashboard-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (min-width: 200px) {
+    .dashboard-container {
+        grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+    }
+  }

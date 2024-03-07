@@ -2,16 +2,12 @@
 import { useParams } from "react-router-dom";
 
 // local components
-import MainLayout from "../../components/Layout/MainLayout";
-import PeriodNavigator from "../../components/Period/PeriodNavigator";
 
 // custom hooks
 import { useBankAccount } from "../../hooks/useBankAccount";
-import TransactionsList from "../../components/Transactions/TransactionsList";
-import BankAccountOverview from "./components/BankAccountOverview/BankAccountOverview";
 import { BankAccountProvider } from "../../context/BankAccountContext";
 import { BankAccountDetailsProvider } from "../../context/BankAccountDetailsContext";
-import BankAccountOverviewHeader from "./components/BankAccountOverview/BankAccountOverviewHeader/BankAccountOverviewHeader";
+import BankAccountDetails from "./BankAccountDetails";
 
 // route parameters
 type BankAccountParams = {
@@ -30,10 +26,7 @@ const BankAccount = () => {
       {bankAccount ? (
         <BankAccountProvider bankAccount={bankAccount}>
           <BankAccountDetailsProvider>
-            <BankAccountOverviewHeader />
-            <PeriodNavigator mode="month" />
-            <BankAccountOverview />
-            <TransactionsList />
+            <BankAccountDetails />
           </BankAccountDetailsProvider>
         </BankAccountProvider>
       ) : (

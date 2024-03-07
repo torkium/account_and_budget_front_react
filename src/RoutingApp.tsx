@@ -29,8 +29,8 @@ function RoutingApp() {
             element={<BankAccountSettings />}
           />
           <Route path="/bank-account/:accountId" element={<BankAccount />} />
-          <Route path="*" element={<ErrorNotFound />} />
         </Route>
+        <Route path="*" element={<ErrorNotFound />} />
       </Routes>
     </MainLayout>
   ) : (
