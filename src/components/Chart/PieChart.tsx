@@ -2,7 +2,6 @@ import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { LegendProps } from "@nivo/legends";
 
-// Nouvelle structure de props attendue par PieChart
 interface SimplePieChartProps {
   data: {
     data: { id: string | number; value: number }[];
