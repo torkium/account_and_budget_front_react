@@ -15,29 +15,34 @@ import { useAuth } from "./context/AuthContext";
 function RoutingApp() {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? (
-    <MainLayout>
+    <>
+      <MainLayout>
+        <Routes>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/financial-category" element={<FinancialCategory />} />
+            <Route
+              path="/bank-account/:bankAccountId/import"
+              element={<BankAccountImport />}
+            />
+            <Route
+              path="/bank-account/:accountId/settings"
+              element={<BankAccountSettings />}
+            />
+            <Route path="/bank-account/:accountId" element={<BankAccount />} />
+          </Route>
+        </Routes>
+      </MainLayout>
       <Routes>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/financial-category" element={<FinancialCategory />} />
-          <Route
-            path="/bank-account/:bankAccountId/import"
-            element={<BankAccountImport />}
-          />
-          <Route
-            path="/bank-account/:accountId/settings"
-            element={<BankAccountSettings />}
-          />
-          <Route path="/bank-account/:accountId" element={<BankAccount />} />
-        </Route>
         <Route path="*" element={<ErrorNotFound />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
-    </MainLayout>
+    </>
   ) : (
     <LoginLayout>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Login />} />
         <Route path="*" element={<ErrorNotFound />} />
       </Routes>

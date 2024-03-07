@@ -8,12 +8,14 @@ interface TransactionsTableProps {
   transactions: TransactionInterface[];
   onEdit: (transaction: TransactionInterface) => void;
   onDelete: (transaction: TransactionInterface) => void;
+  onValidate: (transaction: TransactionInterface) => void;
 }
 
 const TransactionsTable: React.FC<TransactionsTableProps> = ({
   transactions,
   onEdit,
   onDelete,
+  onValidate,
 }) => {
   const headers = ["Date", "Label", "Amount", "Category", "Action"];
 
@@ -34,11 +36,11 @@ const TransactionsTable: React.FC<TransactionsTableProps> = ({
       </>
     ) : (
       <>
-        <button className="btn-validate" onClick={() => onEdit(transaction)}>
-          <FontAwesomeIcon icon={faCheck} />
+        <button onClick={() => onEdit(transaction)}>
+          <FontAwesomeIcon icon={faEdit} />
         </button>
-        <button className="btn-delete" onClick={() => onDelete(transaction)}>
-          <FontAwesomeIcon icon={faTrash} />
+        <button className="btn-validate" onClick={() => onValidate(transaction)}>
+          <FontAwesomeIcon icon={faCheck} />
         </button>
       </>
     ),

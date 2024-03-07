@@ -9,6 +9,7 @@ import { useTransactionManager } from "../../hooks/useTransactionManager";
 import { useScheduledTransactionManager } from "../../hooks/useScheduledTransactionManager";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TransactionValidateConfirmationModal from "./Modals/TransactionValidateConfirmationModal";
 
 const TransactionsList: React.FC = () => {
   const { bankAccount } = useBankAccountContext();
@@ -23,6 +24,12 @@ const TransactionsList: React.FC = () => {
     isTransactionDeleteConfirmationModalOpen,
     setIsTransactionDeleteConfirmationModalOpen,
   ] = useState(false);
+
+  const [
+    isTransactionValidateConfirmationModalOpen,
+    setIsTransactionValidateConfirmationModalOpen,
+  ] = useState(false);
+
   const [selectedTransaction, setSelectedTransaction] =
     useState<TransactionInterface | null>(null);
 
@@ -64,6 +71,19 @@ const TransactionsList: React.FC = () => {
     setSelectedTransaction(null);
   }, []);
 
+  const openValidateConfirmationModal = useCallback(
+    (transaction: TransactionInterface) => {
+      setSelectedTransaction(transaction);
+      setIsTransactionValidateConfirmationModalOpen(true);
+    },
+    []
+  );
+
+  const closeValidateConfirmationModal = useCallback(() => {
+    setIsTransactionValidateConfirmationModalOpen(false);
+    setSelectedTransaction(null);
+  }, []);
+
   //Handle Forms
   const handleSubmit = useCallback(
     (formData: any) => {
@@ -100,6 +120,7 @@ const TransactionsList: React.FC = () => {
         transactions={transactions}
         onEdit={openTransactionPushModal}
         onDelete={openDeleteConfirmationModal}
+        onValidate={openValidateConfirmationModal}
       />
       <TransactionPushModal
         isOpen={isTransactionPushModalOpen}
@@ -110,6 +131,12 @@ const TransactionsList: React.FC = () => {
       <TransactionDeleteConfirmationModal
         isOpen={isTransactionDeleteConfirmationModalOpen}
         onClose={closeDeleteConfirmationModal}
+        onDelete={handleDelete}
+        transaction={selectedTransaction}
+      />
+      <TransactionValidateConfirmationModal
+        isOpen={isTransactionValidateConfirmationModalOpen}
+        onClose={closeValidateConfirmationModal}
         onDelete={handleDelete}
         transaction={selectedTransaction}
       />

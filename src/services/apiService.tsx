@@ -1,8 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-
 const apiService: AxiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "http://127.0.0.1:8001/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,7 +19,7 @@ apiService.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      window.location.href = "/login";
+      window.location.href = "/logout";
     }
     return Promise.reject(error);
   }
