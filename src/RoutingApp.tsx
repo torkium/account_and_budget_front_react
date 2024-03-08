@@ -46,7 +46,7 @@ function RoutingApp() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Login />} />
-        <Route path="*" element={<ErrorNotFound />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </LoginLayout>
   );

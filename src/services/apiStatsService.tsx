@@ -94,6 +94,24 @@ export class ApiStatsService {
     }
   };
 
+  getAnnualExpensesByCategoryByMonth = async (
+    startDate: string,
+    endDate: string,
+    financialCategoryId?: number,
+    bankAccountId?: number
+  ): Promise<AnnualValuesByCategoryForMonth[]> => {
+    try {
+      const response = await request({
+        url: `/stats/annual-expenses-by-category-by-month/${startDate}/${endDate}?root_category=${financialCategoryId}&bank_account=${bankAccountId}`,
+        method: "GET",
+        data: {},
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   getAnnualExpensesByCategory = async (
     startDate: string,
     endDate: string,

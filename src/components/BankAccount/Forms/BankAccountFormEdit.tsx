@@ -41,7 +41,6 @@ const BankAccountFormEdit: React.FC<Props> = ({ bankAccount, onSubmit }) => {
           name="account_number"
           label="Numéro de compte"
           type="text"
-          validationRules={{ required: "Ce champ est requis" }}
         />
         <InputField
           name="initial_amount"

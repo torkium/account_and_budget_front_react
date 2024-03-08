@@ -20,7 +20,7 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
 
   const fetchData = async () => {
     const apiService = new ApiStatsService();
-    const annualValues = await apiService.getAnnualValuesByCategoryByMonth(
+    const annualValues = await apiService.getAnnualExpensesByCategoryByMonth(
       formatDateToLocalISO(startDate),
       formatDateToLocalISO(endDate),
       financialCategoryId,
@@ -43,7 +43,7 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
       transformedData.data[month] = transformedData.data[month] || {};
       monthData.datas.forEach((categoryData) => {
         const category = categoryData.category || "Non catégorisé";
-        transformedData.data[month][category] = categoryData.amount;
+        transformedData.data[month][category] = categoryData.amount < 0 ? -categoryData.amount : categoryData.amount;
       });
     });
 
@@ -57,7 +57,7 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
   return dataExpensesByBudgetByMonth ? (
     <BarChart
       data={dataExpensesByBudgetByMonth}
-      title="Transactions mensuelles par catégorie"
+      title="Dépenses mensuelles par catégorie"
     />
   ) : null;
 };

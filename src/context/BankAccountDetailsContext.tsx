@@ -90,7 +90,7 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
     };
 
     fetchBudgetsOverview();
-  }, [bankAccount, startDate, endDate, reloadFlag, reloadBudgetsOverviewFlag]);
+  }, [bankAccount, startDate, endDate, reloadFlag, reloadBudgetsOverviewFlag, transactions]);
 
   useEffect(() => {
     const fetchBankAccountOverview = async () => {
@@ -107,7 +107,7 @@ export const BankAccountDetailsProvider: React.FC<BankAccountDetailsProviderProp
     };
 
     fetchBankAccountOverview();
-  }, [bankAccount, startDate, endDate, reloadFlag, reloadBankAccountOverviewFlag]);
+  }, [bankAccount, startDate, endDate, reloadFlag, reloadBankAccountOverviewFlag, transactions]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
