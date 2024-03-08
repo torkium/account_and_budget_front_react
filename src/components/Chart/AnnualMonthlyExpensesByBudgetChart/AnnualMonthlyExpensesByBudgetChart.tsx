@@ -7,21 +7,24 @@ interface AnnualMonthlyExpensesByBudgetChartProps {
   startDate: Date;
   endDate: Date;
   financialCategoryId?: number;
+  bankAccountId?: number;
 }
 
 const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudgetChartProps> = ({
   startDate,
   endDate,
   financialCategoryId,
+  bankAccountId,
 }) => {
   const [dataExpensesByBudgetByMonth, setDataExpensesByBudgetByMonth] = useState<any>();
 
-  const fetchData = async (financialCategoryId?: number) => {
+  const fetchData = async () => {
     const apiService = new ApiStatsService();
     const annualValues = await apiService.getAnnualValuesByCategoryByMonth(
       formatDateToLocalISO(startDate),
       formatDateToLocalISO(endDate),
-      financialCategoryId
+      financialCategoryId,
+      bankAccountId
     );
     transformData(annualValues);
   };
@@ -32,7 +35,6 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
         y: "Budget €",
         x: "Mois",
       },
-      colors: ["#ff0000", "#00ff00", "#f1e15b"],
       data: {},
     };
 
@@ -49,8 +51,8 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
   };
 
   useEffect(() => {
-    fetchData(financialCategoryId);
-  }, [startDate, endDate, financialCategoryId]);
+    fetchData();
+  }, [startDate, endDate, financialCategoryId, bankAccountId]);
 
   return dataExpensesByBudgetByMonth ? (
     <BarChart

@@ -7,7 +7,7 @@ interface SimpleBarChartProps {
       y: string;
       x: string;
     };
-    colors: string[];
+    colors?: string[];
     data: {
       [key: string]: {
         [category: string]: number;

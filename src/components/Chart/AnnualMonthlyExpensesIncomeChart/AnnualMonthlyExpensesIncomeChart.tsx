@@ -13,6 +13,7 @@ import {
 interface AnnualMonthlyExpensesIncomeChartProps {
   startDate: Date;
   endDate: Date;
+  bankAccountId?: number;
 }
 
 type DataStructure = {
@@ -21,7 +22,9 @@ type DataStructure = {
     Revenus: number;
   };
 };
-const AnnualMonthlyExpensesIncomeChart: React.FC<AnnualMonthlyExpensesIncomeChartProps> = ({ startDate, endDate }) => {
+const AnnualMonthlyExpensesIncomeChart: React.FC<
+  AnnualMonthlyExpensesIncomeChartProps
+> = ({ startDate, endDate, bankAccountId }) => {
   const [incomes, setIncomes] = useState<AnnualIncomesForMonth[]>([]);
   const [expenses, setExpenses] = useState<AnnualExpensesForMonth[]>([]);
   const [datas, setDatas] = useState<SimpleChartData>();
@@ -30,7 +33,8 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<AnnualMonthlyExpensesIncomeChar
     setIncomes(
       await new ApiStatsService().getAnnualIncomesByMonth(
         formatDateToLocalISO(startDate),
-        formatDateToLocalISO(endDate)
+        formatDateToLocalISO(endDate),
+        bankAccountId,
       )
     );
   };
@@ -38,7 +42,8 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<AnnualMonthlyExpensesIncomeChar
     setExpenses(
       await new ApiStatsService().getAnnualExpensesByMonth(
         formatDateToLocalISO(startDate),
-        formatDateToLocalISO(endDate)
+        formatDateToLocalISO(endDate),
+        bankAccountId,
       )
     );
   };
@@ -46,7 +51,7 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<AnnualMonthlyExpensesIncomeChar
   useEffect(() => {
     getIncomes();
     getExpenses();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, bankAccountId]);
 
   useEffect(() => {
     const datasByMonth: DataStructure = {
@@ -88,7 +93,9 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<AnnualMonthlyExpensesIncomeChar
     });
   }, [incomes, expenses]);
 
-  return datas ? <LineChart data={datas} title="Dépenses et revenus mensuels" /> : null;
+  return datas ? (
+    <LineChart data={datas} title="Dépenses et revenus mensuels" />
+  ) : null;
 };
 
 export default AnnualMonthlyExpensesIncomeChart;

@@ -5,7 +5,7 @@ import { LegendProps } from "@nivo/legends";
 interface SimplePieChartProps {
   data: {
     data: { id: string | number; value: number }[];
-    colors: string[];
+    colors?: string[];
   };
   margin?: { top: number; right: number; bottom: number; left: number };
   innerRadius?: number;

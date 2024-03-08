@@ -10,7 +10,7 @@ export interface SimpleChartData {
     y: string;
     x: string;
   };
-  colors: string[];
+  colors?: string[];
   data: {
     [key: string]: SimpleDataPoint | any;
   }
