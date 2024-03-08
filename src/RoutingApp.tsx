@@ -19,6 +19,7 @@ function RoutingApp() {
       <MainLayout>
         <Routes>
           <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/financial-category" element={<FinancialCategory />} />
             <Route
@@ -36,6 +37,7 @@ function RoutingApp() {
       <Routes>
         <Route path="*" element={<ErrorNotFound />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   ) : (
