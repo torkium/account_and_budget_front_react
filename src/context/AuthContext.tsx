@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
+import { apiService } from '../services/apiService'
+import { useNavigate } from 'react-router-dom'
 
 type AuthContextType = {
   isAuthenticated: boolean
@@ -9,7 +11,8 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(localStorage.getItem('token') !== null)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(localStorage.getItem('token') !== null);
+  const navigate = useNavigate();
 
   const loginUser = (token: string) => {
     localStorage.setItem('token', token)
@@ -20,6 +23,25 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
     localStorage.removeItem('token')
     setIsAuthenticated(false)
   }
+
+  apiService.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+
+  apiService.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        logoutUser();
+        navigate("/login");
+      }
+      return Promise.reject(error);
+    }
+  );
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, loginUser, logoutUser }}>

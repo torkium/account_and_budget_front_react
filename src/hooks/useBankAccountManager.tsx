@@ -22,6 +22,9 @@ export const useBankAccountManager = ({ reloadBankAccounts }: UseBankAccountMana
 
       if (bankAccount?.id) {
         bankAccountCreated = await apiBankAccountService.push(newBankAccountData, bankAccount.id);
+        if(formData.actual_balance){
+          bankAccountCreated = await apiBankAccountService.initBalance(bankAccount.id, formData.actual_balance);
+        }
         reloadBankAccounts && reloadBankAccounts();
         showAlert("Mise à jour enregistrée.", "success");
       } else {

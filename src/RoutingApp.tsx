@@ -35,9 +35,9 @@ function RoutingApp() {
         </Routes>
       </MainLayout>
       <Routes>
-        <Route path="*" element={<ErrorNotFound />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<ErrorNotFound />} />
       </Routes>
     </>
   ) : (
