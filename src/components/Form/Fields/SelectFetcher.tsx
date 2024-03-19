@@ -33,18 +33,11 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
   useEffect(() => {
     const fetchOptions = async () => {
       setOptions(  [ {value:"", label:"Chargement en cours..."}])
-      setValue(name, "");
       setisLoading(true)
       try {
         const loadedOptions = await loadOptionsFunction();
-        setOptions(emptyChoice ? [emptyChoice, ...loadedOptions] : [...loadedOptions]);
-
-        if (defaultValue !== null) {
-          setValue(name, defaultValue);
-        } else if (loadedOptions.length > 0) {
-          setValue(name, loadedOptions[0].value);
-        }
         setisLoading(false)
+        setOptions(emptyChoice ? [emptyChoice, ...loadedOptions] : [...loadedOptions]);
       } catch (error) {
         showAlert("Unable to fetch options", "error");
       }
@@ -52,6 +45,14 @@ const SelectFetcher: React.FC<SelectFetcherProps> = ({
 
     fetchOptions();
   }, []);
+
+  useEffect(() => {
+    if (!isLoading && defaultValue !== null) {
+      setValue(name, defaultValue);
+    } else if (options.length > 0) {
+      setValue(name, options[0].value);
+    }
+  }, [options]);
 
   return (
     <SelectField

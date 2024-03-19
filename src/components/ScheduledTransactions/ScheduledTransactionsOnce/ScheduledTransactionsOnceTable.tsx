@@ -21,7 +21,7 @@ const ScheduledTransactionsOnceTable: React.FC<
       Date: new Date(scheduledTransaction.startDate).toLocaleDateString(),
       Label: scheduledTransaction.label,
       Montant: `${scheduledTransaction.amount} €`,
-      Categorie: scheduledTransaction.financialCategory?.label,
+      Catégorie: scheduledTransaction.financialCategory?.label,
       Action: scheduledTransaction.id ? (
         <>
           <button onClick={() => onEdit(scheduledTransaction)}>
