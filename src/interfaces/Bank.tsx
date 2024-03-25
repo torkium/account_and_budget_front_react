@@ -20,6 +20,7 @@ export interface BankAccountOverviewInterface {
     summary: number,
     provisionalSummary: number,
     startBalance: number,
+    provisionalStartBalance: number,
     endBalance: number,
     provisionalEndBalance: number
 }
