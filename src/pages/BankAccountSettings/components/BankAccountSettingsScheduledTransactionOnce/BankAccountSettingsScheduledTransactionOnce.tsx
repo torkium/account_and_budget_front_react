@@ -1,6 +1,6 @@
 import React from "react";
 import './BankAccountSettingsScheduledTransactionOnce.css';
-import Card from "../../../../components/Card/Card";
+import Card from "../../../../components/generic/Card/Card";
 import ScheduledTransactionsOnceList from "../../../../components/ScheduledTransactions/ScheduledTransactionsOnce/ScheduledTransactionsOnceList";
 
 interface BankAccountSettingsScheduledTransactionOnceProps {

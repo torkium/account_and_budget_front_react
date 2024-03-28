@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Modal from "../../Modal/Modal";
+import Modal from "../../generic/Modal/Modal";
 import { TransactionInterface } from "../../../interfaces/Transaction";
 import TransactionFormEdit from "../Forms/TransactionFormEdit";
 

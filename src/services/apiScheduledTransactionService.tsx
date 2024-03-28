@@ -1,4 +1,4 @@
-import { ApiService, request } from "./apiService"
+import { ApiService, request } from "./generic/apiService"
 import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
 import { TransactionInterface } from "../interfaces/Transaction";
 

@@ -1,6 +1,6 @@
 import { ScheduledTransactionInterface } from "../interfaces/ScheduledTransaction";
 import { ApiScheduledTransactionService } from "../services/apiScheduledTransactionService";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 import { TransactionInterface } from "../interfaces/Transaction";
 
 interface UseScheduledTransactionManagerProps {

@@ -60,6 +60,14 @@ nav .navItem.home {
   padding: 0;
 }
 
+nav .form-group{
+  margin-bottom: 0;
+}
+
+nav .form-group #profileSelect{
+  text-align: center;
+}
+
 /** Responsive */
 @media (min-width: 768px) {
   #menuButton {
@@ -67,16 +75,23 @@ nav .navItem.home {
   }
 
   nav .container {
-    justify-content: flex-end;
+    justify-content: space-between; /* S'assure que les éléments soient poussés aux extrémités */
   }
-  nav .container .navItems {
-    display: block;
+
+  nav .navItems {
+    display: flex; /* Cela permettra aux éléments de s'aligner horizontalement */
+    align-items: center; /* Centre les éléments verticalement dans leur conteneur */
   }
+
   #mobileNavItems {
     display: none;
   }
 
   nav .navItem.home {
-    margin-right: auto;
+    margin-right: auto; /* Garde "Gérez vos comptes" à gauche et pousse tout le reste à droite */
+  }
+  nav .form-group #profileSelect{
+    padding: 0;
+    text-align: left;
   }
 }

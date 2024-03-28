@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import Modal from "../../../Modal/Modal";
+import Modal from "../../../generic/Modal/Modal";
 import { BankAccountInterface } from '../../../../interfaces/Bank';
 import BankAccountFormEdit from '../../../BankAccount/Forms/BankAccountFormEdit';
 

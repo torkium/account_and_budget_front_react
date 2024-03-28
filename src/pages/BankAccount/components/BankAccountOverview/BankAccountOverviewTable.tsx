@@ -1,5 +1,5 @@
 import React from "react";
-import Table, { VerticalTable } from "../../../../components/Table/Table";
+import Table, { VerticalTable } from "../../../../components/generic/Table/Table";
 import { BankAccountOverviewInterface } from "../../../../interfaces/Bank";
 
 interface BankAccountsTableProps {

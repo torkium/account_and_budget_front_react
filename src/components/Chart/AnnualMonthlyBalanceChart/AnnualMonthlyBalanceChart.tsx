@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LineChart, { SimpleChartData } from "../LineChart";
+import LineChart, { SimpleChartData } from "../../generic/Chart/LineChart";
 import {
   AnnualBalancesForMonth,
   ApiStatsService,
@@ -7,7 +7,8 @@ import {
 import {
   formatDateToLocalISO,
   getMonthFrByYearMonth,
-} from "../../../utils/dateUtils";
+} from "../../../utils/generic/dateUtils";
+import { useApp } from "../../../context/AppContext";
 
 interface AnnualMonthlyBalanceChartProps {
   startDate: Date;
@@ -25,6 +26,8 @@ const AnnualMonthlyBalanceChart: React.FC<
 > = ({ startDate, endDate, bankAccountId }) => {
   const [balances, setBalances] = useState<AnnualBalancesForMonth[]>([]);
   const [datas, setDatas] = useState<SimpleChartData>();
+  const [reload, setReload] = useState<boolean>(false);
+  const { profileSelection } = useApp();
 
   const getBalances = async function () {
     setBalances(
@@ -39,6 +42,19 @@ const AnnualMonthlyBalanceChart: React.FC<
   useEffect(() => {
     getBalances();
   }, [startDate, endDate, bankAccountId]);
+  
+  useEffect(() => {
+    if (profileSelection !== undefined) {
+      setReload(true);
+    }
+  }, [profileSelection]);
+  
+  useEffect(() => {
+    if(reload){
+      getBalances();
+      setReload(false);
+    }
+  }, [reload]);
 
   useEffect(() => {
     const datasByMonth: DataStructure = {

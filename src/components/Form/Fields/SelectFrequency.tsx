@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SelectField from "./Select";
+import SelectField from "../../generic/Form/Fields/Select";
 import { RegisterOptions } from "react-hook-form";
 
 interface Option {

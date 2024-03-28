@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BankAccountInterface } from "../interfaces/Bank";
 import { ApiBankAccountService } from "../services/apiBankAccountService";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 
 export const useBankAccount = (accountId: string | undefined) => {
   const [bankAccount, setBankAccount] = useState<BankAccountInterface | null>(null);

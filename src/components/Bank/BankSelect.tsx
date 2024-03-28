@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { apiBankService } from '../../services/apiBankService'
 import { RegisterOptions } from 'react-hook-form'
-import SelectFetcher from '../Form/Fields/SelectFetcher'
+import SelectFetcher from '../generic/Form/Fields/SelectFetcher'
 
 interface BankSelectProps {
     name: string

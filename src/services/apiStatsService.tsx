@@ -1,4 +1,4 @@
-import { request } from "./apiService";
+import { request } from "./generic/apiService";
 
 export interface AnnualBalancesForMonth {
   amount: number;

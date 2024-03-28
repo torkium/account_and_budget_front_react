@@ -1,7 +1,7 @@
 // external libraries
 
 // local components
-import PeriodNavigator from "../../components/Period/PeriodNavigator";
+import PeriodNavigator from "../../components/generic/Period/PeriodNavigator";
 
 // custom hooks
 import TransactionsList from "../../components/Transactions/TransactionsList";

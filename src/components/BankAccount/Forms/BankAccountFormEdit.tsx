@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import InputField from "../../Form/Fields/Input";
+import InputField from "../../generic/Form/Fields/Input";
 import BankSelect from "../../Bank/BankSelect";
 import { BankAccountInterface } from "../../../interfaces/Bank";
 

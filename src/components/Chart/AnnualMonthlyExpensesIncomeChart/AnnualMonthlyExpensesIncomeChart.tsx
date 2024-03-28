@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LineChart, { SimpleChartData } from "../LineChart";
+import LineChart, { SimpleChartData } from "../../generic/Chart/LineChart";
 import {
   AnnualExpensesForMonth,
   AnnualIncomesForMonth,
@@ -8,7 +8,8 @@ import {
 import {
   formatDateToLocalISO,
   getMonthFrByYearMonth,
-} from "../../../utils/dateUtils";
+} from "../../../utils/generic/dateUtils";
+import { useApp } from "../../../context/AppContext";
 
 interface AnnualMonthlyExpensesIncomeChartProps {
   startDate: Date;
@@ -28,6 +29,8 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<
   const [incomes, setIncomes] = useState<AnnualIncomesForMonth[]>([]);
   const [expenses, setExpenses] = useState<AnnualExpensesForMonth[]>([]);
   const [datas, setDatas] = useState<SimpleChartData>();
+  const [reload, setReload] = useState<boolean>(false);
+  const { profileSelection } = useApp();
 
   const getIncomes = async function () {
     setIncomes(
@@ -52,6 +55,21 @@ const AnnualMonthlyExpensesIncomeChart: React.FC<
     getIncomes();
     getExpenses();
   }, [startDate, endDate, bankAccountId]);
+
+  
+  useEffect(() => {
+    if (profileSelection !== undefined) {
+      setReload(true);
+    }
+  }, [profileSelection]);
+  
+  useEffect(() => {
+    if(reload){
+      getIncomes();
+      getExpenses();
+      setReload(false);
+    }
+  }, [reload]);
 
   useEffect(() => {
     const datasByMonth: DataStructure = {

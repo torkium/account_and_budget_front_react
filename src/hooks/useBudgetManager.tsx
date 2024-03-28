@@ -1,6 +1,6 @@
 import { BudgetInterface } from "../interfaces/Budget";
 import { ApiBudgetService } from "../services/apiBudgetService";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 
 interface UseBudgetManagerProps {
   bankAccountId: number;

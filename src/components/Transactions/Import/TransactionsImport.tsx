@@ -4,7 +4,7 @@ import Step2HeadersMapping from './Step2HeadersMapping/Step2HeadersMapping';
 import Step3TransactionsEdit from './Step3TransactionsEdit/Step3TransactionsEdit';
 import { useBankAccountContext } from '../../../context/BankAccountContext';
 import { ApiTransactionService, HeadersMappingRequestInterface } from '../../../services/apiTransactionService';
-import { Option } from "../../Form/Fields/Select";
+import { Option } from "../../generic/Form/Fields/Select";
 import { TransactionInterface } from '../../../interfaces/Transaction';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React from "react";
 import './BankAccountSettingsBudget.css';
-import Card from "../../../../components/Card/Card";
+import Card from "../../../../components/generic/Card/Card";
 import BudgetsList from "../../../../components/Budget/BudgetsList";
 
 interface BankAccountSettingsProps {

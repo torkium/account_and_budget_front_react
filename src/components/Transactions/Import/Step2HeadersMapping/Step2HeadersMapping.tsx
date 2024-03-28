@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import SelectField, { Option } from "../../../Form/Fields/Select";
+import SelectField, { Option } from "../../../generic/Form/Fields/Select";
 
 interface HeadersMappingForm {
   date: string;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
-import { apiService } from '../services/apiService'
+import { apiService } from '../../services/generic/apiService'
 import { useNavigate } from 'react-router-dom'
 
 type AuthContextType = {

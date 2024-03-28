@@ -1,6 +1,6 @@
-import { ApiService, request } from "./apiService"
+import { ApiService, request } from "./generic/apiService"
 import { BudgetInterface, BudgetOverviewInterface } from "../interfaces/Budget";
-import { formatDateToLocalISO } from "../utils/dateUtils";
+import { formatDateToLocalISO } from "../utils/generic/dateUtils";
 
 interface BudgetData {
   id?: number

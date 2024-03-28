@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { ApiFinancialCategoryService } from "../../../services/apiFinancialCategoryService";
 import { CategoryService } from "../../../services/categoryService";
 import { RegisterOptions } from "react-hook-form";
-import SelectFetcher from "../../Form/Fields/SelectFetcher";
+import SelectFetcher from "../../generic/Form/Fields/SelectFetcher";
 
 interface FinancialCategorySelectProps {
   name: string;

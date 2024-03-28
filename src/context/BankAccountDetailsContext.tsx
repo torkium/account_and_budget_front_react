@@ -11,7 +11,7 @@ import { TransactionInterface } from "../interfaces/Transaction";
 import { ApiBudgetService } from "../services/apiBudgetService";
 import { ApiTransactionService } from "../services/apiTransactionService";
 import { endOfMonth, startOfMonth } from "date-fns";
-import { formatDateToLocalISO } from "../utils/dateUtils";
+import { formatDateToLocalISO } from "../utils/generic/dateUtils";
 import { useBankAccountContext } from "./BankAccountContext";
 import { BankAccountOverviewInterface } from "../interfaces/Bank";
 import { ApiBankAccountService } from "../services/apiBankAccountService";

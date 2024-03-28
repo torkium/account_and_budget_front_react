@@ -1,14 +1,14 @@
 // Step3TransactionsEdit.tsx
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
-import SelectField, { Option } from "../../../Form/Fields/Select";
+import SelectField, { Option } from "../../../generic/Form/Fields/Select";
 import { ApiFinancialCategoryService } from "../../../../services/apiFinancialCategoryService";
 import { CategoryService } from "../../../../services/categoryService";
-import Table from "../../../Table/Table";
+import Table from "../../../generic/Table/Table";
 import {
   formatDateFrStringToLocalISO,
   formatDateLocalIsoToFrString,
-} from "../../../../utils/dateUtils";
+} from "../../../../utils/generic/dateUtils";
 import { TransactionInterface } from "../../../../interfaces/Transaction";
 
 interface Step3TransactionsEditProps {

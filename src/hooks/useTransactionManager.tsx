@@ -1,6 +1,6 @@
 import { TransactionInterface } from "../interfaces/Transaction";
 import { ApiTransactionService } from "../services/apiTransactionService";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 
 interface UseTransactionManagerProps {
   bankAccountId: number | null;

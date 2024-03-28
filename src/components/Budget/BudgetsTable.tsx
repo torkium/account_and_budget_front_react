@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "../Table/Table";
+import Table from "../generic/Table/Table";
 import { BudgetInterface } from "../../interfaces/Budget";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";

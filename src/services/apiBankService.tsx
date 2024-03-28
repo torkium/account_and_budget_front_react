@@ -1,4 +1,4 @@
-import { request } from "./apiService"
+import { request } from "./generic/apiService"
 import { BankInterface } from "../interfaces/Bank";
 
 const getBanks = async (): Promise<BankInterface[]> => {

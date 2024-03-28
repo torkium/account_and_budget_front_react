@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './BankAccountSettingsGeneral.css';
-import Card from "../../../../components/Card/Card";
+import Card from "../../../../components/generic/Card/Card";
 import BankAccountFormEdit from "../../../../components/BankAccount/Forms/BankAccountFormEdit";
 import { useBankAccountContext } from "../../../../context/BankAccountContext";
 import { useBankAccountManager } from "../../../../hooks/useBankAccountManager";

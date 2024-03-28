@@ -4,9 +4,12 @@ import Dropdown, { DropdownItemsProps } from "./Dropdown";
 import { useBankAccounts } from "../../../hooks/useBankAccounts";
 import { useBankAccountManager } from "../../../hooks/useBankAccountManager";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "../../../context/AppContext";
 
 const BankAccountDropDown: React.FC = () => {
   const { bankAccounts, reloadBankAccounts, isBankAccountsLoaded } = useBankAccounts();
+  
+  const { profileSelection } = useApp();
   const [isBankAccountPushModalOpen, setIsBankAccountPushModalOpen] =
     useState(false);
   const { createOrUpdateBankAccount } = useBankAccountManager({
@@ -51,6 +54,13 @@ const BankAccountDropDown: React.FC = () => {
       setIsBankAccountPushModalOpen(true);
     }
   }, [isBankAccountsLoaded, bankAccounts])
+
+  
+  useEffect(() => {
+    if (profileSelection !== undefined) {
+      reloadBankAccounts();
+    }
+  }, [profileSelection]);
   return (
     <>
       <Dropdown label="Mes comptes" items={accountItems} />

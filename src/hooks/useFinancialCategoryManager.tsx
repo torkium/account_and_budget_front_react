@@ -1,6 +1,6 @@
 import { FinancialCategoryInterface } from "../interfaces/FinancialCategory";
 import { ApiFinancialCategoryService } from "../services/apiFinancialCategoryService";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 
 interface UseFinancialCategoryManagerProps {
   reloadFinancialCategories?: () => void;

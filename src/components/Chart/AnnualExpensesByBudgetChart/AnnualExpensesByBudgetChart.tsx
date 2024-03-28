@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PieChart from "../PieChart";
+import PieChart from "../../generic/Chart/PieChart";
 import { ApiStatsService } from "../../../services/apiStatsService";
-import { formatDateToLocalISO } from "../../../utils/dateUtils";
+import { formatDateToLocalISO } from "../../../utils/generic/dateUtils";
+import { useApp } from "../../../context/AppContext";
 
 interface AnnualExpensesByBudgetChartProps {
   startDate: Date;
@@ -17,6 +18,8 @@ const AnnualExpensesByBudgetChart: React.FC<AnnualExpensesByBudgetChartProps> = 
   bankAccountId,
 }) => {
   const [spendingData, setSpendingData] = useState<any>({ data: [], colors: [] });
+  const [reload, setReload] = useState<boolean>(false);
+  const { profileSelection } = useApp();
 
   const fetchData = async () => {
     const apiService = new ApiStatsService();
@@ -43,6 +46,19 @@ const AnnualExpensesByBudgetChart: React.FC<AnnualExpensesByBudgetChartProps> = 
   useEffect(() => {
     fetchData();
   }, [startDate, endDate, financialCategoryId, bankAccountId]);
+  
+  useEffect(() => {
+    if (profileSelection !== undefined) {
+      setReload(true);
+    }
+  }, [profileSelection]);
+  
+  useEffect(() => {
+    if(reload){
+      fetchData();
+      setReload(false);
+    }
+  }, [reload]);
 
   return (
     <PieChart

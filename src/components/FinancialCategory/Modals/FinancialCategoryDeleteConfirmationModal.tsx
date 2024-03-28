@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from "../../Modal/Modal";
+import Modal from "../../generic/Modal/Modal";
 import { FinancialCategoryInterface } from "../../../interfaces/FinancialCategory";
 
 interface Props {

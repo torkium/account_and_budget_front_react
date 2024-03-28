@@ -1,13 +1,12 @@
 import { FormProvider, useForm } from "react-hook-form";
 import FinancialCategorySelect from "../../components/FinancialCategory/Forms/FinancialCategorySelect";
 import "./Dashboard.css";
-import PeriodNavigator from "../../components/Period/PeriodNavigator";
+import PeriodNavigator from "../../components/generic/Period/PeriodNavigator";
 import { useEffect, useState } from "react";
 import { endOfYear, startOfYear } from "date-fns";
 import AnnualMonthlyExpensesIncomeChart from "../../components/Chart/AnnualMonthlyExpensesIncomeChart/AnnualMonthlyExpensesIncomeChart";
 import AnnualMonthlyExpensesByBudgetChart from "../../components/Chart/AnnualMonthlyExpensesByBudgetChart/AnnualMonthlyExpensesByBudgetChart";
 import AnnualExpensesByBudgetChart from "../../components/Chart/AnnualExpensesByBudgetChart/AnnualExpensesByBudgetChart";
-import { FinancialCategoryInterface } from "../../interfaces/FinancialCategory";
 import BankAccountSelect from "../../components/BankAccount/Forms/BankAccountSelect";
 import AnnualMonthlyBalanceChart from "../../components/Chart/AnnualMonthlyBalanceChart/AnnualMonthlyBalanceChart";
 

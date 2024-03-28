@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressBar from "../Stats/ProgressBar/ProgressBar";
+import ProgressBar from "../generic/ProgressBar/ProgressBar";
 import { BudgetOverviewInterface } from "../../interfaces/Budget";
 
 interface BudgetsTableProps {

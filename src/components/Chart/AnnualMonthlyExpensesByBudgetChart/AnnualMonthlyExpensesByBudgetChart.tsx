@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import BarChart from "../BarChart";
+import BarChart from "../../generic/Chart/BarChart";
 import { ApiStatsService, AnnualValuesByCategoryForMonth } from "../../../services/apiStatsService";
-import { formatDateToLocalISO, getMonthFrByYearMonth } from "../../../utils/dateUtils";
+import { formatDateToLocalISO, getMonthFrByYearMonth } from "../../../utils/generic/dateUtils";
+import { useApp } from "../../../context/AppContext";
 
 interface AnnualMonthlyExpensesByBudgetChartProps {
   startDate: Date;
@@ -17,6 +18,8 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
   bankAccountId,
 }) => {
   const [dataExpensesByBudgetByMonth, setDataExpensesByBudgetByMonth] = useState<any>();
+  const [reload, setReload] = useState<boolean>(false);
+  const { profileSelection } = useApp();
 
   const fetchData = async () => {
     const apiService = new ApiStatsService();
@@ -53,6 +56,19 @@ const AnnualMonthlyExpensesByBudgetChart: React.FC<AnnualMonthlyExpensesByBudget
   useEffect(() => {
     fetchData();
   }, [startDate, endDate, financialCategoryId, bankAccountId]);
+  
+  useEffect(() => {
+    if (profileSelection !== undefined) {
+      setReload(true);
+    }
+  }, [profileSelection]);
+  
+  useEffect(() => {
+    if(reload){
+      fetchData();
+      setReload(false);
+    }
+  }, [reload]);
 
   return dataExpensesByBudgetByMonth ? (
     <BarChart

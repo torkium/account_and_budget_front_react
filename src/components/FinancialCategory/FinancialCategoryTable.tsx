@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import Table from "../Table/Table";
+import Table from "../generic/Table/Table";
 import { FinancialCategoryInterface } from "../../interfaces/FinancialCategory";
-import Spacer from "../Tools/Spacer/Spacer";
+import Spacer from "../generic/Spacer/Spacer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 

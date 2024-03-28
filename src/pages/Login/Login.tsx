@@ -1,16 +1,19 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import LoginLayout from "../../components/Layout/LoginLayout"
 import { useNavigate } from "react-router-dom"
-import { apiUserService } from "../../services/apiUserService"
+import { apiUserService } from "../../services/generic/apiUserService"
 import './login.css'
-import { useAlert } from "../../context/AlertContext"
-import { useAuth } from "../../context/AuthContext"
+import { useAlert } from "../../context/generic/AlertContext"
+import { useAuth } from "../../context/generic/AuthContext"
+import { useApp } from "../../context/AppContext"
+import { ApiProfileService } from "../../services/apiProfileService"
 
 const Login = () => {
   const { loginUser } = useAuth();
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const { showAlert } = useAlert();
+  const app = useApp();
   const navigate = useNavigate()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,7 +22,11 @@ const Login = () => {
     try {
       const data = await apiUserService.login(username, password)
       loginUser(data.token)
-      navigate("/dashboard")
+      const profiles = await new ApiProfileService().get();
+      if(profiles.length > 0){
+        app.selectProfile(profiles[0].id);
+      }
+      navigate("/dashboard");
     } catch (error) {
       showAlert("Identifiants invalides", "error")
     }

@@ -1,5 +1,5 @@
 import { BankAccountInterface } from "../interfaces/Bank";
-import { useAlert } from "../context/AlertContext";
+import { useAlert } from "../context/generic/AlertContext";
 import { ApiBankAccountService } from "../services/apiBankAccountService";
 
 interface UseBankAccountManagerProps {

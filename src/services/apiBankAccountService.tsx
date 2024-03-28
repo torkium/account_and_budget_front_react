@@ -3,8 +3,8 @@ import {
   BankAccountOverviewInterface,
   BankInterface,
 } from "../interfaces/Bank";
-import { ApiService, request } from "./apiService";
-import { formatDateToLocalISO } from "../utils/dateUtils";
+import { ApiService, request } from "./generic/apiService";
+import { formatDateToLocalISO } from "../utils/generic/dateUtils";
 
 interface BankAccountData {
   id?: number;
